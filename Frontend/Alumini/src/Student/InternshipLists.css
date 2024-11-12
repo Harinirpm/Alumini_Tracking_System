@@ -1,0 +1,79 @@
+.internship-lists {
+    width: 90%;
+    margin: auto;
+    padding: 10px;
+  }
+  
+  .internship-lists h2 {
+    margin-bottom: 20px;
+  }
+  
+  .internship-lists p{
+    margin-top: 10px;
+    color: #757474;
+  }
+  .internship-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+    gap: 20px;
+  }
+  
+  .job-card {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .job-card img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .job-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .job-details h2 {
+    
+    margin: 0;
+    font-size: 18px;
+  }
+  
+
+  .job-details .job-package,
+  .job-details .job-location {
+    display: flex;
+    float: inline-start;
+    align-items: center;
+    margin: 5px 0;
+  }
+  
+  .job-details .job-package svg,
+  .job-details .job-location svg {
+    margin-right: 8px;
+  }
+  
+  .apply-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    width: 114px;
+    height: 33px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .apply-button:hover {
+    background-color: #0056b3;
+  }
+  
