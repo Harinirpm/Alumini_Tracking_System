@@ -87,7 +87,7 @@ function Horizantalbar() {
             style={{ fontSize: "29px", color: activeIcon === 'internship' ? "#1B4BDADB" : "#767676" }}
           />
         </Link>
-        <Link to="/">
+        <Link to="/message-forum">
         <TbNotes
         onClick={() => handleIconClick('notes')}
           style={{ fontSize: "29px", color: activeIcon === 'notes' ? "#1B4BDADB" : "#767676" }}
