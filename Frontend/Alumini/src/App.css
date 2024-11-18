@@ -1,6 +1,11 @@
-body{
+.app{
     margin-left: 20%;
-    margin-top: 6%;
-    background-color: rgb(252, 252, 252);
+    margin-top: 5%;
+    /* background-color: rgb(252, 252, 252); */
     font-family:Arial, Helvetica, sans-serif;
+}
+
+.App{
+    background-color: #fbfbfb;
+    height:'100vh'
 }

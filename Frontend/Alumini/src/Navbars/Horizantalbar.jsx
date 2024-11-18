@@ -26,7 +26,7 @@ function Horizantalbar() {
       <div className='nav-icons'>
       <CiGrid41 />
       <Link to='/internship-lists'><PiSuitcaseSimple /></Link>
-      <RiMessage2Line />
+      <Link to='/message-forum' ><RiMessage2Line /></Link>
       <IoMdNotificationsOutline />
       </div>
     </div>

@@ -6,6 +6,7 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import AlumniProfile from './Student/AlumniProfile'
 import InternshipLists from './Student/InternshipLists'
+import MessageForum from './pages/MessageForum'
 function App() {
   return (
     <>
@@ -13,12 +14,14 @@ function App() {
         <Sidebar />
         <Horizantalbar />
         <div className='app'>
-        </div>
+        
         <Routes>
         <Route path="/" element={<AlumniesList />} />
           <Route path='alumni-profile' element={<AlumniProfile />} />
           <Route path="/internship-lists" element={<InternshipLists />} />
+          <Route path="/message-forum" element={<MessageForum />} />
         </Routes>
+        </div>
       </div>
       
     </>
