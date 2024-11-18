@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import image1 from '../assets/image 1.png';
+import image1 from '../../assets/image1.png';
 import './AlumniesList.css';
 
 function AluminiesList() {

@@ -3,7 +3,7 @@
     width: 305px;  
     position: fixed; 
     z-index: 1; 
-    top: 0; 
+    top: -60px; 
     margin-top: 59px;
     left: 0; 
     background-color: #ffffff; 

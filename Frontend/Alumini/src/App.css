@@ -2,10 +2,13 @@
     margin-left: 20%;
     margin-top: 5%;
     /* background-color: rgb(252, 252, 252); */
-    font-family:Arial, Helvetica, sans-serif;
 }
 
 .App{
     background-color: #fbfbfb;
-    height:'100vh'
+    height:'100vh';
+    margin-top: 6%;
+    font-family: 'Poppins';
+    /* margin: 0;
+    padding: 0; */
 }
