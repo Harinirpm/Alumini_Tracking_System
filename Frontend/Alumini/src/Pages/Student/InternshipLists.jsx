@@ -4,7 +4,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaSackDollar } from 'react-icons/fa6';
 import { FaRegBookmark } from "react-icons/fa";
 import Box from '@mui/material/Box';
-import Searchbar from '../Component/Searchbar/Searchbar';
+import Searchbar from '../../Component/Searchbar/Searchbar';
 
 
 
@@ -90,11 +90,13 @@ function InternshipLists() {
 
   return (
     <div className="internship-lists">
-      <Box display='flex' flexDirection='row'>
-        <Box display='flex' flexDirection='column'>
+      <Box display='flex' flexDirection='row' alignItems="center">
+       
+          <div style={{display:"flex", flexDirection:"column"}}>
       <h2>Showing 210 jobs</h2>
-      <p>Based On your Preference..</p>
-      </Box>
+      <p style={{marginTop:"-20px" }}>Based On your Preference..</p>
+      </div>
+     
       <Searchbar
         backgroundColor="#EEEEEE"
         placeholderText="UI UX Designers"
@@ -105,6 +107,7 @@ function InternshipLists() {
         onChange={(e) => setSearchValue(e.target.value)}
       />
           </Box>
+          <Box sx={{mt:"30px"}}>
       <div className="internship-grid">
         {internshipLists.map((job, index) => (
           <div className="job-card" key={index}>
@@ -123,6 +126,7 @@ function InternshipLists() {
           </div>
         ))}
       </div>
+      </Box>
     </div>
   );
 }
