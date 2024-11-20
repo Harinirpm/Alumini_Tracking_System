@@ -19,6 +19,7 @@ function MessageForum() {
 
   return (
  <Box sx={{mr:'20px', backgroundColor:''}}>
+  <br></br>
     <Box sx={{display:'flex', width: '100%', alignItems:'center', justifyContent:'space-between'}}>
     <Typography sx={{fontSize:'26px', fontWeight:'600'}}>Categories</Typography>
     <Button variant='contained' sx={{borderRadius:'4px', textTransform:'none',backgroundColor:'#3B64DF', width:'130px'}} onClick={() => setOpen(true)}>Create Post</Button>

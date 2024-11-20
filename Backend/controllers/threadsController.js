@@ -28,8 +28,8 @@ export const getThreads = (req, res) => {
 
 export const addThread = (req, res) => {
     const { title, content } = req.body;
-    console.log(req.body)
-    const imagePath = req.file ? req.file.filename : null; 
+
+    const imagePath = req.file ? req.file.filename : null;
 
     if (!title || !content) {
         return res.status(400).json({ error: 'Title and content are required.' });

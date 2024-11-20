@@ -2,13 +2,14 @@
     width:85%;
     height: 58px;
     background-color:#ffffff;
-    margin-left: 310px;
+    margin-left: 306px;
     position: fixed; 
     /* border-bottom: 0.01px solid rgb(184, 181, 181); */
     z-index: 2; 
     top: 0; 
     display: flex;
     left: 0; 
+    box-shadow: 1px 2px 6px 0px #0000001A;
 }
 .horinav {
     display: flex;

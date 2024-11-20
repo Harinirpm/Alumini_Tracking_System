@@ -10,6 +10,7 @@ import Searchbar from "../Component/Searchbar/Searchbar";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
+import { useContext } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -17,9 +18,11 @@ import { Box } from "@mui/material";
 import Avatar2 from "../assets/avatar2.jpeg";
 import { LocationOn as LocationIcon, Work as WorkIcon } from '@mui/icons-material';
 import { TbNotes } from "react-icons/tb";
+import { UserContext } from "../UserContext";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function Horizantalbar() {
+  const { user, setUser } = useContext(UserContext);
  
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [activeIcon, setActiveIcon] = useState(null);
@@ -33,6 +36,15 @@ function Horizantalbar() {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
+
+  const username = user.email ? user.email.match(/^([^.]+)/)[0] : "";  
+
+  const capitalizeFirstLetter = (str) => {  
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);  
+};  
+
+const capitalizedUsername = capitalizeFirstLetter(username); 
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -105,16 +117,17 @@ function Horizantalbar() {
               sx={{
                 flexBasis: "50%",
                 flexGrow: "10%",
-                fontSize: "12px",
+                fontSize: "16px",
                 whiteSpace: "nowrap",
                 color: "#767676",
                 mr: "10px",
+                fontWeight: 500
               }}
             >
-              Subaraja Blackizz
+              {capitalizedUsername}
             </Typography>
-            <Typography sx={{ fontSize: "10px", color: "#767676", ml: "26px" }}>
-              Student
+            <Typography sx={{ fontSize: "13px", color: "#767676", textAlign:'center', fontWeight: 400}}>
+             {user.role}
             </Typography>
           </Box>
           <Tooltip title="Open settings">

@@ -38,9 +38,17 @@ function Popup({ open, handleClose }) {
             content: thoughts,
             image: image? image : null
         }
+
+        console.log(postData)
       
         try {  
-            const response = await axios.post('http://localhost:8081/create/threads', postData); 
+            const response = await axios.post('http://localhost:8081/create/threads', postData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            ); 
     
             if (response.status === 200) {  
                 alert('Post created successfully!');  
