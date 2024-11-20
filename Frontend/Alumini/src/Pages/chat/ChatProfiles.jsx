@@ -37,6 +37,8 @@ function ChatProfiles() {
             width: "30%",
             zIndex: 1,
             padding: "10px",
+            mb:4,
+            color:"#161439"
           }}
         >
           Message
@@ -58,7 +60,10 @@ function ChatProfiles() {
               height: "100%",
               backgroundColor: "white",
               borderRadius: "10px",
-              boxShadow: "-3px 0 5px lightgray, 3px 0 5px lightgray",
+              boxShadow: "1px 2px 6px 0px #0000001A",
+
+              boxShadow: "0px 4px 4px 0px #00000040",
+              
               padding: "20px",
               mt: "50px",
               overflowY: "auto",

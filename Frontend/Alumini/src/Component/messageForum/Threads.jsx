@@ -42,7 +42,7 @@ function Threads({selectedCategory}) {
     
 
   return (
-   <Box sx={{mr:2, overflowY:'auto', height:'410px',width:'96%',pr:4,pl:4, '&::-webkit-scrollbar': {display: 'none'}}}>
+   <Box sx={{mr:2, overflowY:'auto', height:'400px',width:'96%',pr:4,pl:4, '&::-webkit-scrollbar': {display: 'none'}}}>
      {filteredThreads.length>0 && filteredThreads.map((item, index) => (
         <Box  key={index} sx={{background:'white', border: 'white 1px solid',mt:2, mb:1,boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'8px',p:2}}>
             <Box sx={{display:'flex', gap:'20px',alignItems:'center'}}>

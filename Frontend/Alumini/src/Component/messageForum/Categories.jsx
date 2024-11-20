@@ -21,7 +21,7 @@ function Categories({handleClick}) {
     ] 
 
   return (
-<Box sx={{display:'flex', flexWrap:'wrap', maxWidth: '94%', justifyContent: 'space-between',mt:'30px' }}>
+<Box sx={{display:'flex', flexWrap:'wrap', maxWidth: '94%', justifyContent: 'space-between',mt:'20px' }}>
    {category.map((item) => (
     <Box onClick={() => handleClick(item.title)} sx={{border: "#CECECE solid 1px", borderRadius:'8px',p:2, display:'flex', alignItems:'center', gap:'2px', width:'216px',mb:3, height:'60px', background: 'white', cursor:'pointer'}} >
         <Box sx={{backgroundColor:`${item.backgroundColour}`, borderRadius:'50%', height:'50px', width:'50px', display:'flex', alignItems:'center', justifyContent:'center'}}>

@@ -46,6 +46,7 @@ function Category() {
   return (
     <>
     <div className='category-container'>
+        <h2>Filter</h2>
         <div className='category'>
         <h3>Category</h3>
         {categories.map((category,index) => (

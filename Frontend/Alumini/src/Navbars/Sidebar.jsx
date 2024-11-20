@@ -5,10 +5,8 @@ import Category from './Category';
 import { MdLogout } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 
-function Sidebar() {
-    function handleLogout(){
-        
-    }
+function Sidebar({handleLogout}) {
+
   return (
     <>
         
@@ -18,9 +16,9 @@ function Sidebar() {
             
 
             <div className="link">
-                <div className="box" onClick={handleLogout}>
+                <div className="box" onClick={() => handleLogout()}>
                 <MdLogout className="icon" size={24} />
-                    <h3>Logout</h3>
+                    <h3>Log Out</h3>
                 </div>
             </div>
         </div>

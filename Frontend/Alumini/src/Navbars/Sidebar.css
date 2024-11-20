@@ -6,10 +6,11 @@
     top: -60px; 
     margin-top: 59px;
     left: 0; 
+    box-shadow: 1px 2px 6px 0px #0000001A;
     background-color: #ffffff; 
     transition: .5s ease; 
     overflow-x: hidden; 
-    padding-top: 20px; 
+
     display: flex; 
     flex-direction: column; 
     align-items: center;
@@ -36,5 +37,13 @@
 
 .sidebar .box .icon {
     margin-right: 0px; 
+    color: #7A7A7A;
+}
+
+.box h3{
+    color: #7A7A7A;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 10px;
 }
 
