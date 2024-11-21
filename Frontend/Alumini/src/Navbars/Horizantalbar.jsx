@@ -14,7 +14,7 @@ import { useContext } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import { Box } from "@mui/material";
+import { Box, Divider,Popover } from "@mui/material";
 import Avatar2 from "../assets/avatar2.jpeg";
 import { LocationOn as LocationIcon, Work as WorkIcon } from '@mui/icons-material';
 import { TbNotes } from "react-icons/tb";
@@ -28,9 +28,21 @@ function Horizantalbar() {
   const [activeIcon, setActiveIcon] = useState(null);
   const [searchValueJob, setSearchValueJob] = useState("");
   const [searchValueLocation, setSearchValueLocation] = useState("");
+  const [anchorElNotification, setAnchorElNotification] = useState(null);
 
   const handleIconClick = (icon) => {
     setActiveIcon(icon);
+    setOpen(true); 
+  };
+  
+  const handleNotificationClick = (event) => {
+    setAnchorElNotification(event.currentTarget);
+    setActiveIcon("notification");
+  };
+
+  const handleCloseNotification = () => {
+    setAnchorElNotification(null);
+    setActiveIcon(null);
   };
 
   const handleOpenUserMenu = (event) => {
@@ -107,9 +119,65 @@ const capitalizedUsername = capitalizeFirstLetter(username);
         </Link>
         <Link to="/">
         <IoMdNotificationsOutline
-        onClick={() => handleIconClick('notification')}
-          style={{ fontSize: "29px", color: activeIcon === 'notification' ? "#1B4BDADB" : "#767676" }}
+        onClick={handleNotificationClick}
+        style={{
+          fontSize: "29px",
+          cursor: "pointer",
+          color: activeIcon === "notification" ? "#1B4BDADB" : "#767676",
+        }}
         />
+
+<Popover
+  open={Boolean(anchorElNotification)}
+  anchorEl={anchorElNotification}
+  onClose={handleCloseNotification}
+  anchorOrigin={{
+    vertical: "bottom",
+    horizontal: "center",
+  }}
+  transformOrigin={{
+    vertical: "top",
+    horizontal: "center",
+  }}
+>
+  <Box sx={{ padding: 2, maxWidth: 300 }}>
+    <Typography variant="h6" sx={{ fontFamily: "Poppins", mb: 1 }}>
+      Notifications
+    </Typography>
+    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+      <Avatar
+        alt="John Doe"
+        src={Avatar2}
+        sx={{ marginRight: 1 }}
+      />
+      <Typography sx={{ fontFamily: "Poppins", fontSize: "14px" }}>
+        You have a new message from John.
+      </Typography>
+    </Box>
+    <Divider sx={{ my: 1 }} />
+    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+      <Avatar
+        alt="Meeting"
+        src={Avatar2}
+        sx={{ marginRight: 1 }}
+      />
+      <Typography sx={{ fontFamily: "Poppins", fontSize: "14px" }}>
+        Your meeting is scheduled for tomorrow at 10 AM.
+      </Typography>
+    </Box>
+    <Divider sx={{ my: 1 }} />
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Avatar
+        alt="Reminder"
+        src={Avatar2}
+        sx={{ marginRight: 1 }}
+      />
+      <Typography sx={{ fontFamily: "Poppins", fontSize: "14px" }}>
+        Reminder: Submit your project report.
+      </Typography>
+    </Box>
+  </Box>
+</Popover>
         </Link>
         <Box sx={{ flexGrow: 0, display: "flex", flexDirection: "row",ml:"170px" }}>
           <Box display="flex" flexDirection="column">
