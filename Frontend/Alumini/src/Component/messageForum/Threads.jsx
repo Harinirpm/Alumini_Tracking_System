@@ -8,7 +8,7 @@ import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import Img from '../../assets/profile.png'
 
-function Threads({selectedCategory}) {
+function Threads({selectedCategory, open}) {
     const [threads, setThreads] = useState([])
     useEffect(() => {
         const fetchThreads = async () => {
@@ -24,7 +24,7 @@ function Threads({selectedCategory}) {
         };
 
         fetchThreads();
-    }, []);
+    }, [open]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
