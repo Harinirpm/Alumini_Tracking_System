@@ -5,7 +5,7 @@ import img from "../../assets/img.png";
 import Searchbar from "../../Component/Searchbar/Searchbar";
 import Img1 from "../../assets/image1.png";
 import Badge from '@mui/material/Badge';
-import ChatLayout from "./chatLayout/ChatLayout";
+import ChatLayout from "../../Pages/chat/chatLayout/ChatLayout";
 
 function ChatProfiles() {
   const [selectedProfileId, setSelectedProfileId] = useState(null);
