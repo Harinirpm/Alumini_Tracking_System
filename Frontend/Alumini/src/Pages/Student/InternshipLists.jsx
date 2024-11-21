@@ -14,6 +14,8 @@ import Facebook from '../../assets/facebook.png'
 import Amazon from '../../assets/amazon.png'
 import CashBag from '../../assets/cashbag.png'
 import Location from '../../assets/location.png'
+import { useContext } from 'react';
+import { UserContext } from '../../UserContext';
 
 const companyLogos = {  
   "Zoho": Zoho,  
@@ -25,6 +27,7 @@ const companyLogos = {
 };
 
 function InternshipLists() {
+  const { user, setUser } = useContext(UserContext);
   const [searchValue, setSearchValue] = useState('');
   const [internshipLists, setInternshipLists] = useState([]);
 
@@ -45,7 +48,7 @@ function InternshipLists() {
   return (
     <div className="internship-lists">
       <Box display='flex' flexDirection='row' alignItems="center">
-       
+     
           <div style={{display:"flex", flexDirection:"column"}}>
       <h2>Showing 210 jobs</h2>
       <p style={{marginTop:"-20px" }}>Based On your Preference..</p>
@@ -60,6 +63,8 @@ function InternshipLists() {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
+     {user.role==='alumni' &&  <button className='button1'>Create job offer</button> }
+
           </Box>
           <Box sx={{mt:"30px"}}>
       <div className="internship-grid">

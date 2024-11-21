@@ -172,3 +172,13 @@
     font-weight: 500;
     transition: background-color 0.3s;
   }
+
+  .button1{
+    width: 142px;
+    height: 38px;
+    border-radius: 8px;
+    background-color:#1B4BDADB;
+    color: #ffffff;
+    border: none;
+   margin-left: 452px;
+  }

@@ -1,7 +1,9 @@
 import db from './db.js'
 
 export const getAluminiListFromDB = (callback) => {
-    const query = 'SELECT * FROM alumini_info';
+    const query = `SELECT a.*, u.email
+FROM alumini_info a
+JOIN users u ON u.id = a.user_id  `;
     db.query(query, callback);
 };
 
