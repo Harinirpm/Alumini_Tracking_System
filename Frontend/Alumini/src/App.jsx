@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 import { useContext } from 'react'
 import Login from './Login'
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
-import AlumniProfile from './Pages/Student/AlumniProfile'
 import InternshipLists from './Pages/Student/InternshipLists'
 import Chatting from './Pages/chat/ChatProfiles'
 import CommonForum from './Pages/CommonForum/CommonForum'
@@ -59,7 +58,6 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route element={<ProtectedRoute allowedRoles={['alumni', 'student', 'staff']} />}>
         <Route path="/" element={<AluminiesList />} />
-          <Route path='alumni-profile' element={<AlumniProfile />} />
           <Route path="/internship-lists" element={<InternshipLists />} />
           <Route path='/chatting' element={<Chatting />} />
           <Route path="/message-forum" element={<MessageForum />} />

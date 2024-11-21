@@ -26,7 +26,7 @@ function MessageForum() {
     </Box>
     <Categories handleClick={handleClick} />
     <Typography sx={{fontSize:'26px', fontWeight:'600',mb:'22px'}}>Popular Threads</Typography>
-    <Threads selectedCategory={selectedCategory} />
+    <Threads selectedCategory={selectedCategory} open={open} />
     {open && <Popup open={open} handleClose={handleClose} />}
  </Box>
   )

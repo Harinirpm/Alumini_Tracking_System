@@ -21,9 +21,9 @@
   }
   
   .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
     margin-bottom: 15px;
   }
   
@@ -35,7 +35,7 @@
     font-weight: 600;
   }
   .alumni-status {
-    font-size: 20px;
+    font-size: 18px;
     margin: 5px 0;
     color: #3d3d3d;
     font-weight:400;
@@ -43,8 +43,15 @@
   }
 .alumni-status strong {
     font-weight: 600;
+    
 }
-  
+
+.alumni-status1{
+  font-size: 17px;
+  color: #3d3d3d;
+  font-weight:400;
+}
+
   .alumni-basic-info {
     background-color: #f3f3f3;
     padding: 40px;
@@ -66,5 +73,20 @@
     margin-right: 5px;
     font-weight: 500;
     margin-bottom: 30px;
+  }
+
+  .button1{
+    width: 122px;
+    height: 35px;
+    border-radius: 8px;
+    background-color:#1B4BDADB;
+    color: #ffffff;
+    border: none;
+  }
+
+  .box{
+text-align: right;
+margin-top: 0px;
+margin-right: 0;
   }
   
