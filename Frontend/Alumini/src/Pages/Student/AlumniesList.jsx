@@ -75,8 +75,8 @@ function AluminiesList() {
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md"
       sx={{
         '& .MuiPaper-root': {
-          borderTop: '15px solid blue', // Adds a stroke to the top of the dialog
-          borderRadius: '8px', // Optional: Keeps the corners rounded
+          borderTop: '15px solid blue', 
+          borderRadius: '8px',
         }
       }}
       >
