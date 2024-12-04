@@ -9,73 +9,76 @@
 
   }
   
-  .alumni-profile {
+  .alumni-container .alumni-profile {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #def1f8;
     padding: 25px;
-    width: 100%;
+    /* width: 100%; */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .avatar {
+  .alumni-container .avatar {
     width: 200px;
     height: 200px;
     border-radius: 10px;
     margin-bottom: 15px;
   }
   
-  .alumni-name {
+  .alumni-container .alumni-name {
     font-size: 20px;
     color: rgb(68, 0, 255);
     font-weight: bold;
     margin: 10px 0 5px;
     font-weight: 600;
+    margin-bottom: 15px;
   }
-  .alumni-status {
-    font-size: 18px;
+  .alumni-container .alumni-status {
+    font-size: 17px;
     margin: 5px 0;
     color: #3d3d3d;
     font-weight:400;
     margin-bottom: 30px;
   }
-.alumni-status strong {
+  .alumni-container .alumni-status1 strong {
     font-weight: 600;
     
 }
 
-.alumni-status1{
+.alumni-container .alumni-status1{
   font-size: 17px;
   color: #3d3d3d;
   font-weight:400;
+  margin-bottom: 15px;
+  white-space: nowrap;
 }
 
-  .alumni-basic-info {
+.alumni-container .alumni-basic-info {
     background-color: #f3f3f3;
-    padding: 40px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   
-  .alumni-basic-info p {
-    font-size: 19px;
+  .alumni-container .alumni-basic-info p {
+    font-size: 17px;
     margin: 8px 0;
     font-weight: 300;
     margin-bottom: 30px;
     
   }
   
-  .alumni-basic-info strong {
+  .alumni-container  .alumni-basic-info strong {
     font-weight: bold;
     margin-right: 5px;
     font-weight: 500;
     margin-bottom: 30px;
   }
 
-  .button1{
+  .alumni-container .button1{
     width: 122px;
     height: 35px;
     border-radius: 8px;
@@ -84,9 +87,9 @@
     border: none;
   }
 
-  .box{
+  .alumni-container .boxAlumni{
 text-align: right;
 margin-top: 0px;
-margin-right: 0;
+margin-left: -120px;
   }
   

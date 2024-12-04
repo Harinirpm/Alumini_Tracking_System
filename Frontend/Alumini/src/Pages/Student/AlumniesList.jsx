@@ -11,9 +11,8 @@ import ProfileCreation from '../../Component/homepage/ProfileCreation';
 import { UserContext } from "../../UserContext";
 import { useContext } from "react";
 
-function AluminiesList() {
-    const [alumniData, setAlumniData] = useState([])
-    const { user, setUser } = useContext(UserContext);
+function AluminiesList({filteredAlumniData}) {
+    const { user } = useContext(UserContext);
     const [profileCreated, setProfileCreated] = useState(false)
     const [open1, setOpen1] = useState(false)
     const [open, setOpen] = useState(false);
@@ -33,30 +32,13 @@ function AluminiesList() {
         setOpen1(false);
     };
 
-
-    useEffect(() => {
-        const fetchList = async () => {
-            try {
-                const response = await axios.get('http://localhost:8081/alumini/list')
-                setAlumniData(response.data)
-            } catch (error) {
-                console.error('Error fetching alumni list:', error);
-            }
-        }
-
-        fetchList();
-    }, [open1])
-
-    console.log("hi2")
-
     if (user.role === 'alumni') {
         const fetchProfile = async () => {
-            console.log("hi1");
+          
             try {
-                console.log("hi3");
+               
                 const response = await axios.get(`http://localhost:8081/profile/${user.email}`);
-                console.log("Response data:", response.data); // Log the data  
-                console.log("Response status:", response.status); // Log the status  
+
 
                 setProfileCreated(response.data.length > 0 ? true : false);
             } catch (error) {
@@ -84,7 +66,7 @@ function AluminiesList() {
             </div>
 
             <div className='alumini-lists'>
-                {alumniData.length > 0 && alumniData.map((alumini, index) => (
+                {filteredAlumniData.length > 0 && filteredAlumniData.map((alumini, index) => (
                     <div className='alumini-cards' key={index}  onClick={() => handleCardClick(alumini)}>
                         
                             <img src={alumini.profile_image_path ? `http://localhost:8081/uploads/${alumini.profile_image_path.replace(/\\/g, "/")}` : (index % 2) ? Img : Img1} alt={`${alumini.name}`} />
@@ -92,7 +74,7 @@ function AluminiesList() {
                                 <h2>{alumini.name}</h2>
                                 <p className='para'>{alumini.job_description}</p>
                                 <div className='details'>
-                                    <div className='d1'><p>{alumini.role}</p></div>
+                                    <div className='d1'><p>{alumini.role_title}</p></div>
                                     <div className='d2'><p>{alumini.years_of_experience} years</p></div>
                                 </div>
                                 {/* <div className='tags'>
@@ -109,8 +91,9 @@ function AluminiesList() {
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md"
                 sx={{
                     '& .MuiPaper-root': {
-                        borderTop: '15px solid blue', // Adds a stroke to the top of the dialog
-                        borderRadius: '8px', // Optional: Keeps the corners rounded
+                        borderTop: '15px solid blue', 
+                        padding:"25px",
+                        borderRadius: '8px', 
                     }
                 }}
             >

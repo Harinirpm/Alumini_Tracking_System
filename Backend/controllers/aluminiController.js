@@ -1,4 +1,4 @@
-import {getAluminiListFromDB, getIdFromDb, createProfileToDB, getAluminiFromDB } from '../models/aluminiModel.js'
+import {getAluminiListFromDB, getIdFromDb, createProfileToDB, getAluminiFromDB, getAlumniRolesFromDB, getAlumniLocationsFromDB} from '../models/aluminiModel.js'
 import multer from 'multer';
 import path from 'path';
 
@@ -61,4 +61,26 @@ export const getAlumini = async (req, res) => {
         console.error('Error fetching alumni:', error);
         res.status(500).json({ error: 'Failed to fetch alumni from the database.' });
     }
+};
+
+export const getAlumniRoles = (req, res) => {
+    getAlumniRolesFromDB((err, results) => {
+        if (err) {
+            console.error('Error fetching list:', err);
+            res.status(500).json({ error: 'Failed to fetch list from the database.' });
+        } else {
+            res.status(200).json( results.rows );
+        }
+    });
+};
+
+export const getAlumniLocations = (req, res) => {
+    getAlumniLocationsFromDB((err, results) => {
+        if (err) {
+            console.error('Error fetching list:', err);
+            res.status(500).json({ error: 'Failed to fetch list from the database.' });
+        } else {
+            res.status(200).json( results.rows );
+        }
+    });
 };

@@ -14,9 +14,12 @@ import MessageForum from './pages/MessageForum'
 import ProtectedRoute from './ProtectedRoute'
 import axios from 'axios'
 import { UserContext } from './UserContext'
+import { useState } from 'react'
 
 function App() {
+  const [alumniData, setAlumniData] = useState([])
   const { user, setUser } = useContext(UserContext);
+  const [filteredAlumniData, setFilteredAlumniData] = useState([])
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -49,15 +52,15 @@ function App() {
     <>
       <div className='App'>
       {user && (user.role) && (<>
-        <Sidebar  handleLogout={handleLogout} />
-        <Horizantalbar />
+        <Sidebar  handleLogout={handleLogout} filteredAlumniData={filteredAlumniData} setFilteredAlumniData={setFilteredAlumniData} alumniData={alumniData} setAlumniData={setAlumniData} />
+        <Horizantalbar filteredAlumniData={filteredAlumniData} setFilteredAlumniData={setFilteredAlumniData} alumniData={alumniData} setAlumniData={setAlumniData} />
         </>)}
         <div className={user?'app':''}>
         
         <Routes>
         <Route path='/login' element={<Login />} />
         <Route element={<ProtectedRoute allowedRoles={['alumni', 'student', 'staff']} />}>
-        <Route path="/" element={<AluminiesList />} />
+        <Route path="/" element={<AluminiesList filteredAlumniData={filteredAlumniData} />} />
           <Route path="/internship-lists" element={<InternshipLists />} />
           <Route path='/chatting' element={<Chatting />} />
           <Route path="/message-forum" element={<MessageForum />} />

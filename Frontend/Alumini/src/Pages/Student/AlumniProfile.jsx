@@ -15,7 +15,7 @@ function AlumniProfile({ alumnusData }) {
         <h3 className="alumni-name">{alumnusData.name}</h3>
         
             <p className="alumni-status1">
-            <strong >Role:</strong> <span>{alumnusData.role}</span>
+            <strong >Role:</strong> <span>{alumnusData.role_title}</span>
           </p>
           <p className="alumni-status1">
             <strong >Phone:</strong> <span>{alumnusData.phone_number}</span>
@@ -43,7 +43,7 @@ function AlumniProfile({ alumnusData }) {
           </p>         
       </div>
       <div className="alumni-basic-info">
-      <div className="box">
+      <div className="boxAlumni">
           <button className="button1">Connect</button>
           </div>
       <p>
@@ -60,6 +60,9 @@ function AlumniProfile({ alumnusData }) {
         </p>
         <p className="alumni-status">
             <strong>Email:</strong> <span>{alumnusData.email}</span>
+          </p>
+          <p className="alumni-status">
+            <strong>Location:</strong> <span>{alumnusData.location}</span>
           </p>
       </div>
     </div>

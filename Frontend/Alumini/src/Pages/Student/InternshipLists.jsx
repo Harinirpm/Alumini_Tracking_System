@@ -35,6 +35,7 @@ function InternshipLists() {
     const fetchList = async () => {
         try {
             const response = await axios.get('http://localhost:8081/jobs')
+            console.log(response)
             setInternshipLists(response.data)
         } catch (error) {
             console.error('Error fetching alumni list:', error);

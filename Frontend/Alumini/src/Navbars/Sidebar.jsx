@@ -5,14 +5,14 @@ import Category from './Category';
 import { MdLogout } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 
-function Sidebar({handleLogout}) {
+function Sidebar({handleLogout,filteredAlumniData,setFilteredAlumniData,alumniData, setAlumniData}) {
 
   return (
     <>
         
     <div className='sidebar'>
         <div className='sidebar-content'>
-            <Category />
+            <Category filteredAlumniData={filteredAlumniData} setFilteredAlumniData={setFilteredAlumniData} alumniData={alumniData} setAlumniData={setAlumniData} />
             
 
             <div className="link">

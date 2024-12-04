@@ -15,8 +15,6 @@ function Threads({selectedCategory, open}) {
             try {
                 const response = await axios.get('http://localhost:8081/threads');
                 setThreads(response.data);
-                console.log(threads)
-                console.log('Fetched Threads:', response.data);
 
             } catch (error) {
                 console.error('Error fetching threads:', error);

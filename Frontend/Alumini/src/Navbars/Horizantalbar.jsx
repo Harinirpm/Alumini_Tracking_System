@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Horizantalbar.css";
 import { Link } from "react-router-dom";
 import { PiSuitcaseSimple } from "react-icons/pi";
@@ -21,7 +21,7 @@ import { TbNotes } from "react-icons/tb";
 import { UserContext } from "../UserContext";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
-function Horizantalbar() {
+function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, setAlumniData }) {
   const { user, setUser } = useContext(UserContext);
  
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -61,6 +61,22 @@ const capitalizedUsername = capitalizeFirstLetter(username);
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  useEffect(() => {
+    const filteredData = alumniData.filter((alumni) => {
+      const matchesJob = alumni.role_title
+        .toLowerCase()
+        .includes(searchValueJob.toLowerCase());
+      const matchesLocation = alumni.location
+        .toLowerCase()
+        .includes(searchValueLocation.toLowerCase());
+
+      // Both fields must match if values are provided
+      return (!searchValueJob || matchesJob) && (!searchValueLocation || matchesLocation);
+    });
+
+    setFilteredAlumniData(filteredData);
+  }, [searchValueJob, searchValueLocation, alumniData, setFilteredAlumniData]);
 
   return (
     <div className="horinav">
@@ -117,7 +133,7 @@ const capitalizedUsername = capitalizeFirstLetter(username);
           style={{ fontSize: "29px", color: activeIcon === 'notes' ? "#1B4BDADB" : "#767676" }}
         />
         </Link>
-        <Link to="/">
+        <Link>
         <IoMdNotificationsOutline
         onClick={handleNotificationClick}
         style={{
