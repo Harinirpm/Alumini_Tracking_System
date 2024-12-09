@@ -1,28 +1,53 @@
 import { Avatar, Box, IconButton, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar2 from "../../assets/avatar2.jpeg";
 import img from "../../assets/img.png";
 import Searchbar from "../../Component/Searchbar/Searchbar";
-import Img1 from "../../assets/image1.png";
+import Img1 from "../../assets/blankProfile.png";
 import Badge from '@mui/material/Badge';
 import ChatLayout from "../../Pages/chat/chatLayout/ChatLayout";
+import { UserContext } from "../../UserContext";
+import { useContext } from "react";
+import axios from "axios";
 
 function ChatProfiles() {
   const [selectedProfileId, setSelectedProfileId] = useState(null);
+  const [persons, setPersons] = useState([])
+  const { user } = useContext(UserContext);
 
-  const persons = [
-    { id: 1, img: Avatar2, name: "Indhu", msg: "Hello Mam, give 100 out of 100 for review...", count: 4 },
-    { id: 2, img: Img1, name: "John", msg: "Hello Mam, give 100 out of 100 for review...", count: 10 },
-    { id: 3, img: Avatar2, name: "Loosy", msg: "Hello Mam, give 100 out of 100 for review...", count: 2 },
-    { id: 4, img: Img1, name: "Thuran", msg: "Hello Mam, give 100 out of 100 for review...", count: 14 },
-    { id: 5, img: Avatar2, name: "Aadhi", msg: "Hello Mam, give 100 out of 100 for review...", count: 13 },
-    { id: 6, img: Img1, name: "Kumaraguru", msg: "Hello Mam, give 100 out of 100 for review...", count: 10 },
-    { id: 7, img: Avatar2, name: "Barath", msg: "Hello Mam, give 100 out of 100 for review...", count: 3 },
-  ];
+  useEffect(() => {
+      const getConnections = async() => {
+        try{
+           const response = await axios.get(`http://localhost:8081/getConnections/${user.email}`)
+           console.log(response.data)
+           setPersons(response.data)
+        } catch(error){
+          console.error("Error: ", error)
+        }
+      }
+      getConnections()
+  },[])
+
+
+  // const persons = [
+  //   { id: 1, img: Avatar2, name: "Indhu", msg: "Hello Mam, give 100 out of 100 for review...", count: 4 },
+  //   { id: 2, img: Img1, name: "John", msg: "Hello Mam, give 100 out of 100 for review...", count: 10 },
+  //   { id: 3, img: Avatar2, name: "Loosy", msg: "Hello Mam, give 100 out of 100 for review...", count: 2 },
+  //   { id: 4, img: Img1, name: "Thuran", msg: "Hello Mam, give 100 out of 100 for review...", count: 14 },
+  //   { id: 5, img: Avatar2, name: "Aadhi", msg: "Hello Mam, give 100 out of 100 for review...", count: 13 },
+  //   { id: 6, img: Img1, name: "Kumaraguru", msg: "Hello Mam, give 100 out of 100 for review...", count: 10 },
+  //   { id: 7, img: Avatar2, name: "Barath", msg: "Hello Mam, give 100 out of 100 for review...", count: 3 },
+  // ];
 
   const handleProfileClick = (id) => {
     setSelectedProfileId(id);
   };
+
+  const capitalizeFirstLetter = (email) => { 
+    const username = email ? email.match(/^([^.]+)/)[0] : ""; 
+    if (!username) return "";
+    return username.charAt(0).toUpperCase() + username.slice(1);  
+}; 
 
   return (
     <div>
@@ -91,9 +116,9 @@ function ChatProfiles() {
                     },
                   }}
                 >
-                  <Avatar alt="Profile Image" src={person.img} sx={{ mr: "10px" }} />
+                  <Avatar alt="Profile Image" src={person.connected_details.profile_image_path ?  `http://localhost:8081/uploads/${person.connected_details.profile_image_path.replace(/\\/g, "/")}`: Img1} sx={{ mr: "10px" }} />
                   <Box flex="1" ml="10px">
-                    <Typography sx={{ fontFamily: "Poppins", fontWeight: "bold" }}>{person.name}</Typography>
+                    <Typography sx={{ fontFamily: "Poppins", fontWeight: "bold" }}>{person.connected_details.name ? person.connected_details.name : capitalizeFirstLetter(person.connected_details.email)}</Typography>
                     <Typography
                       sx={{
                         fontFamily: "Poppins",
@@ -104,7 +129,7 @@ function ChatProfiles() {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {person.msg}
+                      {person.msg? "": "hi"}
                     </Typography>
                   </Box>
                   <IconButton aria-label="notifications">
