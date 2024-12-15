@@ -34,6 +34,10 @@
     border-radius: 50%;
     margin-right: 20px;
   }
+
+  .job-card{
+    cursor: pointer;
+  }
   
   .job-details {
     display: flex;
@@ -181,4 +185,5 @@
     color: #ffffff;
     border: none;
    margin-left: 460px;
+   cursor: pointer;
   }

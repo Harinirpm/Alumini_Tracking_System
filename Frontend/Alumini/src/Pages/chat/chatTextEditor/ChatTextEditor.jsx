@@ -2,6 +2,7 @@ import React from "react";
 import { Box, IconButton, InputBase, Paper, Divider } from "@mui/material";
 import PropTypes from "prop-types";
 import { useRef } from "react";
+import { useEffect } from "react";
 const ChatInput = ({
   icons,
   placeholder,
@@ -15,11 +16,18 @@ const ChatInput = ({
   onBulletListClick,
   onNumberListClick,
   iconStyles,
+  inputValue,
   inputStyles,
   paperStyles,
   onInputChange,
 }) => {
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current && inputValue !== inputRef.current.innerText) {
+      inputRef.current.innerText = inputValue;
+    }
+  }, [inputValue]);
 
   const execCommand = (command) => {
     document.execCommand(command, false, null);
@@ -127,7 +135,7 @@ const ChatInput = ({
             padding: "7px",
             fontSize: "16px",
             color: "#706e6e",
-            fontWeight: 100,
+            fontWeight: 400,
             fontFamily: "Poppins",
             width: "100%",
             minHeight: "40px",

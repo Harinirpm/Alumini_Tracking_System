@@ -7,11 +7,12 @@ import { Button } from "@mui/material";
 import { UserContext } from "../../UserContext";
 import { useContext } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 function AlumniProfile({ alumnusData }) {
   const { user } = useContext(UserContext);
   const [Connected, setConnected] = useState(false)
+  const navigate = useNavigate()
   
   useEffect(() => {
        const checkConnection = async () => {
@@ -38,6 +39,7 @@ function AlumniProfile({ alumnusData }) {
           console.error("Connection not created");
         }
       }
+      if(Connected) navigate('/chatting')
     } catch (error) {
       console.error("Error creating connection:", error);
     }
@@ -47,7 +49,7 @@ function AlumniProfile({ alumnusData }) {
   return (
     <div className="alumni-container">
       <div className="alumni-profile">
-        <img src={alumnusData.profile_image_path ? `http://localhost:8081/uploads/${alumnusData.profile_image_path.replace(/\\/g, "/")}` :  Img } alt={alumnusData.name} className="avatar" />
+        <img src={alumnusData.profile_image_path ? `http://localhost:8081/${alumnusData.profile_image_path.replace(/\\/g, "/")}` :  Img } alt={alumnusData.name} className="avatar" />
         <h3 className="alumni-name">{alumnusData.name}</h3>
         
             <p className="alumni-status1">

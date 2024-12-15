@@ -9,11 +9,17 @@ import ChatLayout from "../../Pages/chat/chatLayout/ChatLayout";
 import { UserContext } from "../../UserContext";
 import { useContext } from "react";
 import axios from "axios";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:8081");
 
 function ChatProfiles() {
-  const [selectedProfileId, setSelectedProfileId] = useState(null);
+  const [selectedProfile, setSelectedProfile] = useState(null);
   const [persons, setPersons] = useState([])
   const { user } = useContext(UserContext);
+  const [room , setRoom] = useState(null)
+  const [search, setSearch] = useState(null)
+  const [filtered, setFiltered] = useState([])
 
   useEffect(() => {
       const getConnections = async() => {
@@ -21,11 +27,24 @@ function ChatProfiles() {
            const response = await axios.get(`http://localhost:8081/getConnections/${user.email}`)
            console.log(response.data)
            setPersons(response.data)
+           setFiltered(response.data)
         } catch(error){
           console.error("Error: ", error)
         }
       }
       getConnections()
+
+      socket.on("room_created", (data) => {
+        if (data && data.roomID) {
+            setRoom(data.roomID);  // Store the roomID received from the backend
+            console.log("Room Created with ID:", data.roomID);
+        }
+    });
+
+    // Cleanup socket listener on component unmount
+    return () => {
+        socket.off("room_created");
+    };
   },[])
 
 
@@ -39,9 +58,46 @@ function ChatProfiles() {
   //   { id: 7, img: Avatar2, name: "Barath", msg: "Hello Mam, give 100 out of 100 for review...", count: 3 },
   // ];
 
-  const handleProfileClick = (id) => {
-    setSelectedProfileId(id);
+
+  const handleProfileClick = (profile) => {
+      setSelectedProfile(profile);
+  
+      // Emit 'create_room' event to the backend with sender and receiver data
+      const sender = user.id; // Replace with actual sender data (e.g., from user state or context)
+      const receiver = profile.id;   // The receiver is selected profile
+  
+      socket.emit("create_room", { sender, receiver });
   };
+
+  const filterPersons = (searchValue) => {
+    if (!searchValue) {
+      // If the search value is empty, return all persons
+      return persons;
+    }
+  
+    const searchLower = searchValue.toLowerCase();
+  
+    return persons.filter((person) => {
+      const email = person.connected_details?.email || ""; // Safely access email
+      const name = person.connected_details?.name || "";  // Safely access name
+  
+      const emailMatch = email.toLowerCase().includes(searchLower);
+      const nameMatch = name.toLowerCase().includes(searchLower);
+  
+      return emailMatch || nameMatch;
+    });
+  };
+
+  const handleChange = (e) =>{
+    setSearch(e.target.value)
+  }
+  
+
+  useEffect(()=> {
+    setFiltered(filterPersons(search))
+  },[search])
+  
+
 
   const capitalizeFirstLetter = (email) => { 
     const username = email ? email.match(/^([^.]+)/)[0] : ""; 
@@ -86,9 +142,7 @@ function ChatProfiles() {
               backgroundColor: "white",
               borderRadius: "10px",
               boxShadow: "1px 2px 6px 0px #0000001A",
-
               boxShadow: "0px 4px 4px 0px #00000040",
-              
               padding: "20px",
               mt: "50px",
               overflowY: "auto",
@@ -96,12 +150,13 @@ function ChatProfiles() {
              
             }}
           >
-            <Searchbar />
+            <Searchbar search={search} setSearch={setSearch} onChange={handleChange} />
             <Box sx={{mt:"40px"}}>
-              {persons.map((person) => (
+              {console.log(persons)}
+              {filtered.map((person) => (
                 <Box
                   key={person.id}
-                  onClick={() => handleProfileClick(person.id)}
+                  onClick={() => handleProfileClick(person)}
                   sx={{
                     marginBottom: "10px",
                     backgroundColor: "white",
@@ -116,7 +171,7 @@ function ChatProfiles() {
                     },
                   }}
                 >
-                  <Avatar alt="Profile Image" src={person.connected_details.profile_image_path ?  `http://localhost:8081/uploads/${person.connected_details.profile_image_path.replace(/\\/g, "/")}`: Img1} sx={{ mr: "10px" }} />
+                  <Avatar alt="Profile Image" src={person.connected_details.profile_image_path ?  `http://localhost:8081/${person.connected_details.profile_image_path.replace(/\\/g, "/")}`: Img1} sx={{ mr: "10px" }} />
                   <Box flex="1" ml="10px">
                     <Typography sx={{ fontFamily: "Poppins", fontWeight: "bold" }}>{person.connected_details.name ? person.connected_details.name : capitalizeFirstLetter(person.connected_details.email)}</Typography>
                     <Typography
@@ -129,7 +184,7 @@ function ChatProfiles() {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {person.msg? "": "hi"}
+                      {person.connected_details.name? "Alumni": person.role.charAt(0).toUpperCase() + person.role.slice(1).toLowerCase()}
                     </Typography>
                   </Box>
                   <IconButton aria-label="notifications">
@@ -154,9 +209,9 @@ function ChatProfiles() {
               alignItems: "center",
             }}
           >
-           {selectedProfileId ? (
+           {selectedProfile ? (
   <Box sx={{ ml: "150px", width: "100%", height: "100%" }}>
-    <ChatLayout />
+    <ChatLayout person={selectedProfile} socket={socket} room={room} />
   </Box>
 ) : (
   <>

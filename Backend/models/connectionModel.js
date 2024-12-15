@@ -38,6 +38,8 @@ export const getConnectionsFromDB = (email, callback) => {
     const query = `
    SELECT 
     u2.email AS connected_email, 
+    u2.id,
+    u2.role,
     CASE 
         WHEN u2.role = 'alumni' THEN 
             jsonb_build_object('name', ai.name, 'profile_image_path', ai.profile_image_path)

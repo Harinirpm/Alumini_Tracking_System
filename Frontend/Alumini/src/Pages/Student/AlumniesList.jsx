@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import image1 from '../../assets/image1.png';
 import { Dialog, DialogContent } from "@mui/material";
 import AlumniProfile from "./AlumniProfile";
@@ -68,8 +67,8 @@ function AluminiesList({filteredAlumniData}) {
             <div className='alumini-lists'>
                 {filteredAlumniData.length > 0 && filteredAlumniData.map((alumini, index) => (
                     <div className='alumini-cards' key={index}  onClick={() => handleCardClick(alumini)}>
-                        
-                            <img src={alumini.profile_image_path ? `http://localhost:8081/uploads/${alumini.profile_image_path.replace(/\\/g, "/")}` : (index % 2) ? Img : Img1} alt={`${alumini.name}`} />
+                    
+                            <img src={alumini.profile_image_path ? `http://localhost:8081/${alumini.profile_image_path.replace(/\\/g, "/")}` : (index % 2) ? Img : Img1} alt={`${alumini.name}`} />
                             <div className='data'>
                                 <h2>{alumini.name}</h2>
                                 <p className='para'>{alumini.job_description}</p>
@@ -101,7 +100,7 @@ function AluminiesList({filteredAlumniData}) {
                     {selectedAlumni && <AlumniProfile alumnusData={selectedAlumni} />}
                 </DialogContent>
             </Dialog>
-            {open1 && <ProfileCreation open={open1} handleClose={handleClose1} />}
+            {open1 && <ProfileCreation open={open1} handleClose={handleClose1} id={user.id} profileCreated={profileCreated} />}
         </>
     );
 }

@@ -16,6 +16,8 @@ import CashBag from '../../assets/cashbag.png'
 import Location from '../../assets/location.png'
 import { useContext } from 'react';
 import { UserContext } from '../../UserContext';
+import JobInfo from './JobInfo';
+import Popup from './Popup';
 
 const companyLogos = {  
   "Zoho": Zoho,  
@@ -30,6 +32,24 @@ function InternshipLists() {
   const { user, setUser } = useContext(UserContext);
   const [searchValue, setSearchValue] = useState('');
   const [internshipLists, setInternshipLists] = useState([]);
+  const [open, setOpen] = useState(false)
+  const [infoOpen, setInfoOpen] = useState()
+  const [selected, setSelected] = useState()
+  const [filteredList, setFilteredList] = useState([])
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleCloseInfo = () => {
+    setInfoOpen(false);
+  };
+
+  
+  const handleOpenInfo = (data) => {
+    setSelected(data)
+    setInfoOpen(true);
+  };
 
   useEffect(() => {
     const fetchList = async () => {
@@ -37,6 +57,7 @@ function InternshipLists() {
             const response = await axios.get('http://localhost:8081/jobs')
             console.log(response)
             setInternshipLists(response.data)
+            setFilteredList(response.data)
         } catch (error) {
             console.error('Error fetching alumni list:', error);
         }
@@ -44,7 +65,28 @@ function InternshipLists() {
 
     fetchList();
 }, [])
-  
+
+useEffect(() => {  
+  if (!searchValue) {   
+    setFilteredList(internshipLists);  
+    return;  
+  }  
+  const lowerCaseSearchValue = searchValue.toLowerCase();  
+  const filteredData = internshipLists.filter((job) => {  
+    const lowerCaseJobTitle = job.job_title?.toLowerCase() || '';  
+    const lowerCaseLocation = job.location?.toLowerCase() || '';  
+    const lowerCaseCompanyName = job.company_name?.toLowerCase() || '';  
+
+    return (  
+      lowerCaseJobTitle.includes(lowerCaseSearchValue) ||  
+      lowerCaseLocation.includes(lowerCaseSearchValue) ||  
+      lowerCaseCompanyName.includes(lowerCaseSearchValue)  
+    );  
+  });  
+
+  setFilteredList(filteredData);  
+}, [searchValue, internshipLists]);
+
 
   return (
     <div className="internship-lists">
@@ -64,13 +106,13 @@ function InternshipLists() {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-     {user.role==='alumni' &&  <button className='button1'>Create job offer</button> }
+     {user.role==='alumni' &&  <button className='button1' onClick={() => setOpen(true)} >Create job offer</button> }
 
           </Box>
           <Box sx={{mt:"30px"}}>
       <div className="internship-grid">
-        {internshipLists.length>0 && internshipLists.map((job, index) => (
-          <div className="job-card" key={index}>
+        {filteredList.length>0 && filteredList.map((job, index) => (
+          <div className="job-card" key={index} onClick={() => handleOpenInfo(job)}>
             <img src={companyLogos[job.company_name]} alt={job.company_name} />
             <div className="job-details">
               <div className='job_comp'>
@@ -92,6 +134,8 @@ function InternshipLists() {
           </div>
         ))}
       </div>
+      {open && <Popup open={open} handleClose={handleClose} />}
+      {infoOpen && <JobInfo open={infoOpen} handleClose={handleCloseInfo} data={selected} />}
       </Box>
     </div>
   );

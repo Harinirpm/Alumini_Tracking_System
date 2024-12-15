@@ -39,7 +39,7 @@ const GroupAvatars = () => {
   );
 };
 
-const ChatHeader = () => {
+const ChatHeader = (sender) => {
   return (
     <Box>
       <Box
@@ -49,7 +49,7 @@ const ChatHeader = () => {
         sx={{ width: "100%", padding: "10px" }}
       >
         <Box sx={{ ml: "10px" }}>
-          <IconWithText icon={<ChatBubbleOutlineIcon />} text="Conversation" />
+          <IconWithText icon={<ChatBubbleOutlineIcon />} text={sender.sender} />
         </Box>
         <Box sx={{ mr: "20px" }}>
           <GroupAvatars />

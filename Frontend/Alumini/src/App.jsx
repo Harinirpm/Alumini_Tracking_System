@@ -29,7 +29,7 @@ function App() {
       axios.get('http://localhost:8081/log')
           .then(res => {
               if (res.data.valid) {
-                  setUser({ email: res.data.email, role: res.data.role });
+                  setUser({ email: res.data.email, role: res.data.role, id: res.data.id });
               } else {
                   navigate('/login');
               }
@@ -47,6 +47,7 @@ function App() {
         })
         .catch(err => console.log(err));
 };
+
 
   return (
     <>
