@@ -13,6 +13,7 @@ import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:8081");
 
+
 function ChatProfiles() {
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [persons, setPersons] = useState([])
@@ -67,6 +68,16 @@ function ChatProfiles() {
       const receiver = profile.id;   // The receiver is selected profile
   
       socket.emit("create_room", { sender, receiver });
+
+      const setNotification = async() => {
+        try{
+         await axios.put(`http://localhost:8081/mark/notifications/${sender}/${receiver}`)
+        }
+        catch(error){
+          console.log("error marking notifications", error)
+        }
+      }
+      setNotification()
   };
 
   const filterPersons = (searchValue) => {
@@ -106,53 +117,54 @@ function ChatProfiles() {
 }; 
 
   return (
-    <div>
-      <Box>
-        <Typography
+   <>
+    
+      <div style={{backgroundColor:"#fbfbfb", overflowX:"hidden"}}>
+      <Typography
           sx={{
             fontSize: "26px",
             fontWeight: "600",
-            mb: "20px",
-            position: "fixed",
+            mb: "5px",          
             top: 100,
-            width: "30%",
             zIndex: 1,
             padding: "10px",
-            mb:4,
-            color:"#161439"
+            color:"#161439",
           }}
         >
           Message
         </Typography>
         <Box
           sx={{
-            mt: "60px",
+            //mt: "60px",
             padding: "10px",
             borderRadius: "10px",
-            height: "90vh",
-            position: "fixed",
+            height: "81vh",
+            overflowY: "hidden",
             display: "flex",
+            width:'100%',
             alignItems: "center",
             gap: "0px",
           }}
         >
+
           <Box
             sx={{
               height: "100%",
               backgroundColor: "white",
-              borderRadius: "10px",
-              boxShadow: "1px 2px 6px 0px #0000001A",
+              borderRadius: "6px",
+              boxShadow:"1px 2px 6px 0px #0000001A",
+
               boxShadow: "0px 4px 4px 0px #00000040",
+              
               padding: "20px",
-              mt: "50px",
-              overflowY: "auto",
+              mt: "20px",
+              overflowY: "hidden",
               // width:"35%"
              
             }}
           >
             <Searchbar search={search} setSearch={setSearch} onChange={handleChange} />
             <Box sx={{mt:"40px"}}>
-              {console.log(persons)}
               {filtered.map((person) => (
                 <Box
                   key={person.id}
@@ -207,22 +219,23 @@ function ChatProfiles() {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+           
             }}
           >
            {selectedProfile ? (
-  <Box sx={{ ml: "150px", width: "100%", height: "100%" }}>
-    <ChatLayout person={selectedProfile} socket={socket} room={room} />
+  <Box sx={{ ml: "50px", width: "100%", height: "100%", backgroundColor:"#F7F7F9",boxShadow: "1px 2px 6px 0px #0000001A",boxShadow: "0px 4px 4px 0px #00000040" }}>
+    <ChatLayout person={selectedProfile} socket={socket} room={room} setSelectedProfile={setSelectedProfile} />
   </Box>
 ) : (
   <>
-    <img
+  <img
       src={img}
+      width="350px"
+      height="250px"
       alt="placeholder"
       style={{
-        height: "30%",
-        width: "50%",
         alignItems:"center",
-        marginLeft:"140px",
+        marginLeft:"260px",
         marginBottom: "20px",
       }}
     />
@@ -232,7 +245,7 @@ function ChatProfiles() {
         color: "#161439",
         fontFamily: "Poppins",
         width:"500px",
-        marginLeft:"140px",
+        marginLeft:"260px",
         fontSize:"14px",
       }}
     >
@@ -245,8 +258,9 @@ function ChatProfiles() {
 
           </Box>
         </Box>
-      </Box>
-    </div>
+      </div>
+    </>
+
   );
 }
 

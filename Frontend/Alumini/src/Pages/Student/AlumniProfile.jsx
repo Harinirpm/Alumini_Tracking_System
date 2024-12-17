@@ -82,7 +82,7 @@ function AlumniProfile({ alumnusData }) {
       </div>
       <div className="alumni-basic-info">
       <div className="boxAlumni">
-          <button className="button1" onClick={() => handleClick()}>{Connected ? "Message" :"Connect"}</button>
+         {user.id!=alumnusData.user_id && <button className="button1" onClick={() => handleClick()}>{Connected ? "Message" :"Connect"}</button> }
           </div>
       <p>
           <strong>Department:</strong> <span>{alumnusData.department}</span>

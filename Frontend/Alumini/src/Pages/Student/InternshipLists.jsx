@@ -93,7 +93,7 @@ useEffect(() => {
       <Box display='flex' flexDirection='row' alignItems="center">
      
           <div style={{display:"flex", flexDirection:"column"}}>
-      <h2>Showing 210 jobs</h2>
+      <h2>Showing {filteredList.length} jobs</h2>
       <p style={{marginTop:"-20px" }}>Based On your Preference..</p>
       </div>
      
@@ -112,24 +112,24 @@ useEffect(() => {
           <Box sx={{mt:"30px"}}>
       <div className="internship-grid">
         {filteredList.length>0 && filteredList.map((job, index) => (
-          <div className="job-card" key={index} onClick={() => handleOpenInfo(job)}>
-            <img src={companyLogos[job.company_name]} alt={job.company_name} />
-            <div className="job-details">
-              <div className='job_comp'>
+          <div className="job-card" key={index}>
+            <img src={companyLogos[job.company_name]} alt={job.company_name}  onClick={() => handleOpenInfo(job)} />
+            <div className="job-details"  >
+              <div className='job_comp'  onClick={() => handleOpenInfo(job)}>
               <h2>{job.job_title}</h2>
               <h3>{job.company_name}</h3>
                 </div>
-              <p className="job-package">
+              <p className="job-package"  onClick={() => handleOpenInfo(job)}>
                 <img src={CashBag} size={15} /><div className='sal'><h3 className='sal1'> {parseInt(job.expected_minimum_salary_per_year)}LPA-{parseInt(job.expected_maximum_salary_per_year)}LPA</h3> <h3 className='sal2'> Per year</h3></div>
               </p>
-              <p className="job-location">
-              <img src={Location} style={{fontSize:"25px",color:"blue",backgroundColor:" #e0e0e0"}}/> <div><h3 className='loc1'>{job.location}</h3>
+              <p className="job-location"  onClick={() => handleOpenInfo(job)}>
+              <img src={Location} style={{fontSize:"25px",color:"blue",backgroundColor:"#1B4BDA1C"}}/> <div><h3 className='loc1'>{job.location}</h3>
               <h3 className='loc2'>Location</h3></div>
               </p>
-              <button className="apply-button">Apply</button>
-              <div className='book'>
+              <a href={job.offer_url}  target="_blank"><button className="apply-button">Apply</button></a>
+              {/* <div className='book'>
               <FaRegBookmark />
-              </div>
+              </div> */}
             </div>
           </div>
         ))}

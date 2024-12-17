@@ -59,20 +59,29 @@ io.on("connection", (socket) => {
             const roomDetails = await createOrReuseRoom(sender, receiver);
             socket.join(roomDetails.room_id);
             const messages = await db.query(
-                `SELECT  
-                 cm.sent_by AS sender, 
-                 cm.created_at AS createdAt, 
-                 cm.message
-                 FROM connection_messages cm
-                 JOIN connection_rooms cr ON 
-                 cr.id = cm.room_id
-                 WHERE (cm.sent_by = $1 OR cm.sent_by = $2)
-                 ORDER BY cm.created_at ASC;
-
+                `
+                SELECT  
+                    cm.sent_by AS sender, 
+                    cm.created_at AS createdAt, 
+                    cm.message
+                FROM 
+                    connection_messages cm
+                JOIN 
+                    connection_rooms cr 
+                    ON cr.id = cm.room_id
+                WHERE 
+                    (
+                        (cr.sender = $1 AND cr.receiver = $2) OR 
+                        (cr.sender = $2 AND cr.receiver = $1)
+                    ) 
+                    AND (cm.sent_by = $1 OR cm.sent_by = $2)
+                ORDER BY 
+                    cm.created_at ASC;
                 `,
                 [sender, receiver]
             );
-            console.log("HI")
+            
+
             socket.emit("chat_history", { messages: messages.rows });
             socket.emit("room_created", { roomID: roomDetails.room_id });
         } catch (error) {
@@ -118,20 +127,30 @@ io.on("connection", (socket) => {
     // Event to send a message
     socket.on("send_message", async (data) => {
         const { room, sender, receiver, message } = data;
+        console.log("data: ", data)
 
         try {
             const roomDetails = await createOrReuseRoom(sender, receiver, room);
             const roomID = roomDetails.id; // Reference ID from DB
             const createdAt = new Date();
-            console.log(roomDetails)
-            console.log({ sender, roomID, message, createdAt })
+            // console.log(roomDetails)
+            // console.log({ sender, roomID, message, createdAt })
 
             // Save the message
-            await db.query(
+            const messageResult = await db.query(
                 `INSERT INTO connection_messages (room_id, sent_by, message, created_at) 
-                 VALUES ($1, $2, $3, $4)`,
+                 VALUES ($1, $2, $3, $4) RETURNING id`,
                 [roomID, sender, message, createdAt]
             );
+            // console.log(messageResult)
+            const messageID = messageResult.rows[0].id;
+
+        // Insert notification for the receiver
+          await db.query(
+            `INSERT INTO notifications (user_id, room_id, message_id, is_read, created_at)
+             VALUES ($1, $2, $3, FALSE, $4)`,
+            [receiver, roomID, messageID, createdAt]
+         );
 
             // Broadcast the message
             socket.to(roomDetails.room_id).emit("receive_message", {

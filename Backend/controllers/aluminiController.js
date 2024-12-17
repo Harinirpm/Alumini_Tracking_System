@@ -1,4 +1,4 @@
-import {getAluminiListFromDB,getDetailsFromDB, getIdFromDb, createProfileToDB, getAluminiFromDB, getAlumniRolesFromDB, getAlumniLocationsFromDB, getLocationIdFromDb, updateProfileInDB} from '../models/aluminiModel.js'
+import {getAluminiListFromDB,getDetailsFromDB, getIdFromDb, createProfileToDB, getAluminiFromDB, getAlumniRolesFromDB, getAlumniLocationsFromDB, getLocationIdFromDb, updateProfileInDB, getNameFromDB} from '../models/aluminiModel.js'
 import multer from 'multer';
 import path from 'path';
 
@@ -140,6 +140,22 @@ export const updateProfile = (req, res) => {
         }
 
         res.status(200).json({ message: 'Profile updated successfully!' });
+    });
+};
+
+export const getName = (req, res) => {
+    const { id } = req.params; 
+    getNameFromDB(id, (err, results) => {
+        if (err) {
+            console.error('Error fetching name:', err);
+            res.status(500).json({ error: 'Failed to fetch name from the database.' });
+        } else {
+            if (results.rows.length === 0) {
+                res.status(404).json({ message: 'No details found for the given ID.' });
+            } else {
+                res.status(200).json(results.rows[0]); 
+            }
+        }
     });
 };
 

@@ -64,7 +64,7 @@ function AluminiesList({filteredAlumniData}) {
                 {user.role === 'alumni' && <button onClick={() => setOpen1(true)}>{profileCreated ? "Update" : "Create"} {profileCreated} Profile</button>}
             </div>
 
-            <div className='alumini-lists'>
+            <div className='alumini-lists' >
                 {filteredAlumniData.length > 0 && filteredAlumniData.map((alumini, index) => (
                     <div className='alumini-cards' key={index}  onClick={() => handleCardClick(alumini)}>
                     

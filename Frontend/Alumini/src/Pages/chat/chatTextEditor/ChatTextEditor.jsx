@@ -3,6 +3,9 @@ import { Box, IconButton, InputBase, Paper, Divider } from "@mui/material";
 import PropTypes from "prop-types";
 import { useRef } from "react";
 import { useEffect } from "react";
+import "./ChatInput.css";
+
+
 const ChatInput = ({
   icons,
   placeholder,
@@ -48,68 +51,11 @@ const ChatInput = ({
     <Paper
       variant="outlined"
       sx={{
-        ...paperStyles,
-        alignItems: "center",
-        p: 1,
-        borderRadius: "10px",
-        width: "93%",
-        position: "absolute",
-        border: "1px solid #e6e6e6",
-        bottom: "20px",
-        mt: "20px",
-        ml: "20px",
-        padding: "none",
-        mr: "10px",
-        marginTop:'-5rem'
+       mt:1,
+       border:'none', width:"58vw", 
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "#f2f2f2",
-          position: "relative",
-
-        }}
-      >
-        <IconButton
-          sx={{ padding: "2px", color: iconStyles.color, mt: "5px", mb: "5px" }}
-          onClick={toggleBold}
-        >
-          {icons.bold}
-        </IconButton>
-        <IconButton
-          sx={{ padding: "2px", color: iconStyles.color, mt: "5px", mb: "5px" }}
-          onClick={() => execCommand("italic")}
-        >
-          {icons.italic}
-        </IconButton>
-        <IconButton
-          sx={{ padding: "2px", color: iconStyles.color, mt: "5px", mb: "5px" }}
-          onClick={() => execCommand("underline")}
-        >
-          {icons.underline}
-        </IconButton>
-        <IconButton
-          sx={{ padding: "2px", color: iconStyles.color, mt: "5px", mb: "5px" }}
-          onClick={() => execCommand("removeFormat")}
-        >
-          {icons.remove}
-        </IconButton>
-        <IconButton
-          sx={{ padding: "2px", color: iconStyles.color, mt: "5px", mb: "5px" }}
-          onClick={() => execCommand("insertUnorderedList")}
-        >
-          {icons.bulletList}
-        </IconButton>
-        <IconButton
-          sx={{ padding: "2px", color: iconStyles.color, mt: "5px", mb: "5px" }}
-          onClick={() => execCommand("insertOrderedList")}
-        >
-          {icons.numberList}
-        </IconButton>
-      </Box>
-
+{/*     
       <Divider
         sx={{
           width: "100%",
@@ -118,11 +64,27 @@ const ChatInput = ({
           bottom: "px",
           backgroundColor: "#f2f2f2",
         }}
-      />
+      /> */}
+      <Box sx={{display:'flex', alignItems:'center'}}>
+      <IconButton
+            size="small"
+            sx={{ color: iconStyles.color,mr:"10px",ml:"10px" }}
+            onClick={onEmojiClick}
+          >
+            {icons.emoji}
+          </IconButton>
 
+      <IconButton
+            size="small"
+            sx={{ color: iconStyles.color, transform: "rotate(35deg)",mr:"10px" }}
+            onClick={onFileAttach}
+          >
+            {icons.attach}
+          </IconButton>
+        
       <Box
         display="flex"
-        sx={{ flexDirection: "row", alignItems: "center", width: "100%" }}
+        sx={{ flexDirection: "row", alignItems: "center", width: "100%", m:1 }}
       >
         <div
           ref={inputRef}
@@ -132,15 +94,18 @@ const ChatInput = ({
           style={{
             // flex: 1,
             display: "flex",
+            lineHeight: "20px",
             padding: "7px",
             fontSize: "16px",
             color: "#706e6e",
             fontWeight: 400,
             fontFamily: "Poppins",
             width: "100%",
-            minHeight: "40px",
+            minHeight: "20px",
             alignItems: "center",
             outline: "none",
+            border:"1px solid #BEBEBE",
+            borderRadius: "3px"
           }}
           data-placeholder="Type a message..."
           onFocus={(e) => {
@@ -156,25 +121,12 @@ const ChatInput = ({
         >
           Type a message... {/* This is the default placeholder text */}
         </div>
+        </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <IconButton
             size="small"
-            sx={{ color: iconStyles.color, transform: "rotate(35deg)" }}
-            onClick={onFileAttach}
-          >
-            {icons.attach}
-          </IconButton>
-          <IconButton
-            size="small"
-            sx={{ color: iconStyles.color }}
-            onClick={onEmojiClick}
-          >
-            {icons.emoji}
-          </IconButton>
-          <IconButton
-            size="small"
-            sx={{ color: iconStyles.color }}
+            sx={{ color: iconStyles.color,mr:"10px",ml:"10px" }}
             onClick={onSendClick}
           >
             {icons.send}

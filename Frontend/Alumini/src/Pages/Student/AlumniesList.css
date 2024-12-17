@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    
 }
 .back{
     background-color: #fbfbfb;
@@ -46,7 +47,7 @@
     background-color:#1B4BDADB;
     color: #ffffff;
     border: none;
-
+    cursor: pointer;
 }
 .head-img{
     margin-left: 30%;

@@ -1,0 +1,9 @@
+div[contentEditable]:empty::before {
+    content: attr(data-placeholder); /* Use the placeholder set in `data-placeholder` */
+    color: #bebebe; /* Placeholder text color */
+    font-weight: 400;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    pointer-events: none; /* Make placeholder non-interactive */
+  }
+  

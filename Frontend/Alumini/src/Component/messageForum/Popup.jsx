@@ -36,7 +36,7 @@ function Popup({ open, handleClose }) {
   const [thoughts, setThoughts] = useState("");
   const [image, setImage] = useState(null);
   const {user} = useContext(UserContext)
-  const [domains, setDomains] = useState(["UI & UX", "Data Analysis", "Machine Learning", "Web Development", "Mobile App Develop", "Cloud Computing", "Electrical", "Others"])
+  const [domains, setDomains] = useState(["UI & UX Design", "Data Analysis", "Machine Learning", "Web Development", "Mobile App Develop", "Cloud Computing", "Electrical", "Others"])
 
   const handleSubmit = async () => {
     const postData = {

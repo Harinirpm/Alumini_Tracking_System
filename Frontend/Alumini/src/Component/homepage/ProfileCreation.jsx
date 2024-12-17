@@ -39,7 +39,7 @@ function ProfileCreation({ open, handleClose, id, profileCreated }) {
     const [yearsOfExperience, setYearsOfExperience] = useState('');
     const [linkedin, setLinkedin] = useState('');
     const [phone, setPhone] = useState('');
-
+    const [modify, setModify] = useState(true)
     useEffect(() => {
         if (profileCreated) {
             const fetchProfile = async () => {
@@ -52,8 +52,8 @@ function ProfileCreation({ open, handleClose, id, profileCreated }) {
                     setImage(profile.profile_image_path || null);
                     setDepartment(profile.department || '');
                     setPassedOutYear(profile.passed_out_year || '');
-                    setRole(profile.role || '');
-                    setLocation(profile.location || '');
+                    setRole(profile.title || '');
+                    setLocation(profile.place || '');
                     setCompany(profile.company_name || '');
                     setDescription(profile.job_description || '');
                     setYearsOfExperience(profile.years_of_experience || '');
@@ -183,10 +183,10 @@ function ProfileCreation({ open, handleClose, id, profileCreated }) {
                                                     paddingLeft: '12px',
                                                 }}
                                                 type="file"
-                                                onChange={(e) => setImage(e.target.files[0])}
+                                                onChange={(e) => {setImage(e.target.files[0]); setModify(false)}}
                                             />
                                            
-                                            {image ? (
+                                            {image && modify ? (
                                                 <div style={{ marginTop: '7px' }}>
                                                     <a
                                                         href={`http://localhost:8081/${image.replace(/\\/g, "/")}`} // Display image locally
@@ -248,7 +248,7 @@ function ProfileCreation({ open, handleClose, id, profileCreated }) {
 
                     </Box>
                     <Box sx={{ width: '94%', display: 'flex', justifyContent: 'end' }}>
-                        <Button variant='contained' sx={{ borderRadius: '4px', textTransform: 'none', backgroundColor: '#3B64DF', textAlign: 'right', width: '120px', mt: '20px' }} onClick={() => handleSubmit()}>Post</Button>
+                        <Button variant='contained' sx={{ borderRadius: '4px', textTransform: 'none', backgroundColor: '#3B64DF', textAlign: 'right', width: '120px', mt: '20px' }} onClick={() => handleSubmit()}>{profileCreated ? "Update" : "Create"}</Button>
                     </Box>
                 </Box>
             </Box>

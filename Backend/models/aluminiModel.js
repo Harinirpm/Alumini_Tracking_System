@@ -92,9 +92,15 @@ export const getAluminiFromDB = (email) => {
 
 export const getDetailsFromDB = (id, callback) => {
     const query = `
-        SELECT *
-        FROM alumni_info
-        WHERE user_id = $1
+                  SELECT 
+                alumni_info.*, 
+                mr.title, 
+                ml.place
+            FROM alumni_info
+            LEFT JOIN master_alumni_roles mr ON mr.id =  alumni_info.role
+            LEFT JOIN master_alumni_locations ml ON ml.id =  alumni_info.location
+            WHERE  alumni_info.user_id = $1
+        
     `;
    const values = [id]; // Pass the ID as a parameter
     db.query(query, values, (err, results) => {
@@ -159,5 +165,20 @@ RETURNING *;
         }
 
         callback(null, result); // Returning the result from the query (if needed)
+    });
+};
+
+export const getNameFromDB = (id, callback) => {
+    const query = `
+        SELECT name,profile_image_path
+        FROM alumni_info
+        WHERE user_id = $1
+    `;
+   const values = [id]; // Pass the ID as a parameter
+    db.query(query, values, (err, results) => {
+        if (err) {
+            return callback(err); // Return the error to the callback
+        }
+        callback(null, results); // Return the results to the callback
     });
 };

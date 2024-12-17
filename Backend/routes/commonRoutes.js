@@ -1,12 +1,16 @@
 import express from 'express';
-import { getThreads, addThread, uploadThreadImage } from '../controllers/threadsController.js';
+import { getThreads, addThread, uploadThreadImage, storeLike } from '../controllers/threadsController.js';
 import { getAluminiList, getAlumini, getAlumniRoles, getAlumniLocations } from '../controllers/aluminiController.js';
 import { getJobs, addJobOffer } from '../controllers/jobController.js';
 import { checkConnection, createConnection, getConnections } from '../controllers/connectionController.js';
+import { getNotifications, setNotifications } from '../controllers/notificationController.js';
 
 const router = express.Router();
 
-router.get('/threads', getThreads);
+router.post('/threads/like/:thread_id/:user_id', storeLike)
+router.put('/mark/notifications/:id/:sender_id', setNotifications);
+router.get('/notifications/:id', getNotifications);
+router.get('/threads/:id', getThreads);
 router.get('/alumini/list', getAluminiList)
 router.get('/jobs', getJobs)
 router.post('/create/joboffer', addJobOffer)

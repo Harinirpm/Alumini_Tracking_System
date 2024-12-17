@@ -351,7 +351,7 @@ function Popup({ open, handleClose }) {
               }}
               onClick={() => handleSubmit()}
             >
-              Post
+              Create
             </Button>
           </Box>
         </Box>
