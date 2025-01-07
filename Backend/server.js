@@ -90,39 +90,39 @@ io.on("connection", (socket) => {
         }
     });
 
-    // Event to join a specific room
-    socket.on("join_room", async (roomID) => {
-        try {
-            const now = new Date();
+    // // Event to join a specific room
+    // socket.on("join_room", async (roomID) => {
+    //     try {
+    //         const now = new Date();
 
-            // Fetch the room details
-            const room = await db.query(`SELECT * FROM connection_rooms WHERE room_id = ?`, [roomID]);
-            console.log("HI")
-            if (room.length === 0) {
-                // Room does not exist
-                socket.emit("error", { message: "Room does not exist." });
-            } else if (new Date(room[0].expires_at) < now) {
-                // Room exists but is expired, create a new one
-                const { sender, receiver } = room[0];
-                const newRoomDetails = await createUniqueRoom(sender, receiver);
+    //         // Fetch the room details
+    //         const room = await db.query(`SELECT * FROM connection_rooms WHERE room_id = ?`, [roomID]);
+    //         console.log("HI")
+    //         if (room.length === 0) {
+    //             // Room does not exist
+    //             socket.emit("error", { message: "Room does not exist." });
+    //         } else if (new Date(room[0].expires_at) < now) {
+    //             // Room exists but is expired, create a new one
+    //             const { sender, receiver } = room[0];
+    //             const newRoomDetails = await createUniqueRoom(sender, receiver);
              
-                socket.join(newRoomDetails.room_id);
-                socket.emit("room_expired_new_room", {
-                    message: "The room has expired. A new room has been created.",
-                    newRoomID: newRoomDetails.room_id
-                });
-                console.log(`User ${socket.id} joined new room after expiration: ${newRoomDetails.room_id}`);
-            } else {
-                // Room exists and is active
-                socket.join(roomID);
-                socket.emit("room_joined", { roomID });
-                console.log(`User ${socket.id} joined room: ${roomID}`);
-            }
-        } catch (error) {
-            console.error("Error joining room:", error);
-            socket.emit("error", { message: "Unable to join room." });
-        }
-    });
+    //             socket.join(newRoomDetails.room_id);
+    //             socket.emit("room_expired_new_room", {
+    //                 message: "The room has expired. A new room has been created.",
+    //                 newRoomID: newRoomDetails.room_id
+    //             });
+    //             console.log(`User ${socket.id} joined new room after expiration: ${newRoomDetails.room_id}`);
+    //         } else {
+    //             // Room exists and is active
+    //             socket.join(roomID);
+    //             socket.emit("room_joined", { roomID });
+    //             console.log(`User ${socket.id} joined room: ${roomID}`);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error joining room:", error);
+    //         socket.emit("error", { message: "Unable to join room." });
+    //     }
+    // });
 
     // Event to send a message
     socket.on("send_message", async (data) => {
@@ -165,20 +165,7 @@ io.on("connection", (socket) => {
         }
     });
 
-    /**
-     * Helper function to create or reuse a room
-     * @param {string} sender - Sender's ID
-     * @param {string} receiver - Receiver's ID
-     * @param {string} existingRoomID - Optional existing room ID
-     * @returns {Promise<Object>} - Room details including room_id and DB ID
-     */
-    /**
-  * Helper function to create or reuse a room
-  * @param {string} sender - Sender's ID
-  * @param {string} receiver - Receiver's ID
-  * @param {string} existingRoomID - Optional existing room ID
-  * @returns {Promise<Object>} - Room details including room_id and DB ID
-  */
+
     async function createOrReuseRoom(sender, receiver, existingRoomID = null) {
         const now = new Date();
         console.log({ sender, receiver });
