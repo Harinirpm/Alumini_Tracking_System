@@ -33,6 +33,11 @@
     object-fit: cover;
     border-radius: 50%;
     margin-right: 20px;
+    margin-left: 30px;
+  }
+
+  .job-card{
+    cursor: pointer;
   }
   
   .job-details {
@@ -116,6 +121,7 @@
   .apply-button {
     background-color: #1B4BDADB;
     color: white;
+    margin-right: 30px;
     border: none;
     width: 114px;
     height: 33px;
@@ -180,5 +186,6 @@
     background-color:#1B4BDADB;
     color: #ffffff;
     border: none;
-   margin-left: 452px;
+   margin-left: 460px;
+   cursor: pointer;
   }

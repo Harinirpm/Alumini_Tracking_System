@@ -53,6 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme, inputWidth, textAlign }) => 
 }));
 
 function Searchbar({
+  search, setSearch,
   backgroundColor,
   placeholderText = 'Search…',
   iconColor,
@@ -72,7 +73,7 @@ function Searchbar({
         placeholder={placeholderText}
         sx={sx}
         inputProps={{ 'aria-label': 'search' }}
-        value={value} 
+        value={search} 
         onChange={onChange} 
         inputWidth={inputWidth}
       />

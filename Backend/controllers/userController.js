@@ -1,17 +1,19 @@
 import db from '../models/db.js';
 
 export const loginUser = (req, res) => {
-    const sql = 'SELECT * FROM users WHERE email = ? AND password = ?';
+    const sql = 'SELECT * FROM users WHERE email = $1 AND password = $2';
     const { email, password } = req.body;
 
-    db.query(sql, [email, password], (err, data) => {
+    db.query(sql, [email, password], (err, result) => {
         if (err) {
-            console.log(err);
+            console.error('Error during login:', err);
             return res.json({ Error: "Login error in server" });
         }
-        if (data.length > 0) {
-            req.session.role = data[0]?.role;
-            req.session.email = email; 
+        if (result.rows.length > 0) {
+            req.session.role = result.rows[0]?.role;
+            req.session.email = email;
+            console.log(result.rows[0].id)
+            req.session.userId = result.rows[0]?.id;
             return res.json({ Status: "Success" });
         } else {
             return res.json({ Error: "No such user existed" });
@@ -19,16 +21,13 @@ export const loginUser = (req, res) => {
     });
 };
 
-
 export const checkSession = (req, res) => {
     if (req.session.role && req.session.email) {
-        return res.json({ valid: true, role: req.session.role, email: req.session.email });
+        return res.json({ valid: true, role: req.session.role, email: req.session.email, id: req.session.userId });
     } else {
         return res.json({ valid: false });
     }
 };
-
-
 
 export const logoutUser = (req, res) => {
     req.session.destroy((err) => {

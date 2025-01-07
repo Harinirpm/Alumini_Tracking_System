@@ -1,21 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AlumniProfile.css";
 import Avatar2 from "../../assets/avatar2.jpeg";
 import Img1 from '../../assets/alumini2.png'
 import Img from '../../assets/alumini.png'
 import { Button } from "@mui/material";
-
+import { UserContext } from "../../UserContext";
+import { useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AlumniProfile({ alumnusData }) {
+  const { user } = useContext(UserContext);
+  const [Connected, setConnected] = useState(false)
+  const navigate = useNavigate()
+  
+  useEffect(() => {
+       const checkConnection = async () => {
+        try{
+          const response = await axios.get(`http://localhost:8081/checkConnection/${user.email}/${alumnusData.user_id}`)
+          if(response.data.length > 0) setConnected(true)
+          
+
+        }catch (error){
+          console.error('Error: ', error)
+        }
+       }
+       checkConnection()
+  }, [alumnusData])
+
+  const handleClick = async () => {
+    try {
+      if (!Connected) {
+        const response = await axios.put(`http://localhost:8081/createConnection/${user.email}/${alumnusData.user_id}`);
+
+        if (response.data.message==="Connection created.") {
+          setConnected(true);
+        } else {
+          console.error("Connection not created");
+        }
+      }
+      if(Connected) navigate('/chatting')
+    } catch (error) {
+      console.error("Error creating connection:", error);
+    }
+  };
+  
 
   return (
     <div className="alumni-container">
       <div className="alumni-profile">
-        <img src={alumnusData.profile_image_path ? `http://localhost:8081/uploads/${alumnusData.profile_image_path.replace(/\\/g, "/")}` :  Img } alt={alumnusData.name} className="avatar" />
+        <img src={alumnusData.profile_image_path ? `http://localhost:8081/${alumnusData.profile_image_path.replace(/\\/g, "/")}` :  Img } alt={alumnusData.name} className="avatar" />
         <h3 className="alumni-name">{alumnusData.name}</h3>
         
             <p className="alumni-status1">
-            <strong >Role:</strong> <span>{alumnusData.role}</span>
+            <strong >Role:</strong> <span>{alumnusData.role_title}</span>
           </p>
           <p className="alumni-status1">
             <strong >Phone:</strong> <span>{alumnusData.phone_number}</span>
@@ -43,8 +81,8 @@ function AlumniProfile({ alumnusData }) {
           </p>         
       </div>
       <div className="alumni-basic-info">
-      <div className="box">
-          <button className="button1">Connect</button>
+      <div className="boxAlumni">
+         {user.id!=alumnusData.user_id && <button className="button1" onClick={() => handleClick()}>{Connected ? "Message" :"Connect"}</button> }
           </div>
       <p>
           <strong>Department:</strong> <span>{alumnusData.department}</span>
@@ -60,6 +98,9 @@ function AlumniProfile({ alumnusData }) {
         </p>
         <p className="alumni-status">
             <strong>Email:</strong> <span>{alumnusData.email}</span>
+          </p>
+          <p className="alumni-status">
+            <strong>Location:</strong> <span>{alumnusData.location}</span>
           </p>
       </div>
     </div>

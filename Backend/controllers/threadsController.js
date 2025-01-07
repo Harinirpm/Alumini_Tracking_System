@@ -1,4 +1,4 @@
-import { getThreadsFromDB, addThreadToDB } from '../models/threadsModel.js';
+import { getThreadsFromDB, addThreadToDB,storeLikeInDB } from '../models/threadsModel.js';
 import multer from 'multer';
 import path from 'path';
 
@@ -16,7 +16,8 @@ const upload = multer({ storage: storage });
 export const uploadThreadImage = upload.single('image'); 
 
 export const getThreads = (req, res) => {
-    getThreadsFromDB((err, results) => {
+    const {id} = req.params
+    getThreadsFromDB(id, (err, results) => {
         if (err) {
             console.error('Error fetching threads:', err);
             res.status(500).json({ error: 'Failed to fetch threads from the database.' });
@@ -46,5 +47,17 @@ export const addThread = (req, res) => {
         }
 
         res.status(200).json({ message: 'Thread posted successfully!', threadId: results.insertId });
+    });
+};
+
+export const storeLike = (req, res) => {
+    const {thread_id, user_id} = req.params
+    storeLikeInDB(thread_id,user_id,(err, results) => {
+        if (err) {
+            console.error('Error fetching threads:', err);
+            res.status(500).json({ error: 'Failed to fetch threads from the database.' });
+        } else {
+            res.status(200).json( results );
+        }
     });
 };

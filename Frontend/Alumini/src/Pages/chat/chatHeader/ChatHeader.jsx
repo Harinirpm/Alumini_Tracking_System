@@ -7,7 +7,8 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 import Avatar2 from "../../../assets/avatar2.jpeg";
 import Divider from "@mui/material/Divider";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-
+import Img1 from '../../../assets/blankProfile.png'
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
 const IconWithText = ({ icon, text }) => {
   return (
@@ -39,7 +40,8 @@ const GroupAvatars = () => {
   );
 };
 
-const ChatHeader = () => {
+const ChatHeader = ({sender, img, setSelectedProfile}) => {
+  const handleClick = ( ) => { setSelectedProfile(null)}
   return (
     <Box>
       <Box
@@ -48,11 +50,13 @@ const ChatHeader = () => {
         alignItems="center"
         sx={{ width: "100%", padding: "10px" }}
       >
-        <Box sx={{ ml: "10px" }}>
-          <IconWithText icon={<ChatBubbleOutlineIcon />} text="Conversation" />
+        <Box sx={{ ml: "5px", display:'flex', alignItems:'center' }}>
+        <KeyboardBackspaceOutlinedIcon sx={{fontSize: "28px", mr:"8px", cursor:"pointer"}} onClick={() => handleClick()} />
+        <Avatar alt="Profile Image" src={img ?  `http://localhost:8081/${img.replace(/\\/g, "/")}`: Img1} sx={{ mr: "10px" }} />
+     {sender}
         </Box>
         <Box sx={{ mr: "20px" }}>
-          <GroupAvatars />
+       <ChatBubbleOutlineIcon />
         </Box>
       </Box>
       <Divider sx={{ width: "100%", height: "1px", mt: 0 }} />
