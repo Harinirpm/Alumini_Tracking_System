@@ -5,53 +5,41 @@
     margin: 0;
     display: flex;
     gap: 20px;
-    justify-content: center;
-    align-items: center;
     font-family: 'Poppins', sans-serif;
-    /* background-color: #eef2f6; */
-    background-color: #fbfbfb;
+    background-color: #ffffff;
 }
 
-.login-container{
+.login-container-left{
+    height: 100vh;
+    width: 45em;
+    background-color: #ffffff;
+}
+
+.login .welcome{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 98vh;
-    width: 100%;
+    flex-direction: row;
+    position: relative;
+    background-color: #ffffff;
 }
-
+form {
+    background-color: #ffffff;
+}
 .login-form {   
     width: 440px;  
-    height: 380px;  
+    height: 45%;  
     display: flex;  
     flex-direction: column;  
-    padding: 20px;  
+    padding: 90px;  
     justify-content: center;   
-    border-radius: 10px;  
-    background-color: white;  
-    box-shadow:   
-        0px 2px 3px 0px #0000000A,  
-        0px 6px 6px 0px #00000017,  
-        0px 14px 8px 0px #0000000D,  
-        0px 25px 10px 0px #00000003,  
-        0px 39px 11px 0px #00000000; 
-        /* box-shadow: -1px 2px 5px 0px #00000000,
-                    -5px 8px 9px 0px #00000005,
-                    -12px 18px 13px 0px #00000000; */
-         
+    border-radius: 10px; 
+    background-color: #ffffff; 
+    
 }
 
 .login-header {
     text-align: center;
     width: 100%; 
-}
-
-.login-header h1 {
-    color: #161439;
-    font-size: 26px;
-    font-weight: 600;
-    font-style: normal;
-    margin-bottom: 10px;
+    background-color: #ffffff;
 }
 
 .login-header h2 {
@@ -59,39 +47,83 @@
     color: #161439;
     font-weight: 600;
     font-style: normal;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
     
 }
-
+.login-header .para{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+}
 .input-container {
     width: 100%; 
     margin-bottom: 15px;
+    background-color: #ffffff;
+}
+.input-container input{
+    width: 22.75em;
+    height: 3.25em;
+    border: none;
+    background-color: "#F0EDFFCC";
+    border-radius: 16px;
+    margin-left: 10px;
+    margin-top: 3px;
+}
+.input-container input:focus {
+   border: none;
+    outline: none;
+    box-shadow: none;
+}
+.input-container input::placeholder{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
 }
 
-.input-container input {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-left: 10px;
+.icon {
+  position: absolute;
+  left: 10px;
+  font-size: 16px;
+  color: #888;
+}
+.input-container .input-wrapper{
+    width: 22.75em;
+    height: 3.25em;
+    border: none;
+    background-color: "#F0EDFFCC";
+    border-radius: 16px;
+    margin-left: 2.67em;
+    display: flex;
+    justify-content: center;
 }
 
 .login-button, .google-signin {
-    width: 95%;
-    padding: 10px;
+    width: 22.75em;
+    height: 3.25em;
     font-size: 16px;
+    font-weight: 700;
     background-color: #1B4BDADB;
     color: white;
     border: none;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 16px;
     cursor: pointer;
     margin-bottom: 10px;
     margin-left: 10px;
+    box-shadow:   
+    0px 2px 3px 0px #0000000A,  
+    0px 6px 6px 0px #00000017,  
+    0px 14px 8px 0px #0000000D,  
+    0px 25px 10px 0px #00000003,  
+    0px 39px 11px 0px #00000000;
 }
 
 .google-signin {
-    background-color: #f8fafc;
+    background-color: #ffffff;
     color: #050505;
     border: 1px solid #ccc;
     display: flex;
@@ -103,4 +135,50 @@
     width: 20px;
     height: auto;
     margin-right: 10px;
+}
+.loginWithOthers p{
+    font-size: 11px;
+    background-color: #ffffff;
+    color: #505050;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.loginWithOthers p::before,
+.loginWithOthers p::after {
+    content: "";
+    width: 100px;
+    height: 1px; 
+    background-color:  rgb(243, 243, 243);
+}
+
+.loginWithOthers p::before {
+    margin-right: 10px; 
+}
+
+.loginWithOthers p::after {
+    margin-left: 10px; 
+}
+.login-with-google{
+    width: 30em;
+    height: 3.95em;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #ffffff;
+    color: rgb(56, 53, 53);
+    border: 1px solid rgb(243, 243, 243);
+    font-weight: 600;
+    border-radius: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left: 3.70em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container-right{
+    background-color: #050505;
 }
