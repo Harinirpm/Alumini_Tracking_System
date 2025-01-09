@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-.login{
+.signup{
     height: 100%;
     margin: 0;
     display: flex;
@@ -9,25 +9,24 @@
     background-color: #ffffff;
 }
 
-.login-container-left{
+.signup-container-left{
     height: 100vh;
     width: 47em;
     background-color: #ffffff;
-    margin-left: 10px;
 }
 
-.login .welcome{
+.signup .welcome{
     display: flex;
     flex-direction: row;
     position: relative;
     background-color: #ffffff;
 }
-form {
+.signup form {
     background-color: #ffffff;
 }
-.login-form {   
+.signup-form {   
     width: 440px;  
-    height: 45%;  
+    height: 50%;  
     display: flex;  
     flex-direction: column;  
     padding: 90px;  
@@ -37,35 +36,35 @@ form {
     
 }
 
-.login-header {
+.signup-header {
     text-align: center;
     width: 100%; 
     background-color: #ffffff;
 }
 
-.login-header h2 {
+.signup-header h2 {
     font-size: 20px;
     color: #161439;
     font-weight: 600;
     font-style: normal;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     margin-bottom: 10px;
     background-color: #ffffff;
     
 }
-.login-header .para{
+.signup-header .para{
     font-size: 14px;
     font-weight: 400;
     line-height: 24px;
     margin-bottom: 20px;
     background-color: #ffffff;
 }
-.input-container {
+.signup-header .input-container-signup {
     width: 100%; 
     margin-bottom: 15px;
     background-color: #ffffff;
 }
-.input-container input{
+.input-container-signup input{
     width: 22.75em;
     height: 3.25em;
     border: none;
@@ -74,24 +73,64 @@ form {
     margin-left: 10px;
     margin-top: 3px;
 }
-.input-container input:focus {
+.input-container-signup input:focus {
    border: none;
     outline: none;
     box-shadow: none;
 }
-.input-container input::placeholder{
+.input-container-signup input::placeholder{
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
 }
-
+.dropdown-container{
+    background-color: #ffffff;
+    margin-left: 40px;
+    margin-bottom: 70px;
+}
+.dropdown-container .input-wrapper{
+    width: 22.75em;
+    height: 3.25em;
+    border: none;
+    background-color: "#F0EDFFCC";
+    border-radius: 16px;
+    
+    margin-top: 3px;
+}
+.dropdown-container select{
+    width: 22.75em;
+    height: 3.25em;
+    border: none;
+    background-color: "#F0EDFFCC";
+    border-radius: 16px;
+    margin-left: 10px;
+    margin-top: 3px;
+    /* appearance: none; */
+    cursor: pointer;
+    
+}
+.dropdown-select option{
+    font-size: 18px;
+    padding: 12px;
+    background-color: #ffffffcc; 
+    color: #000d58; 
+    border-radius: 8px;
+}
+.dropdown-select option:hover {
+    background-color: #E0D7FF;
+}
+.dropdown-container select:focus {
+    border: none;
+     outline: none;
+     box-shadow: none;
+ }
 .icon {
   position: absolute;
   left: 10px;
   font-size: 16px;
   color: #888;
 }
-.input-container .input-wrapper{
+.input-container-signup .input-wrapper{
     width: 22.75em;
     height: 3.25em;
     border: none;
@@ -102,18 +141,18 @@ form {
     justify-content: center;
 }
 
-.login-button, .google-signin {
-    width: 22.75em;
-    height: 3.25em;
+.login-button {
+    width: 10em;
+    height: 2.25em;
     font-size: 16px;
     font-weight: 700;
-    background-color: #1B4BDADB;
+    background-image: linear-gradient(to right,#984dfa, #1B4BDADB); 
     color: white;
     border: none;
     font-weight: 600;
     border-radius: 16px;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-left: 10px;
     box-shadow:   
     0px 2px 3px 0px #0000000A,  
@@ -123,20 +162,6 @@ form {
     0px 39px 11px 0px #00000000;
 }
 
-.google-signin {
-    background-color: #ffffff;
-    color: #050505;
-    border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.google-signin img {
-    width: 20px;
-    height: auto;
-    margin-right: 10px;
-}
 .loginWithOthers p{
     font-size: 11px;
     background-color: #ffffff;
@@ -162,11 +187,15 @@ form {
 .loginWithOthers p::after {
     margin-left: 10px; 
 }
-.login-with-google{
+
+.signUp-container-right{
+    background-color: #ffffff;
+}
+.signUp-with-google{
     width: 30em;
     height: 3.95em;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 100;
     background-color: #ffffff;
     color: rgb(56, 53, 53);
     border: 1px solid rgb(243, 243, 243);
@@ -178,8 +207,4 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.login-container-right{
-    background-color: #ffffff;
 }

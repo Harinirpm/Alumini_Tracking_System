@@ -15,6 +15,7 @@ import MessageForum from './pages/MessageForum'
 import ProtectedRoute from './ProtectedRoute'
 import axios from 'axios'
 import { UserContext } from './UserContext'
+import SignUp from './SignUp'
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -28,12 +29,12 @@ function App() {
           .then(res => {
               if (res.data.valid) {
                   setUser({ email: res.data.email, role: res.data.role });
-              } else {
+              } else if(location.pathname !== '/login'){ //check if user is in same page or not.
                   navigate('/login');
               }
           })
           .catch(err => console.log(err));
-  }, [navigate, setUser]);
+  }, [navigate, setUser,location.pathname]);
 
   const handleLogout = () => {
     axios.get('http://localhost:8081/log/logout')
@@ -49,6 +50,7 @@ function App() {
   return (
     <>
       <div className='App'>
+     
       {user && (user.role) && (<>
         <Sidebar  handleLogout={handleLogout} />
         <Horizantalbar />
@@ -57,6 +59,7 @@ function App() {
         
         <Routes>
         <Route path='/login' element={<Login />} />
+        <Route path='/signUp' element={<SignUp />} />
         <Route element={<ProtectedRoute allowedRoles={['alumni', 'student', 'staff']} />}>
         <Route path="/" element={<AluminiesList />} />
           <Route path='alumni-profile' element={<AlumniProfile />} />
@@ -67,6 +70,7 @@ function App() {
           </Route>
         </Routes>
         </div>
+       
       </div>
       
     </>

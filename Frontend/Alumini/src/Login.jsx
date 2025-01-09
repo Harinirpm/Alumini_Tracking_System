@@ -10,11 +10,14 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import Gimg from "./assets/Gimg.png";
 import RightContainer from "./assets/rightContainer.jpg";
+import SignUp from "./SignUp";
 function Login() {
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
+  const [openSignUp, setOpenSignUp] = useState(false);
+
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -49,7 +52,14 @@ function Login() {
       .catch((err) => console.log(err));
   };
 
+  const redirectToSignUp = () => {
+    setOpenSignUp(true);
+    // navigate("/signUp");
+  }
+
   return (
+    <>
+    {!openSignUp ? (
     <div className="login">
       <div className="login-container-left">
         <div className="welcome">
@@ -141,6 +151,7 @@ function Login() {
               <button type="submit" className="login-button">
                 Login Now
               </button>
+            </form>
               <div className="loginWithOthers">
                 <p>Login with Others</p>
               </div>
@@ -157,10 +168,9 @@ function Login() {
                 />
                 Sign with google
               </button>
-              <button className="login-with-google">
-                Don't have an Account ? <a href="#">Sign Up</a>
+              <button type='button' onClick={redirectToSignUp} className="login-with-google">
+                Don't have an Account ? <Link>Sign Up</Link>
               </button>
-            </form>
           </div>
         </div>
       </div>
@@ -169,11 +179,17 @@ function Login() {
           src={RightContainer}
           style={{
             height: "100vh",
-            width: "50em",
+            width: "46em",
           }}
         />
       </div>
     </div>
+  ) :(
+    <SignUp 
+    openSignUp={setOpenSignUp}
+    />
+  )} 
+  </>
   );
 }
 
