@@ -5,7 +5,7 @@ import AluminiesList from './pages/Student/AlumniesList'
 import './App.css'
 import { useEffect } from 'react'
 import { useContext } from 'react'
-import Login from './Login'
+import Login from './authentication/Login'
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 import InternshipLists from './Pages/Student/InternshipLists'
 import ChatProfiles from './Pages/chat/ChatProfiles'
@@ -31,7 +31,7 @@ function App() {
               if (res.data.valid) {
                   setUser({ email: res.data.email, role: res.data.role, id: res.data.id });
               } else {
-                  navigate('/login');
+                  navigate('/');
               }
           })
           .catch(err => console.log(err));
@@ -42,7 +42,7 @@ function App() {
         .then(res => {
             if (res.data.message) {
                 setUser(null);
-                navigate('/login');
+                navigate('/');
             }
         })
         .catch(err => console.log(err));
@@ -52,16 +52,16 @@ function App() {
   return (
     <>
       <div className='App'>
-      {user && (user.role) && (<>
+      {user && (user.role ) && (<>
         <Sidebar  handleLogout={handleLogout} filteredAlumniData={filteredAlumniData} setFilteredAlumniData={setFilteredAlumniData} alumniData={alumniData} setAlumniData={setAlumniData} />
         <Horizantalbar filteredAlumniData={filteredAlumniData} setFilteredAlumniData={setFilteredAlumniData} alumniData={alumniData} setAlumniData={setAlumniData} />
         </>)}
-        <div className={user?'app':'App'} style={{backgroundColor:""}}>
+        <div className={user ?'app':'App'} style={{backgroundColor:""}}>
         
         <Routes>
-        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Login />} />
         <Route element={<ProtectedRoute allowedRoles={['alumni', 'student', 'staff']} />}>
-        <Route path="/" element={<AluminiesList filteredAlumniData={filteredAlumniData} />} />
+        <Route path="/home" element={<AluminiesList filteredAlumniData={filteredAlumniData} />} />
           <Route path="/internship-lists" element={<InternshipLists />} />
           <Route path='/chatting' element={<ChatProfiles />} />
           <Route path="/message-forum" element={<MessageForum />} />

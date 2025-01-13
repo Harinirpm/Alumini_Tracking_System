@@ -171,7 +171,7 @@ function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, 
         </Box>
       </div>
       <div className="nav-icons">
-        <Link to="/">
+        <Link to="/home">
           <Box onClick={() => handleIconClick('grid')}>
             <img src={activeIcon === 'grid' ? DashSel : Dash} height="26px" />
           </Box>
