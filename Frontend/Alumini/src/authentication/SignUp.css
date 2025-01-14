@@ -8,11 +8,14 @@
     font-family: 'Poppins', sans-serif;
     background-color: #ffffff;
     overflow-y: hidden;
+    
 }
 
 .signup-container-left{
     height: 100%;
     width: 51em;
+    margin-left: 65px;
+    margin-top: 30px;
     background-color: #ffffff;
 }
 
@@ -48,8 +51,8 @@
     color: #161439;
     font-weight: 700;
     font-style: normal;
-    /* margin-top: 20px; */
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
     background-color: #ffffff;
     
 }
@@ -57,7 +60,8 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
-    margin-bottom: 20px;
+    margin-top: 12px;
+    margin-bottom: 30px;
     background-color: #ffffff;
 }
 .signup-header .input-container-signup {
@@ -88,7 +92,7 @@
 .dropdown-container{
     background-color: #ffffff;
     margin-left: 40px;
-    margin-bottom: 70px;
+    margin-bottom: 30px;
 }
 .dropdown-container .input-wrapper{
     width: 22.75em;
@@ -96,8 +100,8 @@
     border: none;
     background-color: "#F0EDFFCC";
     border-radius: 16px;
-    
-    margin-top: 3px;
+    margin-left: 30px;
+    margin-top: 30px;
 }
 .dropdown-container select{
     width: 22.75em;
@@ -155,7 +159,8 @@
     border-radius: 16px;
     cursor: pointer;
     margin-bottom: 20px;
-    margin-left: 10px;
+    margin-left: 0px;
+    margin-top: 25px;
     box-shadow:   
     0px 2px 3px 0px #0000000A,  
     0px 6px 6px 0px #00000017,  
@@ -205,7 +210,7 @@
     border-radius: 16px;
     cursor: pointer;
     margin-bottom: 10px;
-    margin-left: 3.70em;
+    margin-left: 1.0em;
     display: flex;
     justify-content: center;
     align-items: center;

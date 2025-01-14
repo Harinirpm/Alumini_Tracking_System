@@ -15,7 +15,7 @@
     overflow-y: hidden;
     width: 51em;
     background-color: #ffffff;
-    margin-left: 30px;
+    margin-left: 50px;
     margin-top: 30px;
 }
 
@@ -24,6 +24,7 @@
     flex-direction: row;
     position: relative;
     background-color: #ffffff;
+    margin-bottom: 40px;
 }
 form {
     background-color: #ffffff;
@@ -143,7 +144,7 @@ form {
     border-radius: 16px;
     margin-top: 30px;
     margin-left: 68px;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
     border: none;
     display: flex;
     justify-content: center;

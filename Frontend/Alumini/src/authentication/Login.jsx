@@ -195,7 +195,7 @@ function Login() {
         />
       </div>
     </div>
-  ): <OtpPage email={values.email} /> :(
+  ): <OtpPage email={values.email} password={values.password} /> :(
     <SignUp 
     openSignUp={setOpenSignUp}
     />
