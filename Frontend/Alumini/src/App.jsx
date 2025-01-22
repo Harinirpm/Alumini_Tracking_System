@@ -5,7 +5,6 @@ import AluminiesList from './pages/Student/AlumniesList';
 import { useEffect, useState, useContext } from 'react';
 import Login from './authentication/Login';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import InternshipLists from './Pages/Student/InternshipLists';
 import ChatProfiles from './Pages/chat/ChatProfiles';
 import CommonForum from './Pages/CommonForum/CommonForum';
 import MessageForum from './pages/MessageForum';
@@ -20,7 +19,7 @@ import JobListPage from './admin/JobListPage';
 import ThreadListPage from './admin/ThreadListPage';
 import AlumniListPage from './admin/AlumniListPage';
 import Report from './Component/report/Report';
-
+import InternshipLists from './pages/internship/InternshipLists';
 
 
 function App() {

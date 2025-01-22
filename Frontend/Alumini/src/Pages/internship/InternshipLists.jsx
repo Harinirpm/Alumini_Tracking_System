@@ -16,8 +16,8 @@ import CashBag from '../../assets/cashbag.png'
 import Location from '../../assets/location.png'
 import { useContext } from 'react';
 import { UserContext } from '../../UserContext';
-import JobInfo from './JobInfo';
-import Popup from './Popup';
+import JobInfo from '../Student/JobInfo';
+import Popup from '../Student/Popup';
 
 const companyLogos = {  
   "Zoho": Zoho,  
