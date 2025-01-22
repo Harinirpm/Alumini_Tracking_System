@@ -2,18 +2,34 @@ import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import AlumniProfileForm from "./AlumniProfileCreation";
+import './OtpPage.css';
 
 function OtpPage({ email, alumini = false, password }) {
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState(Array(4).fill(""));
   const [error, setError] = useState("");
   const [timeLeft, setTimeLeft] = useState(30); // Initialize the countdown to 30 seconds
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  console.log(email)
+
+  const handleChange = (e, index) => {
+    const value = e.target.value.slice(0, 1);
+    const updatedOtp = [...otp];
+    updatedOtp[index] = value;
+    setOtp(updatedOtp);
+
+    // Automatically focus on the next input
+    if (value && index < otp.length - 1) {
+      document.getElementById(`otp-${index + 1}`).focus();
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(email)
-
+    console.log(email);
+     if(!alumini){
     axios
       .post("http://localhost:8081/log/login", { email, password }) // Ensure email is sent as an object
       .then((res) => {
@@ -25,6 +41,23 @@ function OtpPage({ email, alumini = false, password }) {
         }
       })
       .catch((err) => console.error(err));
+    }
+    else{
+      axios
+      .post("http://localhost:8081/log/get-otp", {email })
+      .then((res) => {
+        if(res.data.message === "User Exists Already" ){
+          setError("Email Already exists" )
+        }
+        else if (res.data.Status === "OTP sent") {
+          setOpen(true)
+          console.log("Hi1")
+        } else {
+          alert(res.data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
+    }
   };
 
   useEffect(() => {
@@ -38,54 +71,78 @@ function OtpPage({ email, alumini = false, password }) {
 
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
-
+    const otpString = otp.join("");
     try {
       const response = await axios.post(
         alumini ? "http://localhost:8081/log/verify-alumini-otp" : "http://localhost:8081/log/verify-otp",
-        { email, otp }
+        { email, otp: otpString }
       );
-
+      if (alumini) {
+        setOpen(true);
+        return;
+      }
       if (response.data.Status === "Success") {
         setUser({ otp_verified: true });
-        navigate("/home"); // Redirect to home page
+        navigate("/home"); 
       } else {
         setUser({});
         setError(response.data.message || "Invalid OTP. Please try again.");
       }
     } catch (err) {
       console.error(err);
-      setError("An error occurred while verifying OTP.");
+      setError("Invalid OTP. Please try again.");
     }
   };
 
   return (
-    <div className="otp-page">
-      <h2>Verify OTP</h2>
-      <p>Enter the OTP sent to your email: <strong>{email}</strong></p>
-      {timeLeft > 0 ? (
-        <p>Time remaining: {timeLeft} seconds</p>
+    <>
+    <div className="body">
+      {!open ? (
+        <div className="otp-page">
+          <h2>Verify OTP</h2>
+          <p>Enter the verification code we just sent to your E-mail</p>
+          {timeLeft > 0 ? (
+        <p>Time remaining: {timeLeft}s</p>
       ) : (
         <p className="error-message">OTP expired. Please request a new one.</p>
       )}
-      <form onSubmit={handleOtpSubmit}>
-        <input
-          type="text"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          placeholder="Enter OTP"
-          maxLength={6}
-          required
-          disabled={timeLeft === 0} // Disable input if OTP has expired
-        />
+       <div className="otp-inputs">
+        {otp.map((digit, index) => (
+          <input
+            key={index}
+            id={`otp-${index}`}
+            type="text"
+            maxLength="1"
+            value={digit}
+            onChange={(e) => handleChange(e, index)}
+            disabled={timeLeft === 0}
+          />
+        ))}
+      </div>
+      <form onSubmit={handleOtpSubmit} className="otp">
         <button type="submit" disabled={timeLeft === 0}>
-          Verify OTP
+          Verify
         </button>
       </form>
-      <button onClick={handleSubmit} disabled={timeLeft > 0}>
-        Resend OTP
-      </button>
+      <p>
+        Didn’t receive code?
+        <a
+         
+          className="resend-btn"
+          onClick={handleSubmit}
+          disabled={timeLeft > 0}
+        >
+          Resend
+        </a>
+      </p>
       {error && <p className="error-message">{error}</p>}
-    </div>
+        </div>
+      ) : (
+        <AlumniProfileForm email={email} />
+      )
+      }
+      </div>
+    </>
   );
 }
 

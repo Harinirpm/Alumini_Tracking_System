@@ -5,8 +5,10 @@ const otpCache = {};
 
 export const loginUser = (req, res) => {
     console.log("loginuser")
-    const sql = 'SELECT * FROM users WHERE email = $1 AND password = $2';
+    let sql = 'SELECT * FROM users WHERE email = $1 AND password = $2';
     const { email, password } = req.body;
+
+    if(email && password){
 
     db.query(sql, [email, password], (err, result) => {
         if (err) {
@@ -25,6 +27,28 @@ export const loginUser = (req, res) => {
             return res.json({ Error: "No such user existed" });
         }
     });
+}
+else{
+    sql = 'SELECT * FROM users WHERE email = $1';
+    console.log(email)
+    db.query(sql, [email], (err, result) => {
+        if (err) {
+            console.error('Error during login:', err);
+            return res.json({ Error: "Login error in server" });
+        }
+        if (result.rows.length > 0) {
+            const otp = generateOTP(); // Generate a 4-digit OTP
+            otpCache[email.trim().toLowerCase()] = { otp, expiresAt: Date.now() + 30000 };
+
+            sendOTP(email, otp); // Send OTP to the user's email
+            console.log(`OTP sent to ${email}:`, otp);
+
+            return res.json({ Status: "OTP sent", email });
+        } else {
+            return res.json({ Error: "No such user existed" });
+        }
+    });
+}
 };
 
 export const checkSession = (req, res) => {

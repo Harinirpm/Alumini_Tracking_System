@@ -16,7 +16,7 @@
     width: 51em;
     background-color: #ffffff;
     margin-left: 50px;
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .login .welcome{
@@ -52,7 +52,7 @@ form {
     color: #161439;
     font-weight: 700;
     font-style: normal;
-    margin-top: 25px;
+    margin-top: 15px;
     margin-bottom: 10px;
     background-color: #ffffff;
     
@@ -64,6 +64,16 @@ form {
     margin-top: 15px;
     margin-bottom: 35px;
     color: #525252;
+    background-color: #ffffff;
+}
+
+.login-header .para1{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: 15px;
+
+    color: #333232;
     background-color: #ffffff;
 }
 .input-container {

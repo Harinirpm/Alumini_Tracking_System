@@ -1,6 +1,7 @@
 .app{
     margin-left: 20%;
     margin-top: 80px;
+ 
    
     /* background-color: rgb(252, 252, 252); */
 }
@@ -9,7 +10,21 @@
     background-color: #fbfbfb;
     height:'100vh';
     font-family: 'Poppins';
+ 
     /* margin: 0;
     padding: 0; */
+}
+
+.app1{
+    width: 100%;
+    background-color: #fbfbfb;
+    font-family: 'Poppins';
+   
+    /* background-color: rgb(252, 252, 252); */
+}
+
+.admin{
+    display: flex;
+    
 }
 

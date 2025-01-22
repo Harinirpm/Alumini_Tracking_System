@@ -52,8 +52,8 @@ function ProfileCreation({ open, handleClose, id, profileCreated }) {
                     setImage(profile.profile_image_path || null);
                     setDepartment(profile.department || '');
                     setPassedOutYear(profile.passed_out_year || '');
-                    setRole(profile.title || '');
-                    setLocation(profile.place || '');
+                    setRole(profile.role || '');
+                    setLocation(profile.location || '');
                     setCompany(profile.company_name || '');
                     setDescription(profile.job_description || '');
                     setYearsOfExperience(profile.years_of_experience || '');

@@ -5,6 +5,7 @@ import commonRoutes from './routes/commonRoutes.js'
 import userRoutes from './routes/userRoutes.js';
 import sessionMiddleware from './middlewares/session.js';
 import aluminiRoutes from './routes/aluminiRoutes.js'
+import adminRoutes from './routes/adminRoutes.js'
 import cookieParser from 'cookie-parser';
 import fs from 'fs';
 import path from 'path';
@@ -40,6 +41,7 @@ if (!fs.existsSync(dir)) {
 
 app.use('/log', userRoutes);
 app.use('/alumini', aluminiRoutes)
+app.use('/admin', adminRoutes)
 app.use('/', commonRoutes);
 
 const server = http.createServer(app)

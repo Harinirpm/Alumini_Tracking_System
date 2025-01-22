@@ -1,6 +1,6 @@
 // SignUp.js
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./SignUp.css";
 import { Typography } from "@mui/material";
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -10,8 +10,12 @@ import { FaRegUser } from "react-icons/fa6";
 import SignUpNext from "./SignUpNext";
 import OtpPage from "./OtpPage";
 import axios from "axios";
+import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import { Box } from "@mui/material";
 
-function SignUp({openSignUp}) {
+function SignUp({ openSignUp }) {
   const [values, setValues] = useState({
     userName: "",
     email: "",
@@ -19,9 +23,9 @@ function SignUp({openSignUp}) {
   });
   const navigate = useNavigate();
   const [warning, setWarning] = useState(null)
-   const [openOTP, setOpenOTP] = useState(false)
-  const [selectedRole, setSelectedRole]=useState('');
-  const [openSignUpNext, setOpenSignUpNext] =useState(false);
+  const [openOTP, setOpenOTP] = useState(false)
+  const [selectedRole, setSelectedRole] = useState('');
+  const [openSignUpNext, setOpenSignUpNext] = useState(false);
   //handling role here
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
@@ -35,10 +39,10 @@ function SignUp({openSignUp}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:8081/log/get-otp", {email :values.email})
+      .post("http://localhost:8081/log/get-otp", { email: values.email })
       .then((res) => {
-        if(res.data.message === "User Exists Already" ){
-          setWarning("Email Already exists" )
+        if (res.data.message === "User Exists Already") {
+          setWarning("Email Already exists")
         }
         else if (res.data.Status === "OTP sent") {
           setOpenOTP(true)
@@ -56,33 +60,38 @@ function SignUp({openSignUp}) {
 
   return (
     <>
-    {!openSignUpNext ? !openOTP ? (
-    <div className="signup">
-      <div className="signup-container-left">
-        <div className="welcome">
-          <Typography
-            sx={{
-              fontSize: "30px",
-              fontWeight: 700,
-              fontFamily: "Poppins",
-              padding: "30px",
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "white",
-               marginTop: "20px"
-            }}
-          >
-            WELCOME!!
-          </Typography>
-        </div>
-        <div className="signup-form">
-          <div className="signup-header">
-            <h2>SIGN UP</h2>
-            <p className="para">
-            Together, we grow stronger — sign up and connect.
-            </p>
-            <form onSubmit={handleSubmit}>
-            {/* <div className="input-container">
+      {!openSignUpNext ? !openOTP ? (
+        <div className="signup">
+          <div className="signup-container-left">
+            <div className="welcome">
+              <Typography
+                sx={{
+                  fontSize: "30px",
+                  fontWeight: 700,
+                  fontFamily: "Poppins",
+                  padding: "30px",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "white",
+                  marginTop: "20px"
+                }}
+              >
+                WELCOME!!
+              </Typography>
+            </div>
+            <div className="signup-form">
+              <div className="signup-header">
+                <h2>SIGN UP</h2>
+                <h2>ALUMNI TRACKING SYSTEM</h2>
+
+                <p className="para1">
+                  BANNARI AMMAN INSTITUTE OF TECHNOLOGY
+                </p>
+                <p className="para">
+                  Together, we grow stronger — sign up and connect.
+                </p>
+                <form onSubmit={handleSubmit}>
+                  {/* <div className="input-container">
                 <div className="input-wrapper">
                   <FaRegUser
                     style={{
@@ -102,28 +111,28 @@ function SignUp({openSignUp}) {
                   />
                 </div>
               </div> */}
-              <div className="input-container">
-                <div className="input-wrapper">
-                  <MdOutlineMailOutline
-                    style={{
-                      fontSize: "20px",
-                      marginTop: "14px",
-                      fontWeight: 200,
-                    }}
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    onChange={(e) =>
-                      setValues({ ...values, email: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                {warning && <Typography sx={{color:"red", fontSize:"18px",mt:2}}>{warning}</Typography>}
-              </div>
-              {/* <div className="input-container">
+                  <div className="input-container">
+                    <div className="input-wrapper">
+                      <MdOutlineMailOutline
+                        style={{
+                          fontSize: "20px",
+                          marginTop: "14px",
+                          fontWeight: 200,
+                        }}
+                      />
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                        onChange={(e) =>
+                          setValues({ ...values, email: e.target.value })
+                        }
+                        required
+                      />
+                    </div>
+                    {warning && <Typography sx={{ color: "red", fontSize: "18px", mt: 2 }}>{warning}</Typography>}
+                  </div>
+                  {/* <div className="input-container">
                 <div className="input-wrapper">
                   <CiLock style={{ fontSize: "20px", marginTop: "14px" }} />
                   <input
@@ -137,7 +146,7 @@ function SignUp({openSignUp}) {
                   />
                 </div>
               </div> */}
-              {/* <div
+                  {/* <div
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
@@ -158,7 +167,7 @@ function SignUp({openSignUp}) {
                   Forgot password?
                 </a>
               </div> */}
-              {/* <div className="dropdown-container">
+                  {/* <div className="dropdown-container">
                <div className="input-wrapper">
                   <FaRegUser
                     style={{
@@ -182,37 +191,56 @@ function SignUp({openSignUp}) {
              {selectedRole && <p className="selected-role">You selected: {selectedRole}</p>}
             </div>  
         </div> */}
-              <button type="submit" className="login-button" onClick={handleSubmit}>
-                Submit
-              </button>
-             
-              <button
-                type="button"
-                onClick={redirectToLogin}
-                className="signUp-with-google"
-              >
-                Already have an account? <Link to = '/'>&nbsp; Log In</Link>
-              </button>
-            </form>
+                  <button type="submit" className="login-button">
+                    Submit
+                  </button>
+                  <div className="loginWithOther">
+                    <p style={{ fontSize: "15px" }}><span style={{ fontWeight: "700" }}>Login</span> &nbsp; with Others</p>
+                  </div>
+                  <Box sx={{ ml: 16, mb: 3 }}>
+                    <GoogleLogin
+                      onSuccess={(credentialResponse) => {
+                        const credentialResponseDecoded = jwtDecode(credentialResponse.credential);
+                        setValues({ ...values, email: credentialResponseDecoded.email });
+
+                        // Call handleSubmit after setting the email
+                        setTimeout(() => {
+                          handleSubmit({ preventDefault: () => { } }); // Simulate an event object
+                        }, 0);
+                      }}
+                      onError={() => {
+                        console.log("Login Failed");
+                      }}
+                    />
+                  </Box>
+
+                  <button
+                    type="button"
+                    onClick={redirectToLogin}
+                    className="signUp-with-google"
+                  >
+                    Already have an account? <Link to='/'>&nbsp; Log In</Link>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="signUp-container-right">
+            <img
+              src={RightContainer}
+              alt="Right Container"
+
+            />
           </div>
         </div>
-      </div>
-      <div className="signUp-container-right">
-        <img
-          src={RightContainer}
-          alt="Right Container"
-          
-        />
-      </div>
-    </div>
-    ) : <OtpPage email={values.email} alumini={true} /> :
-    (
-      <>
-      <SignUpNext />
-      </>
+      ) : <OtpPage email={values.email} alumini={true} /> :
+        (
+          <>
+            <SignUpNext />
+          </>
 
-    )
-    }
+        )
+      }
     </>
   );
 }

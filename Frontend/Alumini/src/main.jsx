@@ -22,18 +22,19 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import {UserProvider} from './UserContext';
 import './index.css';
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
 // Create the root element
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 // Render the App component within BrowserRouter and StrictMode
 root.render(
-  <React.StrictMode>
+<GoogleOAuthProvider clientId="619757038011-v1j07j5fjlroisdtr05bilfkid4gb7bu.apps.googleusercontent.com">
     <BrowserRouter>
     <UserProvider>
       <App />
     </UserProvider>
     </BrowserRouter>
-  </React.StrictMode>
+    </GoogleOAuthProvider>
+
 );

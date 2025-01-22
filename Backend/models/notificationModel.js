@@ -1,56 +1,61 @@
 import db from "./db.js";
 
 export const getNotificationsFromDB = (id, callback) => {
+    if (!id || isNaN(id)) {
+        return callback(new Error('Invalid user ID'));
+    }
+
     const query = `SELECT 
-    n.id,
-    n.room_id,
-    n.message_id,
-    cm.message,
-    CASE 
-        WHEN cr.sender = $1 THEN cr.receiver
-        WHEN cr.receiver = $1 THEN cr.sender
-    END AS connected_user_id,
-    n.created_at,
-    u.role,
-    CASE 
-        WHEN u.role = 'alumni' THEN 
-            jsonb_build_object('name', ai.name, 'profile_image_path', ai.profile_image_path)
-        WHEN u.role IN ('staff', 'student') THEN 
-            jsonb_build_object('email', u.email)
-    END AS connected_details
-FROM 
-    notifications n
-JOIN 
-    connection_messages cm 
-    ON n.message_id = cm.id
-JOIN 
-    connection_rooms cr 
-    ON n.room_id = cr.id
-JOIN 
-    users u 
-    ON u.id = (
+        n.id,
+        n.room_id,
+        n.message_id,
+        cm.message,
         CASE 
             WHEN cr.sender = $1 THEN cr.receiver
             WHEN cr.receiver = $1 THEN cr.sender
-        END
-    )
-LEFT JOIN 
-    alumni_info ai  
-    ON u.id = ai.user_id
-WHERE 
-    n.user_id = $1 
-    AND n.is_read = FALSE
-ORDER BY 
-    n.created_at DESC;
-`;
+        END AS connected_user_id,
+        n.created_at,
+        u.role,
+        CASE 
+            WHEN u.role = 'alumni' THEN 
+                jsonb_build_object('name', ai.name, 'profile_image_path', ai.profile_image_path)
+            WHEN u.role IN ('staff', 'student') THEN 
+                jsonb_build_object('email', u.email)
+        END AS connected_details
+    FROM 
+        notifications n
+    JOIN 
+        connection_messages cm 
+        ON n.message_id = cm.id
+    JOIN 
+        connection_rooms cr 
+        ON n.room_id = cr.id
+    JOIN 
+        users u 
+        ON u.id = (
+            CASE 
+                WHEN cr.sender = $1 THEN cr.receiver
+                WHEN cr.receiver = $1 THEN cr.sender
+            END
+        )
+    LEFT JOIN 
+        alumni_info ai  
+        ON u.id = ai.user_id
+    WHERE 
+        n.user_id = $1 
+        AND n.is_read = FALSE
+    ORDER BY 
+        n.created_at DESC;
+    `;
 
-    db.query(query, [id],(err, results) => {
+    db.query(query, [id], (err, results) => {
         if (err) {
             return callback(err);
         }
         callback(null, results.rows); 
     });
 };
+
 
 export const setNotificationsInDB = (id, sender_id, callback) => {
 

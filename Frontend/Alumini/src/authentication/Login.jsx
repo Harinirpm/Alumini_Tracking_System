@@ -5,13 +5,16 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import Hifavicon from "../assets/hiicon.png";
 import "./Login.css";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import Gimg from "../assets/Gimg.png";
 import RightContainer from "../assets/rightContainer.jpg";
 import SignUp from "./SignUp";
 import OtpPage from "./OtpPage";
+import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 function Login() {
   const [values, setValues] = useState({
     email: "",
@@ -19,6 +22,22 @@ function Login() {
   });
   const [openOTP, setOpenOTP] = useState(false)
   const [openSignUp, setOpenSignUp] = useState(false);
+
+  
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      if (tokenResponse?.credential) {
+        const decoded = jwtDecode(tokenResponse.credential);
+        console.log("Google User Email:", decoded.email);
+      } else {
+        console.error("Google login failed: No credential response.");
+      }
+    },
+    onError: () => {
+      console.error("Google login failed.");
+    },
+  });
+  
 
   const {user} = useContext(UserContext)
 
@@ -47,6 +66,24 @@ function Login() {
     console.log("Hi1")
     axios
       .post("http://localhost:8081/log/login", values)
+      .then((res) => {
+        if (res.data.Status === "OTP sent") {
+          setUser({ otp_verified: false });
+          setOpenOTP(true)
+          console.log("Hi1")
+        } else {
+          alert(res.data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleSubmit1 = (email) => {
+    event.preventDefault();
+    setValues({ ...values, email: email})
+    console.log("Hi1")
+    axios
+      .post("http://localhost:8081/log/login", {email})
       .then((res) => {
         if (res.data.Status === "OTP sent") {
           setUser({ otp_verified: false });
@@ -99,7 +136,13 @@ function Login() {
         </div>
         <div className="login-form">
           <div className="login-header">
-            <h2>LOGIN</h2>
+          <h2>LOGIN</h2>
+          <h2>ALUMNI TRACKING SYSTEM</h2>
+          <p className="para1">
+              BANNARI AMMAN INSTITUTE OF TECHNOLOGY
+            </p>
+           
+            
             <p className="para">
               Together, we grow stronger—log in and connect.
             </p>
@@ -137,6 +180,8 @@ function Login() {
                 </div>
               </div>
 
+            
+
               {/* <div
                 style={{
                   display: "flex",
@@ -163,10 +208,23 @@ function Login() {
                 Login Now
               </button>
             </form>
+            
+
+
               <div className="loginWithOther">
                 <p style={{fontSize:"15px"}}><span style={{fontWeight:"700"}}>Login</span> &nbsp; with Others</p>
               </div>
-              <button className="login-with-google">
+              <Box sx={{ml:16, mb:3}}>
+              <GoogleLogin
+ onSuccess={credentialResponse => {
+  const credentialResponseDecoded = jwtDecode(credentialResponse.credential)
+  handleSubmit1(credentialResponseDecoded.email)
+}}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+/></Box>
+              {/* <button className="login-with-google" onClick={() => login()}>
                 <img
                   src={Gimg}
                   style={{
@@ -178,7 +236,7 @@ function Login() {
                   }}
                 />
                 Login with <span style={{fontWeight:"700"}}>&nbsp; google</span>
-              </button>
+              </button> */}
               <button type='button' onClick={redirectToSignUp} className="login-with-google">
                  <Link style={{ textDecoration: "none", color: "#1B4BDA" }}>&nbsp; Sign Up &nbsp; </Link> as an Alumni
               </button>
