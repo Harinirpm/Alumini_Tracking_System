@@ -225,19 +225,7 @@ function Login() {
     console.log('Login Failed');
   }}
 /></Box>
-              {/* <button className="login-with-google" onClick={() => login()}>
-                <img
-                  src={Gimg}
-                  style={{
-                    width: "23px",
-                    height: "23px",
-                    marginRight: "10px",
-                    marginTop: "1px",
-                    backgroundColor: " #ffffff",
-                  }}
-                />
-                Login with <span style={{fontWeight:"700"}}>&nbsp; google</span>
-              </button> */}
+             
               <button type='button' onClick={redirectToSignUp} className="login-with-google">
                  <Link style={{ textDecoration: "none", color: "#1B4BDA" }}>&nbsp; Sign Up &nbsp; </Link> as an Alumni
               </button>
