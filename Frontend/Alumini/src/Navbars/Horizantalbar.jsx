@@ -22,7 +22,7 @@ import { UserContext } from "../UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Job from '../../src/assets/job.png'
-import JobSelect from '../../src/assets/JobSelect.png'
+import JobSelect from '../../src/assets/jobSelect.png'
 import Threads from '../../src/assets/thread.png'
 import ThreadSelect from '../../src/assets/threadsel.png'
 import Mess from '../../src/assets/message.png'
