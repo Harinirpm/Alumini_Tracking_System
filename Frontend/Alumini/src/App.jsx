@@ -5,8 +5,8 @@ import AluminiesList from './pages/Student/AlumniesList';
 import { useEffect, useState, useContext } from 'react';
 import Login from './authentication/Login';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import ChatProfiles from './Pages/chat/ChatProfiles';
-import CommonForum from './Pages/CommonForum/CommonForum';
+import ChatProfiles from './pages/chat/ChatProfiles';
+import CommonForum from './pages/CommonForum/CommonForum';
 import MessageForum from './pages/MessageForum';
 import ProtectedRoute from './ProtectedRoute';
 import axios from 'axios';
@@ -20,7 +20,6 @@ import ThreadListPage from './admin/ThreadListPage';
 import AlumniListPage from './admin/AlumniListPage';
 import Report from './Component/report/Report';
 import InternshipLists from './pages/internship/InternshipLists';
-
 
 function App() {
   const [alumniData, setAlumniData] = useState([]);
