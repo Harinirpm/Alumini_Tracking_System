@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './category.css';
+import './Category.css';
 import axios from 'axios';
 
 const departments = [
