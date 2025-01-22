@@ -5,7 +5,7 @@ import img from "../../assets/img.png";
 import Searchbar from "../../Component/Searchbar/Searchbar";
 import Img1 from "../../assets/blankProfile.png";
 import Badge from '@mui/material/Badge';
-import ChatLayout from "../../Pages/chat/chatLayout/ChatLayout";
+import ChatLayout from "../../pages/chat/chatLayout/ChatLayout";
 import { UserContext } from "../../UserContext";
 import { useContext } from "react";
 import axios from "axios";
