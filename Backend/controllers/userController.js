@@ -134,7 +134,7 @@ export const verifyOTP = (req, res) => {
                 // Clear OTP cache after successful login
                 delete otpCache[email];
 
-                return res.json({ Status: "Success", role: req.session.role });
+                return res.json({ Status: "Success", role: result.rows[0]?.role });
             } else {
                 return res.json({ message: "User not found" });
             }

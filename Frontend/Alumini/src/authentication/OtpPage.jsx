@@ -85,6 +85,7 @@ function OtpPage({ email, alumini = false, password }) {
         return;
       }
       if (response.data.Status === "Success") {
+        setUser({role: response.data.role})
         setUser({ otp_verified: true });
         navigate("/home"); 
       } else {
