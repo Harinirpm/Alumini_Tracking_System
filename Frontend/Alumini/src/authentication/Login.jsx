@@ -49,7 +49,7 @@ function Login() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/log")
+      .get("https://alumini-tracking-system.onrender.com/log")
       .then((res) => {
         if (res.data.valid && user.otp_verified) {
         
@@ -66,7 +66,7 @@ function Login() {
     event.preventDefault();
     console.log("Hi1")
     axios
-      .post("http://localhost:8081/log/login", values)
+      .post("https://alumini-tracking-system.onrender.com/log/login", values)
       .then((res) => {
         if (res.data.Status === "OTP sent") {
           setUser({ otp_verified: false });
@@ -84,7 +84,7 @@ function Login() {
     setValues({ ...values, email: email})
     console.log("Hi1")
     axios
-      .post("http://localhost:8081/log/login", {email})
+      .post("https://alumini-tracking-system.onrender.com/log/login", {email})
       .then((res) => {
         if (res.data.Status === "OTP sent") {
           setUser({ otp_verified: false });

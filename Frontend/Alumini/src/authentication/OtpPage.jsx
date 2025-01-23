@@ -31,7 +31,7 @@ function OtpPage({ email, alumini = false, password }) {
     console.log(email);
      if(!alumini){
     axios
-      .post("http://localhost:8081/log/login", { email, password }) // Ensure email is sent as an object
+      .post("https://alumini-tracking-system.onrender.com/log/login", { email, password }) // Ensure email is sent as an object
       .then((res) => {
         if (res.data.Status === "OTP sent") {
           setTimeLeft(30); // Reset the timer
@@ -44,7 +44,7 @@ function OtpPage({ email, alumini = false, password }) {
     }
     else{
       axios
-      .post("http://localhost:8081/log/get-otp", {email })
+      .post("https://alumini-tracking-system.onrender.com/log/get-otp", {email })
       .then((res) => {
         if(res.data.message === "User Exists Already" ){
           setError("Email Already exists" )
@@ -74,7 +74,7 @@ function OtpPage({ email, alumini = false, password }) {
     const otpString = otp.join("");
     try {
       const response = await axios.post(
-        alumini ? "http://localhost:8081/log/verify-alumini-otp" : "http://localhost:8081/log/verify-otp",
+        alumini ? "https://alumini-tracking-system.onrender.com/log/verify-alumini-otp" : "https://alumini-tracking-system.onrender.com/log/verify-otp",
         { email, otp: otpString }
       );
       if (alumini) {
