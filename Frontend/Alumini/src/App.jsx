@@ -35,7 +35,9 @@ function App() {
     axios
       .get('https://alumini-tracking-system.onrender.com/log')
       .then((res) => {
+        console.log(res)
         if (res.data.valid) {
+
           setUser({
             email: res.data.email,
             role: res.data.role,
