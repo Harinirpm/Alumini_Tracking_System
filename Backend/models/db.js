@@ -1,20 +1,23 @@
 import pkg from 'pg';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 const { Client } = pkg;
 
-const Host = process.env.PG_HOST
-const Port = process.env.PG_PORT
-
+// Database configuration
 const db = new Client({
     user: process.env.DB_USER,
-    host: Host,
+    host: process.env.PG_HOST,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: Port,
+    port: process.env.PG_PORT,
+    ssl: {
+        rejectUnauthorized: false, // Required for Render's SSL setup
+    },
 });
 
+// Connect to the database
 db.connect((err) => {
     if (err) {
         console.error('Database connection failed:', err.stack);
@@ -24,10 +27,3 @@ db.connect((err) => {
 });
 
 export default db;
-
-import express from 'express';
-const app = express();
-
-app.listen(process.env.SERVER_PORT, () => {
-    console.log(`SERVER IS RUNNING ON PORT ${process.env.SERVER_PORT}`);
-});
