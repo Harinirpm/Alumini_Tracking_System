@@ -57,12 +57,7 @@ function Login() {
             navigate("/otp");
           } else {
             // If OTP is verified, set the user and navigate to the home page
-            setUser({
-              email: res.data.email,
-              role: res.data.role,
-              id: res.data.id,
-              otp_verified: true
-            });
+            
             navigate("/home");
           }
         } else {
