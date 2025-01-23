@@ -235,7 +235,7 @@ function App() {
             </div>
           )
         ) : (
-          <div>Invalid role</div>
+          <div>Invalid role {user.role}</div>
         )
       ) : (
         <Routes>
