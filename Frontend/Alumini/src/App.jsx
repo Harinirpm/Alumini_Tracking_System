@@ -36,7 +36,7 @@ function App() {
       .get('https://alumini-tracking-system.onrender.com/log', {email:user?.email})
       .then((res) => {
         console.log(res)
-        if (res.data.valid) {
+        if (res.data.valid && res.data.role) {
 
           setUser({
             email: res.data.email,
