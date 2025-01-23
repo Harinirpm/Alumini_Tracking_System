@@ -24,6 +24,7 @@ function Login() {
   const [openOTP, setOpenOTP] = useState(false)
   const [openSignUp, setOpenSignUp] = useState(false);
 
+
   
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
@@ -44,6 +45,7 @@ function Login() {
 
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  setUser({role:"student"})
 
   axios.defaults.withCredentials = true;
 
