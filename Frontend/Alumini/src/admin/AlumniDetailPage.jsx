@@ -27,14 +27,14 @@ const AlumniDetailPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8081/profile/${email}`)
+      .get(`https://alumini-tracking-system.onrender.com/profile/${email}`)
       .then((response) => setAlumniDetails(response.data[0]))
       .catch((error) => console.error('Error fetching alumni details:', error));
   }, [email]);
 
   const handleApprove = () => {
     axios
-      .post(`http://localhost:8081/alumini/approve/${alumniDetails.user_id}/${email}`)
+      .post(`https://alumini-tracking-system.onrender.com/alumini/approve/${alumniDetails.user_id}/${email}`)
       .then(() => {
         navigate('/home');
       })
@@ -43,7 +43,7 @@ const AlumniDetailPage = () => {
 
   const handleReject = () => {
     axios
-      .post(`http://localhost:8081/alumini/reject/${alumniDetails.user_id}/${email}`, { reason: rejectReason })
+      .post(`https://alumini-tracking-system.onrender.com/alumini/reject/${alumniDetails.user_id}/${email}`, { reason: rejectReason })
       .then(() => {
         setOpenRejectDialog(false);
         navigate('/home');
@@ -118,7 +118,7 @@ const AlumniDetailPage = () => {
       <img
         src={
           alumniDetails.profile_image_path
-            ? `http://localhost:8081/${alumniDetails.profile_image_path.replace(/\\/g, '/')}`
+            ? `https://alumini-tracking-system.onrender.com/${alumniDetails.profile_image_path.replace(/\\/g, '/')}`
             : Img
         }
         alt={alumniDetails.name}
@@ -242,7 +242,7 @@ const AlumniDetailPage = () => {
           {alumniDetails.verification_document &&
           <Typography sx={{mt:1}}>
             <strong>Document For Verification:</strong>{' '}
-            <a href={`http://localhost:8081/${alumniDetails.verification_document.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer">
+            <a href={`https://alumini-tracking-system.onrender.com/${alumniDetails.verification_document.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer">
               View Document
             </a>
           </Typography>

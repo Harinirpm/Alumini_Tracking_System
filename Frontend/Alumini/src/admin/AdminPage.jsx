@@ -27,7 +27,7 @@ const AdminPage = ({ handleLogout }) => {
   useEffect(() => {
     // Fetch alumni profiles waiting for approval
     axios
-      .get('http://localhost:8081/alumini/profilelist')
+      .get('https://alumini-tracking-system.onrender.com/alumini/profilelist')
       .then((response) => {
         setAlumniProfiles(response.data.rows);
         setLoading(false);
