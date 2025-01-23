@@ -34,8 +34,10 @@ function OtpPage({ email, alumini = false, password }) {
       .post("https://alumini-tracking-system.onrender.com/log/login", { email, password }) // Ensure email is sent as an object
       .then((res) => {
         if (res.data.Status === "OTP sent") {
+          setUser({email})
+          console.log("hi")
           setTimeLeft(30); // Reset the timer
-        setUser({email: email})
+      
           setError("");
         } else {
           alert(res.data.Error);
