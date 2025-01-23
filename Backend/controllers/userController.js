@@ -53,13 +53,13 @@ else{
 }
 };
 
-
 export const checkSession = (req, res) => {
     const { email } = req.body;
-    if(email==''){ return res.json({ valid: false, message: 'User not found' });}
+    if (email === '') {
+        return res.json({ valid: false, message: 'User not found' });
+    }
 
     const query = 'SELECT id, role, email FROM users WHERE email = $1';
-    
     db.query(query, [email], (err, result) => {
         if (err) {
             console.error('Database query error:', err);
@@ -67,7 +67,6 @@ export const checkSession = (req, res) => {
         }
 
         if (result.rows.length > 0) {
-            e
             return res.json({
                 valid: true,
                 role: result.rows[0].role,
@@ -75,7 +74,6 @@ export const checkSession = (req, res) => {
                 id: result.rows[0].id
             });
         } else {
-   
             return res.json({ valid: false, message: 'User not found' });
         }
     });
@@ -93,40 +91,28 @@ export const logoutUser = (req, res) => {
 };
 
 export const verifyOTP = (req, res) => {
-    console.log("Request Body:", req.body);
-    console.log("otpCache:", otpCache);
-
     const { email, otp } = req.body;
     const normalizedEmail = email.trim().toLowerCase();
-    console.log("Normalized Email:", normalizedEmail);
-    console.log("OTP in Cache:", otpCache[normalizedEmail]);
 
-
-    // Check if the OTP exists for the email
     if (!otpCache[normalizedEmail]) {
         return res.status(400).json({ Error: "OTP expired or invalid" });
     }
 
-    // Validate OTP
     const { otp: cachedOtp, expiresAt } = otpCache[normalizedEmail];
     if (Date.now() > expiresAt) {
-        // Remove expired OTP from the cache
         delete otpCache[normalizedEmail];
         return res.json({ message: "OTP expired. Please try again." });
     }
+
     if (cachedOtp === otp.trim()) {
-        // OTP matched, create session
         const sql = 'SELECT * FROM users WHERE email = $1';
         db.query(sql, [email], (err, result) => {
             if (err) {
-                console.error('Error fetching user:', err);
                 return res.json({ Error: "Error in server" });
             }
 
             if (result.rows.length > 0) {
-               
-                delete otpCache[email];
-
+                delete otpCache[normalizedEmail];
                 return res.json({ Status: "Success", role: result.rows[0]?.role });
             } else {
                 return res.json({ message: "User not found" });
@@ -136,7 +122,6 @@ export const verifyOTP = (req, res) => {
         return res.status(400).json({ message: "Invalid OTP. Please try again." });
     }
 };
-
 
 export const getOtp = (req, res) => {
     console.log("getotp");
