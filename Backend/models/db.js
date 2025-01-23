@@ -28,50 +28,28 @@
 
 // export default db;
 
-// import pkg from 'pg';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
-// const { Client } = pkg;
-
-// // Database configuration
-// const db = new Client({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: {
-//         rejectUnauthorized: false, // Required for Render's SSL setup
-//     },
-// });
-
-// // Connect to the database
-// db.connect((err) => {
-//     if (err) {
-//         console.error('Database connection failed:', err.stack);
-//         return;
-//     }
-//     console.log('Connected to database.');
-// });
-
-// export default db;
-
 import pkg from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { Pool } = pkg;
+const { Client } = pkg;
 
-// Database connection pool
-const dbPool = new Pool({
+// Database configuration
+const db = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false, // Required for Render's SSL setup
     },
 });
 
-// Handle errors
-dbPool.on('error', (err) => {
-    console.error('Unexpected database connection pool error', err.stack);
+// Connect to the database
+db.connect((err) => {
+    if (err) {
+        console.error('Database connection failed:', err.stack);
+        return;
+    }
+    console.log('Connected to database.');
 });
 
-export default dbPool;
+export default db;
