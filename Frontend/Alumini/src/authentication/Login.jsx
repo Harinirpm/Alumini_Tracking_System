@@ -80,7 +80,6 @@ function Login() {
       .then((res) => {
         if (res.data.Status === "OTP sent") {
           setUser({ otp_verified: false });
-          setUser({email})
           setOpenOTP(true)
           console.log("Hi1")
         } else {

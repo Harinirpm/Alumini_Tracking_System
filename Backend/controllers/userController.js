@@ -56,6 +56,7 @@ else{
 
 export const checkSession = (req, res) => {
     const { email } = req.body;
+    if(email==''){ return res.json({ valid: false, message: 'User not found' });}
 
     const query = 'SELECT id, role, email FROM users WHERE email = $1';
     
