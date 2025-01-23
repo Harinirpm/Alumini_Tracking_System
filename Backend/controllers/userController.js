@@ -52,12 +52,14 @@ else{
 };
 
 export const checkSession = (req, res) => {
+    console.log('Session:', req.session);
     if (req.session.role && req.session.email) {
         return res.json({ valid: true, role: req.session.role, email: req.session.email, id: req.session.userId });
     } else {
         return res.json({ valid: false });
     }
 };
+
 
 export const logoutUser = (req, res) => {
     req.session.destroy((err) => {
