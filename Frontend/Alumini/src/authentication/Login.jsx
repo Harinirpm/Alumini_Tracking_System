@@ -45,7 +45,7 @@ function Login() {
 
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  setUser({role:"student"})
+ 
 
   axios.defaults.withCredentials = true;
 
@@ -77,6 +77,7 @@ function Login() {
       .then((res) => {
         if (res.data.Status === "OTP sent") {
           setUser({ otp_verified: false });
+          setUser({role:"student"})
           setOpenOTP(true)
           console.log("Hi1")
         } else {
