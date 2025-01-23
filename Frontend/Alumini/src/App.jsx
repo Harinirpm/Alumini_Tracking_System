@@ -33,7 +33,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('https://alumini-tracking-system.onrender.com/log')
+      .get('https://alumini-tracking-system.onrender.com/log', {email:user.email})
       .then((res) => {
         console.log(res)
         if (res.data.valid) {

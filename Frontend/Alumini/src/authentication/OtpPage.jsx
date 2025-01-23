@@ -35,6 +35,10 @@ function OtpPage({ email, alumini = false, password }) {
       .then((res) => {
         if (res.data.Status === "OTP sent") {
           setTimeLeft(30); // Reset the timer
+          setUser((prevUser) => ({
+            ...prevUser, // Preserve other user details
+            email, // Update email
+        }));
           setError("");
         } else {
           alert(res.data.Error);

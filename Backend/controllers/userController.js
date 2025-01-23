@@ -51,15 +51,32 @@ else{
 }
 };
 
-export const checkSession = (req, res) => {
-    console.log('Session:', req.session);
-    if (req.session.role && req.session.email) {
-        return res.json({ valid: true, role: req.session.role, email: req.session.email, id: req.session.userId });
-    } else {
-        return res.json({ valid: false });
-    }
-};
 
+export const checkSession = (req, res) => {
+    const { email } = req.body;
+
+    const query = 'SELECT id, role, email FROM users WHERE email = $1';
+    
+    db.query(query, [email], (err, result) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ valid: false, message: 'Internal server error' });
+        }
+
+        if (result.rows.length > 0) {
+            e
+            return res.json({
+                valid: true,
+                role: result.rows[0].role,
+                email: result.rows[0].email,
+                id: result.rows[0].id
+            });
+        } else {
+   
+            return res.json({ valid: false, message: 'User not found' });
+        }
+    });
+};
 
 export const logoutUser = (req, res) => {
     req.session.destroy((err) => {
