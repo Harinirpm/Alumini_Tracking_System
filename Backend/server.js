@@ -14,6 +14,9 @@ import { Server } from 'socket.io';
 import http from "http";
 import { v4 as uuidv4 } from 'uuid';
 import db from './models/db.js';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -216,9 +219,11 @@ io.on("connection", (socket) => {
 
 
 
-server.listen(8081, () => {
-    console.log("SERVER IS RUNNING");
+const PORT = process.env.PORT || process.env.SERVER_PORT || 8082;
+server.listen(PORT, () => {
+    console.log(`SERVER IS RUNNING ON PORT ${PORT}`);
 });
+
 // app.listen(8081, () => {
 //     console.log("Server running on port 8081");
 // });

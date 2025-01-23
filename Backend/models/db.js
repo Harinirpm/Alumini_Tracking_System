@@ -1,32 +1,15 @@
-// import mysql from 'mysql2';
-
-// const db = mysql.createConnection({
-//     user: "root",
-//     host: "localhost",
-//     password: "dharshini@18",
-//     database: "alumini",
-// });
-
-
-// db.connect((err) => {
-//     if (err) {
-//         console.error('Database connection failed:', err.stack);
-//         return;
-//     }
-//     console.log('Connected to database.');
-// });
-
-// export default db;
-
 import pkg from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
+
 const { Client } = pkg;
 
 const db = new Client({
-    user: "postgres",
-    host: "localhost",
-    password: "dharshini",
-    database: "alumini",
-    port: 5432,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
 });
 
 db.connect((err) => {
@@ -39,3 +22,9 @@ db.connect((err) => {
 
 export default db;
 
+import express from 'express';
+const app = express();
+
+app.listen(process.env.SERVER_PORT, () => {
+    console.log(`SERVER IS RUNNING ON PORT ${process.env.SERVER_PORT}`);
+});
