@@ -22,7 +22,7 @@ import { UserContext } from "../UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Job from '../../src/assets/job.png'
-import JobSelect from '../../src/assets/JobSelect.png'
+import JobSelect from '../../src/assets/jobSelect.png'
 import Threads from '../../src/assets/thread.png'
 import ThreadSelect from '../../src/assets/threadsel.png'
 import Mess from '../../src/assets/message.png'
@@ -32,8 +32,8 @@ import Dash from '../../src/assets/dash.png'
 import DashSel from '../../src/assets/dashSel.png'
 import Ms from '../../src/assets/ms.png'
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
-function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, setAlumniData }) {
+const settings = ["Profile", "Account", "Dashboard", "Report","Logout"];
+function Horizantalbar({ handleLogout, filteredAlumniData, setFilteredAlumniData, alumniData, setAlumniData }) {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate()
 
@@ -46,6 +46,29 @@ function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, 
   const [name, setName] = useState("")
   const [img, setImg] = useState("")
 
+  const handleMenuClick = (setting) => {
+    handleCloseUserMenu(); // Close the menu
+    switch (setting) {
+      case "Profile":
+        navigate("/profile");
+        break;
+      case "Account":
+        navigate("/account");
+        break;
+      case "Dashboard":
+        navigate("/dashboard");
+        break;
+      case "Report":
+        navigate("/report");
+        break;
+      case "Logout":
+        handleLogout() // Redirect to a logout handler or page
+        break;
+      default:
+        break;
+    }
+  };
+
   const fetchName = async () => {
     if (user.role === 'alumni') {
       const response = await axios.get(`http://localhost:8081/alumini/name/${user.id}`)
@@ -57,7 +80,7 @@ function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, 
 
   const handleIconClick = (icon) => {
     setActiveIcon(icon);
-    setOpen(true);
+    // setOpen(true);
   };
 
   const handleNotificationClick = (event) => {
@@ -109,8 +132,9 @@ function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, 
   }, []);
 
   useEffect(() => {
+    console.log(alumniData)
     const filteredData = alumniData.filter((alumni) => {
-      const matchesJob = alumni.role_title
+      const matchesJob = alumni.role
         .toLowerCase()
         .includes(searchValueJob.toLowerCase());
       const matchesLocation = alumni.location
@@ -171,7 +195,7 @@ function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, 
         </Box>
       </div>
       <div className="nav-icons">
-        <Link to="/">
+        <Link to="/home">
           <Box onClick={() => handleIconClick('grid')}>
             <img src={activeIcon === 'grid' ? DashSel : Dash} height="26px" />
           </Box>
@@ -260,7 +284,7 @@ function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, 
           </Box>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src={user.role === 'alumni'?`http://localhost:8081/${img.replace(/\\/g, "/")}` :Avatar2} />
+              <Avatar alt="Remy Sharp" src={user.role === 'alumni' && img?`http://localhost:8081/${img.replace(/\\/g, "/")}` :Avatar2} />
             </IconButton>
           </Tooltip>
           <Menu
@@ -280,7 +304,7 @@ function Horizantalbar({ filteredAlumniData, setFilteredAlumniData, alumniData, 
             onClose={handleCloseUserMenu}
           >
             {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
                 <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
               </MenuItem>
             ))}

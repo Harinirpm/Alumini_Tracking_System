@@ -5,6 +5,7 @@ import commonRoutes from './routes/commonRoutes.js'
 import userRoutes from './routes/userRoutes.js';
 import sessionMiddleware from './middlewares/session.js';
 import aluminiRoutes from './routes/aluminiRoutes.js'
+import adminRoutes from './routes/adminRoutes.js'
 import cookieParser from 'cookie-parser';
 import fs from 'fs';
 import path from 'path';
@@ -13,13 +14,16 @@ import { Server } from 'socket.io';
 import http from "http";
 import { v4 as uuidv4 } from 'uuid';
 import db from './models/db.js';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const corsOptions = {
-    origin: ["http://localhost:5173"],
+    origin: ["https://aluminitrackingsystem.vercel.app"],
     allowedHeaders: ['Content-Type'],
     methods: ["POST", "GET", "PUT", "OPTIONS"],
     credentials: true
@@ -40,6 +44,7 @@ if (!fs.existsSync(dir)) {
 
 app.use('/log', userRoutes);
 app.use('/alumini', aluminiRoutes)
+app.use('/admin', adminRoutes)
 app.use('/', commonRoutes);
 
 const server = http.createServer(app)
@@ -214,9 +219,11 @@ io.on("connection", (socket) => {
 
 
 
-server.listen(8081, () => {
-    console.log("SERVER IS RUNNING");
+const PORT = 8081;
+server.listen(PORT, () => {
+    console.log(`SERVER IS RUNNING ON PORT ${PORT}`);
 });
+
 // app.listen(8081, () => {
 //     console.log("Server running on port 8081");
 // });

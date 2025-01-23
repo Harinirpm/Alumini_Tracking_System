@@ -1,13 +1,23 @@
-// import mysql from 'mysql2';
+// import pkg from 'pg';
+// import dotenv from 'dotenv';
 
-// const db = mysql.createConnection({
-//     user: "root",
-//     host: "localhost",
-//     password: "dharshini@18",
-//     database: "alumini",
+// dotenv.config();
+
+// const { Client } = pkg;
+
+// // Database configuration
+// const db = new Client({
+//     user: process.env.DB_USER,
+//     host: process.env.PG_HOST,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME,
+//     port: process.env.PG_PORT,
+//     ssl: {
+//         rejectUnauthorized: false, // Required for Render's SSL setup
+//     },
 // });
 
-
+// // Connect to the database
 // db.connect((err) => {
 //     if (err) {
 //         console.error('Database connection failed:', err.stack);
@@ -19,16 +29,21 @@
 // export default db;
 
 import pkg from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const { Client } = pkg;
 
+// Database configuration
 const db = new Client({
-    user: "postgres",
-    host: "localhost",
-    password: "dharshini",
-    database: "alumini",
-    port: 5432,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false, // Required for Render's SSL setup
+    },
 });
 
+// Connect to the database
 db.connect((err) => {
     if (err) {
         console.error('Database connection failed:', err.stack);
@@ -38,4 +53,3 @@ db.connect((err) => {
 });
 
 export default db;
-

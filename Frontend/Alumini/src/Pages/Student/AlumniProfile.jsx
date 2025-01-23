@@ -13,7 +13,7 @@ function AlumniProfile({ alumnusData }) {
   const { user } = useContext(UserContext);
   const [Connected, setConnected] = useState(false)
   const navigate = useNavigate()
-  
+  console.log(alumnusData)
   useEffect(() => {
        const checkConnection = async () => {
         try{
@@ -53,7 +53,10 @@ function AlumniProfile({ alumnusData }) {
         <h3 className="alumni-name">{alumnusData.name}</h3>
         
             <p className="alumni-status1">
-            <strong >Role:</strong> <span>{alumnusData.role_title}</span>
+            <strong >Role:</strong> <span>{alumnusData.role}</span>
+          </p>
+          <p className="alumni-status1">
+            <strong>Years of Experience:</strong> <span>{alumnusData.years_of_experience}</span>
           </p>
           <p className="alumni-status1">
             <strong >Phone:</strong> <span>{alumnusData.phone_number}</span>
@@ -84,6 +87,9 @@ function AlumniProfile({ alumnusData }) {
       <div className="boxAlumni">
          {user.id!=alumnusData.user_id && <button className="button1" onClick={() => handleClick()}>{Connected ? "Message" :"Connect"}</button> }
           </div>
+          <p className="alumni-status">
+            <strong>Email:</strong> <span>{alumnusData.email}</span>
+          </p>
       <p>
           <strong>Department:</strong> <span>{alumnusData.department}</span>
         </p>
@@ -94,11 +100,12 @@ function AlumniProfile({ alumnusData }) {
           <strong>Company:</strong> {alumnusData.company_name}
         </p>
         <p>
+          <strong>Domain Of Work:</strong> {alumnusData.domain}
+        </p>
+        <p>
           <strong>Job Description:</strong> {alumnusData.job_description}
         </p>
-        <p className="alumni-status">
-            <strong>Email:</strong> <span>{alumnusData.email}</span>
-          </p>
+
           <p className="alumni-status">
             <strong>Location:</strong> <span>{alumnusData.location}</span>
           </p>

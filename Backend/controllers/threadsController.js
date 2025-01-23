@@ -1,4 +1,4 @@
-import { getThreadsFromDB, addThreadToDB,storeLikeInDB } from '../models/threadsModel.js';
+import { getThreadsFromDB, addThreadToDB,storeLikeInDB, getAllThreadsFromDB, rejectThreadInDB } from '../models/threadsModel.js';
 import multer from 'multer';
 import path from 'path';
 
@@ -61,3 +61,36 @@ export const storeLike = (req, res) => {
         }
     });
 };
+
+export const getAllApprovedThreads = (req, res) => {
+    getAllThreadsFromDB((err, results) => {
+        if (err) {
+            console.error('Error fetching threads:', err);
+            res.status(500).json({ error: 'Failed to fetch threads from the database.' });
+        } else {
+            res.status(200).json( results );
+        }
+    });
+};
+
+export const rejectThreads = (req, res) => {
+    const { id, reason, user_id } = req.body;
+
+    if (!id || !reason) {
+        return res.status(400).json({ error: 'Thread ID and reason are required.' });
+    }
+
+    rejectThreadInDB(id, reason, user_id, (err, results) => {
+        if (err) {
+            console.error('Error rejecting thread:', err);
+            return res.status(500).json({ error: 'Failed to reject the thread in the database.' });
+        }
+
+        res.status(200).json({
+            message: 'Thread rejected successfully.',
+            thread: results,
+        });
+    });
+};
+
+

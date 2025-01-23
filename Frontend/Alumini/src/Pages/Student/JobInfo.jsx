@@ -114,7 +114,7 @@ function JobInfo({ open, handleClose, data }) {
                       Minimum Salary:{" "}
                     </TableCell>
                     <TableCell align="right" sx={{ border: "none" }}>
-                    <Typography sx={{ fontWeight: 400, fontSize: "18px", border: "none" }}>{data.expected_minimum_salary_per_year}</Typography>
+                    <Typography sx={{ fontWeight: 400, fontSize: "18px", border: "none" }}>{data.expected_minimum_salary_per_year}LPA</Typography>
                     </TableCell>
                   </TableRow>
                   <TableRow
@@ -132,7 +132,7 @@ function JobInfo({ open, handleClose, data }) {
                       Maximum Salary:{" "}
                     </TableCell>
                     <TableCell align="right" sx={{ border: "none" }}>
-                    <Typography sx={{ fontWeight: 400, fontSize: "18px", border: "none" }}>{data.expected_maximum_salary_per_year}</Typography>
+                    <Typography sx={{ fontWeight: 400, fontSize: "18px", border: "none" }}>{data.expected_maximum_salary_per_year}LPA</Typography>
                     </TableCell>
                   </TableRow>
                   <TableRow

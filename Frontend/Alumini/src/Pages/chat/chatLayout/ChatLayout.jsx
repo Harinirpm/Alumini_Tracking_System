@@ -136,7 +136,7 @@ const ChatLayout = ({ person, socket, room, setSelectedProfile }) => {
     alt="Profile Image" 
     src={
         message.sender === user.id 
-            ? (user.role === 'alumni' 
+            ? (user.role === 'alumni' && img
                 ? `http://localhost:8081/${img.replace(/\\/g, "/")}` 
                 : Img1)
             : (person.role === 'alumni' && profile_image
