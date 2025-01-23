@@ -67,6 +67,7 @@ export const checkSession = (req, res) => {
         }
 
         if (result.rows.length > 0) {
+            console.log(result.rows[0])
             return res.json({
                 valid: true,
                 role: result.rows[0].role,
