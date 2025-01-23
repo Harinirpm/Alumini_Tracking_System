@@ -124,14 +124,7 @@ export const verifyOTP = (req, res) => {
             }
 
             if (result.rows.length > 0) {
-                req.session.role = result.rows[0]?.role;
-                req.session.email = email;
-                req.session.userId = result.rows[0]?.id;
-                console.log("hi")
-                console.log(result.rows[0]?.role)
-                console.log(req.session)
-
-                // Clear OTP cache after successful login
+               
                 delete otpCache[email];
 
                 return res.json({ Status: "Success", role: result.rows[0]?.role });
