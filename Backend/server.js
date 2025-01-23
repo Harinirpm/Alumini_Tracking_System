@@ -219,7 +219,7 @@ io.on("connection", (socket) => {
 
 
 
-const PORT = process.env.PORT || process.env.SERVER_PORT || 8082;
+const PORT = 8081;
 server.listen(PORT, () => {
     console.log(`SERVER IS RUNNING ON PORT ${PORT}`);
 });
