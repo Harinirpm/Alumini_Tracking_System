@@ -40,7 +40,7 @@ function App() {
 
           setUser({
             email: res.data.email,
-            role: res.data.role,
+            role: 'student',
             id: res.data.id,
             otp_verified: true, // Ensure otp_verified is set
           });
