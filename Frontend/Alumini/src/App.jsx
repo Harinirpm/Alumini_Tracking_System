@@ -33,7 +33,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8081/log')
+      .get('https://alumini-tracking-system.onrender.com/log')
       .then((res) => {
         if (res.data.valid) {
           setUser({
@@ -53,7 +53,7 @@ function App() {
     if (user && user.role === 'alumni') {
       const fetchProfile = async () => {
         try {
-          const response = await axios.get(`http://localhost:8081/profile/${user.email}`);
+          const response = await axios.get(`https://alumini-tracking-system.onrender.com/profile/${user.email}`);
           const verifiedStatus = response.data[0].verified;
           console.log(response.data[0])
           if (verifiedStatus === 1) {
@@ -77,7 +77,7 @@ function App() {
 
   const handleLogout = () => {
     axios
-      .get('http://localhost:8081/log/logout')
+      .get('https://alumini-tracking-system.onrender.com/log/logout')
       .then((res) => {
         if (res.data.message) {
           setUser(null);
