@@ -83,7 +83,6 @@ function OtpPage({ email, alumini = false, password }) {
         if (response.data.Status === "Success") {
           // Set the user role for alumni after successful OTP verification
           setUser({email})
-          setUser({ role: "alumni" }); 
           setOpen(true);
         } else {
           setError("Invalid OTP. Please try again.");
@@ -91,7 +90,6 @@ function OtpPage({ email, alumini = false, password }) {
         return;
       }
       if (response.data.Status === "Success") {
-        setUser({role: response.data.role})
         setUser({email})
         setUser({ otp_verified: true });
         navigate("/home"); 
