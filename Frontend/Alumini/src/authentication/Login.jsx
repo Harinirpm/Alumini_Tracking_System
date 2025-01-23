@@ -51,10 +51,20 @@ function Login() {
     axios
       .get("https://alumini-tracking-system.onrender.com/log", {email: values.email})
       .then((res) => {
-        if (res.data.valid && user.otp_verified) {
-        
-          setUser({ email: res.data.email, role: res.data.role , id: res.data.id });
-          navigate("/home");
+        if (res.data.valid) {
+          if (!res.data.otp_verified) {
+            // If OTP is not verified, navigate to the OTP page
+            navigate("/otp");
+          } else {
+            // If OTP is verified, set the user and navigate to the home page
+            setUser({
+              email: res.data.email,
+              role: res.data.role,
+              id: res.data.id,
+              otp_verified: true
+            });
+            navigate("/home");
+          }
         } else {
           navigate("/");
         }
