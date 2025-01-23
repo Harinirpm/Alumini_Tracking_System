@@ -4,12 +4,15 @@ dotenv.config();
 
 const { Client } = pkg;
 
+const Host = process.env.PG_HOST
+const Port = process.env.PG_PORT
+
 const db = new Client({
     user: process.env.DB_USER,
-    host: process.env.DB_HOST,
+    host: Host,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
+    port: Port,
 });
 
 db.connect((err) => {
