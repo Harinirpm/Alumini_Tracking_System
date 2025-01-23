@@ -54,7 +54,7 @@ function InternshipLists() {
   useEffect(() => {
     const fetchList = async () => {
         try {
-            const response = await axios.get('http://localhost:8081/jobs')
+            const response = await axios.get('https://alumini-tracking-system.onrender.com')
             console.log(response)
             setInternshipLists(response.data)
             setFilteredList(response.data)

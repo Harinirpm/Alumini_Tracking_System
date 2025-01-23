@@ -40,7 +40,7 @@ const ThreadListPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/admin/allThreads")
+      .get("https://alumini-tracking-system.onrender.com/admin/allThreads")
       .then((response) => {
         setThreads(response.data);
         setFilteredThreads(response.data); 
@@ -86,7 +86,7 @@ const ThreadListPage = () => {
         user_id: user.id
       };
 
-      const response = await axios.put('http://localhost:8081/admin/rejectThread', requestData);
+      const response = await axios.put('https://alumini-tracking-system.onrender.com/admin/rejectThread', requestData);
 
       alert("Thread deleted successfully:", response.data.message);
       handleDeleteClose();

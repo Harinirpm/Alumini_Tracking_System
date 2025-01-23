@@ -55,7 +55,7 @@ console.log(years);
     useEffect(() => {
         const fetchList = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/alumini/list');
+                const response = await axios.get('https://alumini-tracking-system.onrender.com/alumini/list');
                 setAlumniData(response.data.rows);
                 setFilteredAlumniData(response.data.rows);
             } catch (error) {

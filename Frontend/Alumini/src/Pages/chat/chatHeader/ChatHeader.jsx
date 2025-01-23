@@ -52,7 +52,7 @@ const ChatHeader = ({sender, img, setSelectedProfile}) => {
       >
         <Box sx={{ ml: "5px", display:'flex', alignItems:'center' }}>
         <KeyboardBackspaceOutlinedIcon sx={{fontSize: "28px", mr:"8px", cursor:"pointer"}} onClick={() => handleClick()} />
-        <Avatar alt="Profile Image" src={img ?  `http://localhost:8081/${img.replace(/\\/g, "/")}`: Img1} sx={{ mr: "10px" }} />
+        <Avatar alt="Profile Image" src={img ?  `https://alumini-tracking-system.onrender.com/${img.replace(/\\/g, "/")}`: Img1} sx={{ mr: "10px" }} />
      {sender}
         </Box>
         <Box sx={{ mr: "20px" }}>

@@ -27,7 +27,7 @@ const ChatLayout = ({ person, socket, room, setSelectedProfile }) => {
 
   const fetchName = async () => {
     if (user.role === 'alumni') {
-      const response = await axios.get(`http://localhost:8081/alumini/name/${user.id}`)
+      const response = await axios.get(`https://alumini-tracking-system.onrender.com/alumini/name/${user.id}`)
       setName(response.data.name)
       setImg(response.data.profile_image_path)
     }
@@ -137,10 +137,10 @@ const ChatLayout = ({ person, socket, room, setSelectedProfile }) => {
     src={
         message.sender === user.id 
             ? (user.role === 'alumni' && img
-                ? `http://localhost:8081/${img.replace(/\\/g, "/")}` 
+                ? `https://alumini-tracking-system.onrender.com/${img.replace(/\\/g, "/")}` 
                 : Img1)
             : (person.role === 'alumni' && profile_image
-                ? `http://localhost:8081/${profile_image.replace(/\\/g, "/")}` 
+                ? `https://alumini-tracking-system.onrender.com/${profile_image.replace(/\\/g, "/")}` 
                 : Img1)
     } 
     sx={{ mr: "10px", ml: "10px" }} 

@@ -36,7 +36,7 @@ function AluminiesList({filteredAlumniData}) {
           
             try {
                
-                const response = await axios.get(`http://localhost:8081/profile/${user.email}`);
+                const response = await axios.get(`https://alumini-tracking-system.onrender.com/profile/${user.email}`);
 
 
                 setProfileCreated(response.data.length > 0 ? true : false);
@@ -68,7 +68,7 @@ function AluminiesList({filteredAlumniData}) {
                 {filteredAlumniData.length > 0 && filteredAlumniData.map((alumini, index) => (
                     <div className='alumini-cards' key={index}  onClick={() => handleCardClick(alumini)}>
                     
-                            <img src={alumini.profile_image_path ? `http://localhost:8081/${alumini.profile_image_path.replace(/\\/g, "/")}` : (index % 2) ? Img : Img1} alt={`${alumini.name}`} />
+                            <img src={alumini.profile_image_path ? `https://alumini-tracking-system.onrender.com/${alumini.profile_image_path.replace(/\\/g, "/")}` : (index % 2) ? Img : Img1} alt={`${alumini.name}`} />
                             <div className='data'>
                                 <h2>{alumini.name}</h2>
                                 <p className='para'>{alumini.job_description}</p>

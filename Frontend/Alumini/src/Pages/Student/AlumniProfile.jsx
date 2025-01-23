@@ -17,7 +17,7 @@ function AlumniProfile({ alumnusData }) {
   useEffect(() => {
        const checkConnection = async () => {
         try{
-          const response = await axios.get(`http://localhost:8081/checkConnection/${user.email}/${alumnusData.user_id}`)
+          const response = await axios.get(`https://alumini-tracking-system.onrender.com/checkConnection/${user.email}/${alumnusData.user_id}`)
           if(response.data.length > 0) setConnected(true)
           
 
@@ -31,7 +31,7 @@ function AlumniProfile({ alumnusData }) {
   const handleClick = async () => {
     try {
       if (!Connected) {
-        const response = await axios.put(`http://localhost:8081/createConnection/${user.email}/${alumnusData.user_id}`);
+        const response = await axios.put(`https://alumini-tracking-system.onrender.com/createConnection/${user.email}/${alumnusData.user_id}`);
 
         if (response.data.message==="Connection created.") {
           setConnected(true);
@@ -49,7 +49,7 @@ function AlumniProfile({ alumnusData }) {
   return (
     <div className="alumni-container">
       <div className="alumni-profile">
-        <img src={alumnusData.profile_image_path ? `http://localhost:8081/${alumnusData.profile_image_path.replace(/\\/g, "/")}` :  Img } alt={alumnusData.name} className="avatar" />
+        <img src={alumnusData.profile_image_path ? `https://alumini-tracking-system.onrender.com/${alumnusData.profile_image_path.replace(/\\/g, "/")}` :  Img } alt={alumnusData.name} className="avatar" />
         <h3 className="alumni-name">{alumnusData.name}</h3>
         
             <p className="alumni-status1">

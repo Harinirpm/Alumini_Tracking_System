@@ -50,7 +50,7 @@ function Popup({ open, handleClose }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:8081/create/threads",
+        "https://alumini-tracking-system.onrender.com/create/threads",
         postData,
         {
           headers: {

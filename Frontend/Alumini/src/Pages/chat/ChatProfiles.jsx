@@ -11,7 +11,7 @@ import { useContext } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:8081");
+const socket = io.connect("https://alumini-tracking-system.onrender.com");
 
 
 function ChatProfiles() {
@@ -25,7 +25,7 @@ function ChatProfiles() {
   useEffect(() => {
       const getConnections = async() => {
         try{
-           const response = await axios.get(`http://localhost:8081/getConnections/${user.email}`)
+           const response = await axios.get(`https://alumini-tracking-system.onrender.com/getConnections/${user.email}`)
            console.log(response.data)
            setPersons(response.data)
            setFiltered(response.data)
@@ -71,7 +71,7 @@ function ChatProfiles() {
 
       const setNotification = async() => {
         try{
-         await axios.put(`http://localhost:8081/mark/notifications/${sender}/${receiver}`)
+         await axios.put(`https://alumini-tracking-system.onrender.com/mark/notifications/${sender}/${receiver}`)
         }
         catch(error){
           console.log("error marking notifications", error)
@@ -183,7 +183,7 @@ function ChatProfiles() {
                     },
                   }}
                 >
-                  <Avatar alt="Profile Image" src={person.connected_details.profile_image_path ?  `http://localhost:8081/${person.connected_details.profile_image_path.replace(/\\/g, "/")}`: Img1} sx={{ mr: "10px" }} />
+                  <Avatar alt="Profile Image" src={person.connected_details.profile_image_path ?  `https://alumini-tracking-system.onrender.com/${person.connected_details.profile_image_path.replace(/\\/g, "/")}`: Img1} sx={{ mr: "10px" }} />
                   <Box flex="1" ml="10px">
                     <Typography sx={{ fontFamily: "Poppins", fontWeight: "bold" }}>{person.connected_details.name ? person.connected_details.name : capitalizeFirstLetter(person.connected_details.email)}</Typography>
                     <Typography

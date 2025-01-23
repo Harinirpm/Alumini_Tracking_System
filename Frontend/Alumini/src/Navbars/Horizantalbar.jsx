@@ -71,7 +71,7 @@ function Horizantalbar({ handleLogout, filteredAlumniData, setFilteredAlumniData
 
   const fetchName = async () => {
     if (user.role === 'alumni') {
-      const response = await axios.get(`http://localhost:8081/alumini/name/${user.id}`)
+      const response = await axios.get(`https://alumini-tracking-system.onrender.com/alumini/name/${user.id}`)
       setName(response.data.name)
       setImg(response.data.profile_image_path)
     }
@@ -119,7 +119,7 @@ function Horizantalbar({ handleLogout, filteredAlumniData, setFilteredAlumniData
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get(`http://localhost:8081/notifications/${user.id}`);
+        const response = await axios.get(`https://alumini-tracking-system.onrender.com/notifications/${user.id}`);
         setNotifications(response.data);
       } catch (error) {
         console.error('Error fetching Notifications:', error);
@@ -241,7 +241,7 @@ function Horizantalbar({ handleLogout, filteredAlumniData, setFilteredAlumniData
               {notifications && notifications.map((item, index) => <Box><Box key={index} sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                 <Avatar
                   alt="John Doe"
-                  src={item.role === 'alumni' && item.connected_details.profile_image_path ? `http://localhost:8081/${item.connected_details.profile_image_path.replace(/\\/g, "/")}` : Avatar2}
+                  src={item.role === 'alumni' && item.connected_details.profile_image_path ? `https://alumini-tracking-system.onrender.com/${item.connected_details.profile_image_path.replace(/\\/g, "/")}` : Avatar2}
                   sx={{ marginRight: 1 }}
                 />
                 <Typography sx={{ fontFamily: "Poppins", fontSize: "14px", color: '#757575' }}>
@@ -284,7 +284,7 @@ function Horizantalbar({ handleLogout, filteredAlumniData, setFilteredAlumniData
           </Box>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src={user.role === 'alumni' && img?`http://localhost:8081/${img.replace(/\\/g, "/")}` :Avatar2} />
+              <Avatar alt="Remy Sharp" src={user.role === 'alumni' && img?`https://alumini-tracking-system.onrender.com/${img.replace(/\\/g, "/")}` :Avatar2} />
             </IconButton>
           </Tooltip>
           <Menu

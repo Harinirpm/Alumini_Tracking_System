@@ -40,7 +40,7 @@ const Report = () => {
 
   const fetchReports = async () => {
     try {
-      const response = await axios.get(`http://localhost:8081/reports/${user.id}`);
+      const response = await axios.get(`https://alumini-tracking-system.onrender.com/reports/${user.id}`);
       setReports(response.data.data);
       setFilteredReports(response.data.data); // Initially, show all reports
     } catch (error) {
@@ -65,7 +65,7 @@ const Report = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8081/report", {
+      const response = await axios.post("https://alumini-tracking-system.onrender.com/report", {
         user_id: user.id,
         title,
         reason,
