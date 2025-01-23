@@ -49,7 +49,7 @@ function Login() {
 
   useEffect(() => {
     axios
-      .get("https://alumini-tracking-system.onrender.com/log")
+      .get("https://alumini-tracking-system.onrender.com/log", {email: values.email})
       .then((res) => {
         if (res.data.valid && user.otp_verified) {
         

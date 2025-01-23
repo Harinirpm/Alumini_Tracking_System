@@ -7,6 +7,7 @@ export const loginUser = (req, res) => {
     console.log("loginuser")
     let sql = 'SELECT * FROM users WHERE email = $1 AND password = $2';
     const { email, password } = req.body;
+    
 
     if(email && password){
 
