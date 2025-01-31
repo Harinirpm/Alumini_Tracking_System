@@ -1,10 +1,9 @@
 import React from 'react'
 import { useEffect,useState } from 'react';
-import './Sidebar.css';
 import Category from './Category';
 import { MdLogout } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
-
+import './Sidebar.css'
 function Sidebar({handleLogout,filteredAlumniData,setFilteredAlumniData,alumniData, setAlumniData}) {
 
   return (

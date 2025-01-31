@@ -1,4 +1,4 @@
-import { getJobsFromDB, addJobOfferToDB } from "../models/jobModel.js";
+import { getJobsFromDB, addJobOfferToDB, rejectJobsInDB } from "../models/jobModel.js";
 
 export const getJobs = (req, res) => {
     getJobsFromDB((err, results) => {
@@ -43,4 +43,24 @@ export const addJobOffer = (req, res) => {
             }
         }
     );
+};
+
+export const rejectJobs = (req, res) => {
+    const { id, reason, user_id } = req.body;
+
+    if (!id || !reason) {
+        return res.status(400).json({ error: 'Thread ID and reason are required.' });
+    }
+
+    rejectJobsInDB(id, reason, user_id, (err, results) => {
+        if (err) {
+            console.error('Error rejecting thread:', err);
+            return res.status(500).json({ error: 'Failed to reject the thread in the database.' });
+        }
+
+        res.status(200).json({
+            message: 'Thread rejected successfully.',
+            thread: results,
+        });
+    });
 };

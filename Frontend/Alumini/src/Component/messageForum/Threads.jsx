@@ -76,7 +76,7 @@ function Threads({ selectedCategory, open }) {
                             {item?.created_by_details.role === 'alumni'
                                 ? item?.created_by_details.name
                                 : capitalizeFirstLetter(item?.created_by_details.email || '')
-                            }
+                            }{" "}({capitalizeFirstLetter(item?.created_by_details.role)})
                         </Typography>
 
                         <Typography sx={{ color: '#6D6C80', fontSize: '12px', fontWeight: 600 }}> {formatDate(item.created_at)}</Typography>

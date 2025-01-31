@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.login{
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    overflow-y: hidden;
+}
+
+.login-container-left{
+    height: 100%;
+    overflow-y: hidden;
+    width: 51em;
+    background-color: #ffffff;
+    margin-left: 50px;
+    margin-top: 25px;
+}
+
+.login .welcome{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background-color: #ffffff;
+    margin-bottom: 40px;
+}
+form {
+    background-color: #ffffff;
+}
+.login-form {   
+    width: 500px;  
+    height: 45%;  
+    display: flex;  
+    flex-direction: column;  
+    padding: 90px;  
+    justify-content: center;   
+    border-radius: 10px; 
+    background-color: #ffffff; 
+    
+}
+
+.login-header {
+    text-align: center;
+    width: 100%; 
+    background-color: #ffffff;
+}
+
+.login-header h2 {
+    font-size: 26px;
+    color: #161439;
+    font-weight: 700;
+    font-style: normal;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    
+}
+.login-header .para{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    color: #525252;
+    background-color: #ffffff;
+}
+
+.login-header .para1{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: 15px;
+
+    color: #333232;
+    background-color: #ffffff;
+}
+.input-container {
+    width: 100%; 
+    margin-bottom: 15px;
+    background-color: #ffffff;
+}
+.input-container input{
+    width: 22.75em;
+    height: 3.25em;
+    border: none;
+    background-color: #F0EDFFCC;
+    border-radius: 16px;
+    margin-left: 10px;
+    margin-top: 3px;
+
+}
+.input-container input:focus {
+   border: none;
+    outline: none;
+    box-shadow: none;
+}
+.input-container input::placeholder{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #1C1C1C;
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  font-size: 16px;
+  color: #888;
+}
+.input-container .input-wrapper{
+    width: 362px;
+    height: 52px;
+    border: none;
+    background-color: #F0EDFFCC;
+    border-radius: 16px;
+    margin-left: 4.1em;
+    margin-top: 15px;
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+}
+
+ .google-signin {
+    width: 364px;
+    height: 52px;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #1B4BDADB;
+    color: white;
+    border: none;
+    font-weight: 600;
+    border-radius: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-top: 12px;
+    box-shadow:   
+    0px 2px 3px 0px #0000000A,  
+    0px 6px 6px 0px #00000017,  
+    0px 14px 8px 0px #0000000D,  
+    0px 25px 10px 0px #00000003,  
+    0px 39px 11px 0px #00000000;
+}
+
+.login-but{
+    width: 364px;
+    height: 53px;
+    font-size: 17px;
+    font-weight: 700;
+    background: linear-gradient(99.78deg, #9181F4 -5.85%, #1B4BDA 109.55%);
+    color: white;
+    border-radius: 16px;
+    margin-top: 30px;
+    margin-left: 68px;
+    margin-bottom: 30px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer
+}
+
+.google-signin {
+    background-color: #ffffff;
+    color: #050505;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-signin img {
+    width: 20px;
+    height: auto;
+    margin-right: 10px;
+}
+.loginWithOther p{
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #505050;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.loginWithOther{
+    font-size: 16px;
+    background-color: #ffffff;
+}
+
+.loginWithOther p::before,
+.loginWithOther p::after {
+    content: "";
+    width: 100px;
+    height: 1.5px; 
+    background-color:#F0EDFF;
+}
+
+.loginWithOther p::before {
+    margin-right: 10px; 
+}
+
+.loginWithOther p::after {
+    margin-left: 10px; 
+}
+.login-with-google{
+    width: 30em;
+    height: 3.95em;
+    font-size: 15px;
+    background-color: #ffffff;
+    color: rgb(56, 53, 53);
+    border: 1px solid rgb(243, 243, 243);
+    font-weight: 400;
+    border-radius: 16px;
+    cursor: pointer;
+    margin-bottom: 17px;
+    margin-left: 2.20em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.7px #F0EDFF solid;
+}
+
+.login-container-right{
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.login-container-right img{
+    height: 100%;
+    width: 54em;
+}

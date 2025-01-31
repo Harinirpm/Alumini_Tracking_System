@@ -2,26 +2,31 @@ import db from './db.js';
 
 export const getThreadsFromDB = (id, callback) => {  
     const query = `  
-    SELECT   
-        t.*,   
-        CASE   
-            WHEN u.role = 'alumni' THEN   
-                jsonb_build_object('name', ai.name, 'profile_image_path', ai.profile_image_path, 'role', u.role)  
-            WHEN u.role IN ('staff', 'student') THEN   
-                jsonb_build_object('email', u.email, 'role', u.role)  
-        END AS created_by_details,  
-        CASE   
-            WHEN l.user_id IS NOT NULL THEN true   
-            ELSE false   
-        END AS liked  
-    FROM   
-        threads t  
-    JOIN   
-        users u ON t.created_by = u.id  
-    LEFT JOIN   
-        alumni_info ai ON u.id = ai.user_id  
-    LEFT JOIN   
-        thread_likes l ON l.thread_id = t.id AND l.user_id = \$1 AND liked = true
+   SELECT   
+    t.*,   
+    CASE   
+        WHEN u.role = 'alumni' THEN   
+            jsonb_build_object('name', ai.name, 'profile_image_path', ai.profile_image_path, 'role', u.role)  
+        WHEN u.role IN ('staff', 'student') THEN   
+            jsonb_build_object('email', u.email, 'role', u.role)  
+    END AS created_by_details,  
+    CASE   
+        WHEN l.user_id IS NOT NULL THEN true   
+        ELSE false   
+    END AS liked  
+FROM   
+    threads t  
+JOIN   
+    users u ON t.created_by = u.id  
+LEFT JOIN   
+    alumni_info ai ON u.id = ai.user_id  
+LEFT JOIN   
+    thread_likes l ON l.thread_id = t.id AND l.user_id = $1 AND liked = true  
+WHERE   
+    t.approved = 1
+ORDER BY   
+    t.created_at DESC;
+
     `;  
     
     db.query(query, [id], (err, results) => {  
@@ -156,5 +161,53 @@ export const storeLikeInDB = (thread_id, user_id, callback) => {
                 });
             });
         }
+    });
+};
+
+export const getAllThreadsFromDB = (callback) => {  
+    const query = `  
+   SELECT   
+    t.*,   
+    CASE   
+        WHEN u.role = 'alumni' THEN   
+            jsonb_build_object('name', ai.name, 'profile_image_path', ai.profile_image_path, 'role', u.role, 'id', ai.user_id)  
+        WHEN u.role IN ('staff', 'student') THEN   
+            jsonb_build_object('email', u.email, 'role', u.role)  
+    END AS created_by_details  
+FROM   
+    threads t  
+JOIN   
+    users u ON t.created_by = u.id  
+LEFT JOIN   
+    alumni_info ai ON u.id = ai.user_id  
+WHERE   
+    t.approved = 1
+ORDER BY   
+    t.created_at DESC;
+
+    `;  
+    
+    db.query(query, (err, results) => {  
+        if (err) {  
+            return callback(err);  
+        }  
+        callback(null, results.rows); 
+    });  
+}; 
+
+export const rejectThreadInDB = (id, reason, user_id, callback) => {
+    const query = `
+        UPDATE threads
+        SET approved = 0, reason = $2, deleted_by = $3
+        WHERE id = $1
+        RETURNING *; -- Optional: Returns the updated row
+    `;
+    const values = [id, reason, user_id];
+
+    db.query(query, values, (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results.rows[0]); // Return the updated thread
     });
 };
