@@ -1,4 +1,4 @@
-import { addFlagToDB, getAllFlagsFromDB } from "../models/reportModel.js";
+import { addFlagToDB, getAllFlagsFromDB, getFlagsFromDB, resolveFlagInDB } from "../models/reportModel.js";
 
 export const addFlag = (req, res) => {
     const { user_id, title, reason } = req.body;
@@ -38,3 +38,35 @@ export const getAllFlags = (req, res) => {
     });
 };
 
+export const getAllFlagsOfAdmin = (req, res) => {
+    getFlagsFromDB((err, results) => {
+        if (err) {
+            console.error('Error fetching threads:', err);
+            res.status(500).json({ error: 'Failed to fetch threads from the database.' });
+        } else {
+            res.status(200).json( results );
+        }
+    });
+};
+
+export const resolveFlag = (req, res) => {
+    const { id, comment } = req.body;
+
+    // Validate required fields
+    if (!id || !comment) {
+        return res.status(400).json({ error: 'Flag ID and comments are required.' });
+    }
+
+    // Call the model function to update the flag
+    resolveFlagInDB(id, comment, (err, result) => {
+        if (err) {
+            console.error('Error resolving flag:', err);
+            return res.status(500).json({ error: 'Failed to update the flag in the database.' });
+        }
+
+        res.status(200).json({
+            message: 'Flag resolved successfully.',
+            flag: result,
+        });
+    });
+};

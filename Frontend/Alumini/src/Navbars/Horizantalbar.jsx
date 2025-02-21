@@ -32,7 +32,7 @@ import Dash from '../../src/assets/dash.png'
 import DashSel from '../../src/assets/dashSel.png'
 import Ms from '../../src/assets/ms.png'
 
-const settings = ["Profile", "Account", "Dashboard", "Report","Logout"];
+const settings = ["Report","Logout"];
 function Horizantalbar({ handleLogout, filteredAlumniData, setFilteredAlumniData, alumniData, setAlumniData }) {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate()

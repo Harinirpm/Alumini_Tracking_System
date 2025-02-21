@@ -41,7 +41,7 @@ const JobListPage = () => {
 
   useEffect(() => {
     axios
-      .get("https://alumini-tracking-system.onrender.com/jobs")
+      .get("http://localhost:8081/jobs")
       .then((response) => {
         setJobs(response.data);
         setFilteredJobs(response.data);
@@ -90,7 +90,7 @@ const JobListPage = () => {
       };
   
       // Make the API call
-      const response = await axios.put('https://alumini-tracking-system.onrender.com/admin/rejectJob', requestData);
+      const response = await axios.put('http://localhost:8081/admin/rejectJob', requestData);
   
       // Handle success
       alert("Job rejected successfully:", response.data.message);

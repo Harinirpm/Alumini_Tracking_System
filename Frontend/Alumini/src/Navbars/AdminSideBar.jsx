@@ -134,6 +134,32 @@ function AdminSidebar({ handleLogout }) {
             />
           </ListItem>
         </NavLink>
+
+        <NavLink
+          to="/flags"
+          style={({ isActive }) => ({
+            textDecoration: "none",
+            color: isActive ? "#fff" : "#bbb",
+            backgroundColor: isActive ? "#1976d2" : "transparent",
+            borderRadius: "8px", // Rounded corners
+            margin: "5px 0",
+          })}
+        >
+          <ListItem button>
+            <ListItemIcon>
+            <FeedIcon sx={{ fontSize: 23, color: '#fff' }} />
+
+            </ListItemIcon>
+            <ListItemText
+              primary="Flag List"
+              sx={{
+                color: "inherit",
+                fontWeight: "500",
+                marginLeft: -2, // Reduces the space between the icon and the text
+              }}
+            />
+          </ListItem>
+        </NavLink>
       </List>
 
       {/* Logout Section */}
