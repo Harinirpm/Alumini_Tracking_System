@@ -39,7 +39,7 @@ function SignUp({ openSignUp }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("https://alumini-tracking-system.onrender.com/log/get-otp", { email: values.email })
+      .post("http://localhost:8081/log/get-otp", { email: values.email })
       .then((res) => {
         if (res.data.message === "User Exists Already") {
           setWarning("Email Already exists")

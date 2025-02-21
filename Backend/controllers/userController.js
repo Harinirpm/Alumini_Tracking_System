@@ -54,30 +54,11 @@ else{
 };
 
 export const checkSession = (req, res) => {
-    const { email } = req.body;
-    if (email === '') {
-        return res.json({ valid: false, message: 'User not found' });
+    if (req.session.role && req.session.email) {
+        return res.json({ valid: true, role: req.session.role, email: req.session.email, id: req.session.userId });
+    } else {
+        return res.json({ valid: false });
     }
-
-    const query = 'SELECT id, role, email FROM users WHERE email = $1';
-    db.query(query, [email], (err, result) => {
-        if (err) {
-            console.error('Database query error:', err);
-            return res.status(500).json({ valid: false, message: 'Internal server error' });
-        }
-
-        if (result.rows.length > 0) {
-            console.log(result.rows[0])
-            return res.json({
-                valid: true,
-                role: result.rows[0].role,
-                email: result.rows[0].email,
-                id: result.rows[0].id
-            });
-        } else {
-            return res.json({ valid: false, message: 'User not found' });
-        }
-    });
 };
 
 export const logoutUser = (req, res) => {
@@ -92,29 +73,48 @@ export const logoutUser = (req, res) => {
 };
 
 export const verifyOTP = (req, res) => {
+    console.log("Request Body:", req.body);
+    console.log("otpCache:", otpCache);
+
     const { email, otp } = req.body;
     const normalizedEmail = email.trim().toLowerCase();
+    console.log("Normalized Email:", normalizedEmail);
+    console.log("OTP in Cache:", otpCache[normalizedEmail]);
 
+
+    // Check if the OTP exists for the email
     if (!otpCache[normalizedEmail]) {
         return res.status(400).json({ Error: "OTP expired or invalid" });
     }
 
+    // Validate OTP
     const { otp: cachedOtp, expiresAt } = otpCache[normalizedEmail];
     if (Date.now() > expiresAt) {
+        // Remove expired OTP from the cache
         delete otpCache[normalizedEmail];
         return res.json({ message: "OTP expired. Please try again." });
     }
-
     if (cachedOtp === otp.trim()) {
+        // OTP matched, create session
         const sql = 'SELECT * FROM users WHERE email = $1';
         db.query(sql, [email], (err, result) => {
             if (err) {
+                console.error('Error fetching user:', err);
                 return res.json({ Error: "Error in server" });
             }
 
             if (result.rows.length > 0) {
-                delete otpCache[normalizedEmail];
-                return res.json({ Status: "Success", role: result.rows[0]?.role });
+                req.session.role = result.rows[0]?.role;
+                req.session.email = email;
+                req.session.userId = result.rows[0]?.id;
+                console.log("hi")
+                console.log(result.rows[0]?.role)
+                console.log(req.session)
+
+                // Clear OTP cache after successful login
+                delete otpCache[email];
+
+                return res.json({ Status: "Success", role: req.session.role });
             } else {
                 return res.json({ message: "User not found" });
             }
@@ -123,6 +123,7 @@ export const verifyOTP = (req, res) => {
         return res.status(400).json({ message: "Invalid OTP. Please try again." });
     }
 };
+
 
 export const getOtp = (req, res) => {
     console.log("getotp");

@@ -23,7 +23,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const corsOptions = {
-    origin: ["https://aluminitrackingsystem.vercel.app"],
+    origin: ["http://localhost:5173"],
     allowedHeaders: ["Content-Type", "Authorization", "Accept", "Origin"],
     methods: ["POST", "GET", "PUT", "OPTIONS"],
     credentials: true, // Allows cookies or authorization headers

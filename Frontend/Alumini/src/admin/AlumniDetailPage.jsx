@@ -27,14 +27,14 @@ const AlumniDetailPage = () => {
 
   useEffect(() => {
     axios
-      .get(`https://alumini-tracking-system.onrender.com/profile/${email}`)
+      .get(`http://localhost:8081/profile/${email}`)
       .then((response) => setAlumniDetails(response.data[0]))
       .catch((error) => console.error('Error fetching alumni details:', error));
   }, [email]);
 
   const handleApprove = () => {
     axios
-      .post(`https://alumini-tracking-system.onrender.com/alumini/approve/${alumniDetails.user_id}/${email}`)
+      .post(`http://localhost:8081/alumini/approve/${alumniDetails.user_id}/${email}`)
       .then(() => {
         navigate('/home');
       })
@@ -43,7 +43,7 @@ const AlumniDetailPage = () => {
 
   const handleReject = () => {
     axios
-      .post(`https://alumini-tracking-system.onrender.com/alumini/reject/${alumniDetails.user_id}/${email}`, { reason: rejectReason })
+      .post(`http://localhost:8081/alumini/reject/${alumniDetails.user_id}/${email}`, { reason: rejectReason })
       .then(() => {
         setOpenRejectDialog(false);
         navigate('/home');
@@ -69,6 +69,7 @@ const AlumniDetailPage = () => {
         maxHeight: '100vh',
         overflowY: 'auto',
         boxSizing: 'border-box',
+        padding:"80px"
       }}
     >
       <Typography
@@ -82,6 +83,7 @@ const AlumniDetailPage = () => {
           color: '#1976d2',
           mb: 2,
           fontSize: '30px',
+          padding:"20px"
         }}
       >
         <KeyboardBackspaceOutlinedIcon
@@ -99,18 +101,25 @@ const AlumniDetailPage = () => {
         sx={{
           marginBottom: '2rem',
           boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-          padding: 2,
+          padding: 5,
         }}
       >
         <CardContent>
-        <Grid container spacing={4} alignItems="center">
-  {/* Profile Image Section */}
-  <Grid item xs={12} sm={4} md={3}>
+          <Box sx={{display:"flex",flexDirection:"row",
+            justifyContent:"space-between",
+          }}>
+    <Box>
+   <Grid container spacing={1} alignItems="center">
+    {/* Profile Image Section */}
+    <Box sx={{
+display:"flex",
+flexDirection:"column",
+    }}>
     <Box
       sx={{
-        width: '100%',
-        maxWidth: '300px',
-        borderRadius: '12px',
+        // width: '40%',
+        maxWidth: '100px',
+        borderRadius: '50%',
         overflow: 'hidden',
         boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
       }}
@@ -118,7 +127,7 @@ const AlumniDetailPage = () => {
       <img
         src={
           alumniDetails.profile_image_path
-            ? `https://alumini-tracking-system.onrender.com/${alumniDetails.profile_image_path.replace(/\\/g, '/')}`
+            ? `http://localhost:8081/${alumniDetails.profile_image_path.replace(/\\/g, '/')}`
             : Img
         }
         alt={alumniDetails.name}
@@ -126,13 +135,15 @@ const AlumniDetailPage = () => {
           width: '100%',
           height: 'auto',
           objectFit: 'cover',
+          
         }}
       />
     </Box>
-  </Grid>
+ <Box>
+  
+ </Box>
+    </Box>
 
-  {/* Alumni Details Section */}
-  <Grid item xs={12} sm={8} md={9}>
     <Box
       sx={{
         padding: '20px',
@@ -147,6 +158,7 @@ const AlumniDetailPage = () => {
           fontWeight: 'bold',
           color: '#333',
           marginBottom: '8px',
+        
         }}
       >
         {alumniDetails.name}
@@ -158,110 +170,316 @@ const AlumniDetailPage = () => {
           marginBottom: '8px',
         }}
       >
-        <strong>Email:</strong> {alumniDetails.email}
+        {alumniDetails.email}
       </Typography>
-      <Typography
-        sx={{
-          color: '#555',
-          fontSize: '16px',
-          marginBottom: '8px',
-        }}
-      >
-        <strong>Phone:</strong> {alumniDetails.phone_number}
-      </Typography>
-      <Typography
-        sx={{
-          color: '#555',
-          fontSize: '16px',
-          marginBottom: '8px',
-        }}
-      >
-        <strong>Gender:</strong> {alumniDetails.gender}
-      </Typography>
-      <Typography
-        sx={{
-          color: '#555',
-          fontSize: '16px',
-          marginBottom: '8px',
-        }}
-      >
-        <strong>Date of Birth:</strong> {alumniDetails.date_of_birth}
-      </Typography>
-    </Box>
-  </Grid>
+      </Box>
+      
 </Grid>
-
-
-          <Divider sx={{ my: 2 }} />
-
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-            Educational Details
-          </Typography>
-          <Typography >
-            <strong>Degree:</strong> {alumniDetails.degree}
-          </Typography>
-          <Typography sx={{mt:1}}>
-            <strong>Department:</strong> {alumniDetails.department}
-          </Typography>
-          <Typography sx={{mt:1}}>
-            <strong>Graduation Year:</strong> {alumniDetails.passed_out_year}
-          </Typography>
-          <Typography sx={{mt:1}}>
-            <strong>Roll No:</strong> {alumniDetails.roll_no}
-          </Typography>
-
-          <Divider sx={{ my: 2 }} />
-
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-            Professional Details
-          </Typography>
-          <Typography>
-            <strong>Role:</strong> {alumniDetails.jobtitle}
-          </Typography>
-          <Typography sx={{mt:1}}>
-            <strong>Company:</strong> {alumniDetails.company_name}
-          </Typography>
-          <Typography sx={{mt:1}}>
-            <strong>Location:</strong> {alumniDetails.location}
-          </Typography>
-          <Typography sx={{mt:1}}>
-            <strong>Experience:</strong> {alumniDetails.years_of_experience} years
-          </Typography>
-
-          <Divider sx={{ my: 2 }} />
-
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-            Social Links
-          </Typography>
-          <Typography>
-            <strong>LinkedIn:</strong>{' '}
-            <a href={alumniDetails.linkedin} target="_blank" rel="noopener noreferrer">
-              View Profile
-            </a>
-          </Typography>
-          {alumniDetails.verification_document &&
-          <Typography sx={{mt:1}}>
-            <strong>Document For Verification:</strong>{' '}
-            <a href={`https://alumini-tracking-system.onrender.com/${alumniDetails.verification_document.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer">
-              View Document
-            </a>
-          </Typography>
-}
-        </CardContent>
-      </Card>
-
-      <Grid container spacing={2} justifyContent="center">
+</Box>
+<Box>
+<Grid container spacing={2} justifyContent="center">
+        
         <Grid item>
-          <Button variant="contained" color="primary" onClick={handleApprove}>
-            Approve
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button variant="contained" color="secondary" onClick={() => setOpenRejectDialog(true)}>
+          <Button variant="contained"  sx={{textTransform:"none"}}  sx={{textTransform:"none",height:"70%",padding:"15px",width:"100px",
+            backgroundColor:"#F72626 !important"
+          }} onClick={() => setOpenRejectDialog(true)}>
             Reject
           </Button>
         </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" sx={{textTransform:"none",height:"70%",padding:"15px",width:"100px",backgroundColor:"#4182F9 !important"}} onClick={handleApprove}>
+            Approve
+          </Button>
+        </Grid>
       </Grid>
+</Box>
+</Box>
+<Box
+sx={{display:"flex",
+  flexDirection:"row",
+  // justifyContent:"space-between"
+}}
+>
+<Box sx={{display:"flex",
+flexDirection:"column",
+flex:0.6,
+
+}}>
+      <Typography
+        sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+          mt:"20px"
+        }}
+      >
+        <strong>Phone</strong> 
+        <Box
+        sx={{height:"40%",
+          width:"80%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"10px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.phone_number}</Box>
+      </Typography>
+      <Typography
+        sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+          mt:"10px",
+        }}
+      >
+        <strong>Gender</strong> 
+        <Box
+        sx={{height:"40%",
+          width:"80%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"10px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >
+        {alumniDetails.gender}</Box>
+      </Typography>
+      <Typography sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+          mt:"10px",
+        }}>
+            <strong>Graduation Year</strong> 
+            <Box
+        sx={{height:"40%",
+          width:"80%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"10px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.passed_out_year}</Box>
+          </Typography>
+      <Typography
+        sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+          mt:"10px",
+        }}
+      >
+        <strong>Date of Birth</strong> 
+        <Box
+        sx={{height:"40%",
+          width:"80%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"10px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.date_of_birth}</Box>
+      </Typography>
+    
+  
+         
+          <Typography 
+          sx={{
+            color: '#555',
+            fontSize: '16px',
+            marginBottom: '8px',
+            mt:"10px",
+            
+          }}
+          >
+            <strong>Degree</strong> 
+            <Box
+        sx={{height:"40%",
+          width:"80%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"10px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.degree}</Box>
+          </Typography>
+          
+          <Typography sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+           mt:"10px"
+        }}>
+            <strong>Department</strong> 
+            <Box
+        sx={{height:"40%",
+          width:"80%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"10px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.department}</Box>
+          </Typography>
+          {alumniDetails.verification_document &&
+          <Typography sx={{
+            color: '#555',
+            fontSize: '16px',
+            marginBottom: '8px',
+             mt:"10px"
+          }}>
+            <strong>Document For Verification</strong>{' '}
+            <Box
+        sx={{height:"40%",
+          width:"80%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"10px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        ><a href={`http://localhost:8081/${alumniDetails.verification_document.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer">
+              View Document
+            </a></Box>
+          </Typography>
+}
+          </Box>
+          {/* <Divider sx={{ my: 2 }} /> */}
+          <Box
+x={{display:"flex",
+  flexDirection:"column",
+ 
+  }}
+>
+    
+          <Typography sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+           mt:"20px"
+        }}>
+            <strong>Roll No</strong> 
+            <Box
+        sx={{height:"60%",
+          width:"420%",
+          backgroundColor:"#F9F9F9",
+          padding:"13px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.roll_no}</Box>
+          </Typography>
+         
+      
+          <Typography sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+           mt:"10px"
+        }}>
+            <strong>Role</strong> 
+            <Box
+        sx={{height:"40%",
+          width:"420%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"13px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.jobtitle}</Box>
+          </Typography>
+          <Typography sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+           mt:"10px"
+        }}>
+            <strong>Company</strong> 
+            <Box
+        sx={{height:"40%",
+          width:"420%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"13px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.company_name}</Box>
+          </Typography>
+          <Typography sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+           mt:"10px"
+        }}>
+            <strong>Location</strong> 
+            <Box
+        sx={{height:"40%",
+          width:"420%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"13px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.location}</Box>
+          </Typography>
+          <Typography sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+           mt:"10px"
+        }}>
+            <strong>Experience</strong> 
+            <Box
+        sx={{height:"40%",
+          width:"420%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"13px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >{alumniDetails.years_of_experience} years </Box>
+          </Typography>
+
+
+          <Typography sx={{
+          color: '#555',
+          fontSize: '16px',
+          marginBottom: '8px',
+           mt:"20px"
+        }}>
+            <strong>LinkedIn</strong>{' '}
+            <Box
+        sx={{height:"40%",
+          width:"420%",
+          
+          backgroundColor:"#F9F9F9",
+          padding:"13px",
+          borderRadius:"8px",
+          mt:"10px"
+        }}
+        >
+            <a href={alumniDetails.linkedin} target="_blank" rel="noopener noreferrer">
+              View Profile
+            </a>
+            </Box>
+          </Typography>
+          </Box>
+</Box>
+      
+        </CardContent>
+      </Card>
+
+      
 
       <Dialog open={openRejectDialog} onClose={handleCloseRejectDialog}  maxWidth="xs" fullWidth>
         <DialogTitle>Provide a Reason for Rejection</DialogTitle>

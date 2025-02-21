@@ -38,7 +38,7 @@ const AlumniListPage = () => {
 
   useEffect(() => {
     axios
-      .get("https://alumini-tracking-system.onrender.com/alumini/list")
+      .get("http://localhost:8081/alumini/list")
       .then((response) => {
         setAlumni(response.data.rows);
         setFilteredAlumni(response.data.rows);
@@ -79,7 +79,7 @@ const AlumniListPage = () => {
         return;
       }
 
-      await axios.post(`https://alumini-tracking-system.onrender.com/alumini/reject/${deleteAlumnusId}/${deletedEmail}`, {
+      await axios.post(`http://localhost:8081/alumini/reject/${deleteAlumnusId}/${deletedEmail}`, {
           reason: deleteReason 
       });
       alert("Alumni removed successfully.");
@@ -246,7 +246,7 @@ const AlumniListPage = () => {
       {selectedAlumnus.profile_image_path && (
         <Grid item xs={12} style={{ textAlign: 'center' }}>
           <img
-            src={`https://alumini-tracking-system.onrender.com/${selectedAlumnus.profile_image_path.replace(/\\/g, '/')}`}
+            src={`http://localhost:8081/${selectedAlumnus.profile_image_path.replace(/\\/g, '/')}`}
             alt={`${selectedAlumnus.name}'s profile`}
             style={{
               width: '150px',
@@ -338,7 +338,7 @@ const AlumniListPage = () => {
           <Typography>
             <strong>Verification Document:</strong>{' '}
             <a
-              href={`https://alumini-tracking-system.onrender.com/${selectedAlumnus.verification_document.replace(/\\/g, '/')}`}
+              href={`http://localhost:8081/${selectedAlumnus.verification_document.replace(/\\/g, '/')}`}
               target="_blank"
               rel="noopener noreferrer"
             >

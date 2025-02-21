@@ -7,7 +7,7 @@ import Login from './authentication/Login';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import ChatProfiles from './pages/chat/ChatProfiles';
 import CommonForum from './pages/CommonForum/CommonForum';
-import MessageForum from './pages/MessageForum';
+import MessageForum from './Pages/MessageForum';
 import ProtectedRoute from './ProtectedRoute';
 import axios from 'axios';
 import { UserContext } from './UserContext';
@@ -19,7 +19,8 @@ import JobListPage from './admin/JobListPage';
 import ThreadListPage from './admin/ThreadListPage';
 import AlumniListPage from './admin/AlumniListPage';
 import Report from './Component/report/Report';
-import InternshipLists from './pages/internship/InternshipLists';
+import InternshipLists from './Pages/internship/InternshipLists';
+import FlagList from './admin/FlagList';
 
 function App() {
   const [alumniData, setAlumniData] = useState([]);
@@ -33,14 +34,14 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('https://alumini-tracking-system.onrender.com/log', {email:user?.email})
+      .get('http://localhost:8081/log', {email:user?.email})
       .then((res) => {
         console.log(res)
         if (res.data.valid && res.data.id) {
 
           setUser({
             email: res.data.email,
-            role: 'student',
+            role: res.data.role,
             id: res.data.id,
             otp_verified: true, // Ensure otp_verified is set
           });
@@ -55,7 +56,7 @@ function App() {
     if (user && user.role === 'alumni') {
       const fetchProfile = async () => {
         try {
-          const response = await axios.get(`https://alumini-tracking-system.onrender.com/profile/${user.email}`);
+          const response = await axios.get(`http://localhost:8081/profile/${user.email}`);
           const verifiedStatus = response.data[0].verified;
           console.log(response.data[0])
           if (verifiedStatus === 1) {
@@ -79,7 +80,7 @@ function App() {
 
   const handleLogout = () => {
     axios
-      .get('https://alumini-tracking-system.onrender.com/log/logout')
+      .get('http://localhost:8081/log/logout')
       .then((res) => {
         if (res.data.message) {
           setUser(null);
@@ -105,6 +106,7 @@ function App() {
             <Route path="/jobs" element={<JobListPage />} />
             <Route path="/threads" element={<ThreadListPage />} />
             <Route path="/alumni" element={<AlumniListPage />} />
+            <Route path="/flags" element={<FlagList />} />
           </Routes>
           </div>
           </div>
