@@ -14,6 +14,7 @@ function Threads({ selectedCategory, open }) {
     const [threads, setThreads] = useState([])
     const  {user} = useContext(UserContext)
     const [post,setPost] = useState(false)
+    console.log(user.id)
     useEffect(() => {
         const fetchThreads = async () => {
             try {
@@ -57,7 +58,8 @@ function Threads({ selectedCategory, open }) {
 
     const capitalizeFirstLetter = (str) => {
         if (!str) return "";
-        const namePart = str.split('.')[0];
+        const firstPart = str.split('@')[0];
+        const namePart = firstPart.split('.')[0];
         return namePart.charAt(0).toUpperCase() + namePart.slice(1).toLowerCase();
     };
 

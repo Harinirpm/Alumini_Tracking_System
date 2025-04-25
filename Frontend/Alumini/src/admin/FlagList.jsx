@@ -34,6 +34,7 @@ const FlagList = () => {
       .get("http://localhost:8081/admin/flags")
       .then((response) => {
         setFlags(response.data);
+        console.log(flags)
         setLoading(false);
       })
       .catch((error) => {
@@ -132,7 +133,7 @@ const FlagList = () => {
                     <TableCell>{flag.reason}</TableCell>
                     <TableCell>
                       {flag.created_by_details
-                        ? `${flag.created_by_details.email} (${flag.created_by_details.role})`
+                        ? flag.created_by_details.role==='alumni'? `${flag.created_by_details.name} (${flag.created_by_details.role})`: `${flag.created_by_details.email} (${flag.created_by_details.role})`
                         : "Unknown"}
                     </TableCell>
                     <TableCell>

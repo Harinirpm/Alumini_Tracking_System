@@ -12,12 +12,6 @@ const ChatInput = ({
   onSendClick,
   onFileAttach,
   onEmojiClick,
-  onBoldClick,
-  onItalicClick,
-  onUnderlineClick,
-  onRemoveClick,
-  onBulletListClick,
-  onNumberListClick,
   iconStyles,
   inputValue,
   inputStyles,
@@ -55,16 +49,7 @@ const ChatInput = ({
        border:'none', width:"58vw", 
       }}
     >
-{/*     
-      <Divider
-        sx={{
-          width: "100%",
-          height: "1px",
-          position: "absolute",
-          bottom: "px",
-          backgroundColor: "#f2f2f2",
-        }}
-      /> */}
+
       <Box sx={{display:'flex', alignItems:'center'}}>
       <IconButton
             size="small"
@@ -119,7 +104,7 @@ const ChatInput = ({
             }
           }}
         >
-          Type a message... {/* This is the default placeholder text */}
+          Type a message... 
         </div>
         </Box>
 

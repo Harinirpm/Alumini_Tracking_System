@@ -28,7 +28,7 @@ export const getThreads = (req, res) => {
 };
 
 export const addThread = (req, res) => {
-    const { title, content } = req.body;
+    const { title, content, created_by } = req.body;
 
     const imagePath = req.file ? req.file.filename : null;
 
@@ -36,7 +36,6 @@ export const addThread = (req, res) => {
         return res.status(400).json({ error: 'Title and content are required.' });
     }
 
-    const created_by = 1
 
     const threadData = { title, content, imagePath, created_by };
 

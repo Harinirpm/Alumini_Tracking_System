@@ -16,6 +16,7 @@
     "@mui/material": "^6.1.6",
     "@mui/styled-engine-sc": "^6.1.6",
     "@react-oauth/google": "^0.12.1",
+    "alumini": "file:",
     "axios": "^1.7.7",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",

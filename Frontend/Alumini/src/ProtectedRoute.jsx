@@ -4,7 +4,7 @@ import { UserContext } from './UserContext';
 
 const ProtectedRoute = ({ allowedRoles, redirectPath = -1 }) => {
     const { user } = useContext(UserContext);
-    // console.log('User:', user.email); // Debug log
+    // console.log('User:', user.email);
     // console.log('Allowed Roles:', allowedRoles);
 
     if (!user || !allowedRoles.includes(user.role)) {
