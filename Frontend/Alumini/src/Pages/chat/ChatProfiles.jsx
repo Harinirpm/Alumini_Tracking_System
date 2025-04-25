@@ -22,6 +22,7 @@ function ChatProfiles() {
   const [search, setSearch] = useState(null)
   const [filtered, setFiltered] = useState([])
 
+  //fetches connection from backend
   useEffect(() => {
       const getConnections = async() => {
         try{
@@ -35,6 +36,7 @@ function ChatProfiles() {
       }
       getConnections()
 
+      //listening "room_created" event from backend
       socket.on("room_created", (data) => {
         if (data && data.roomID) {
             setRoom(data.roomID);  // Store the roomID received from the backend
@@ -47,18 +49,6 @@ function ChatProfiles() {
         socket.off("room_created");
     };
   },[])
-
-
-  // const persons = [
-  //   { id: 1, img: Avatar2, name: "Indhu", msg: "Hello Mam, give 100 out of 100 for review...", count: 4 },
-  //   { id: 2, img: Img1, name: "John", msg: "Hello Mam, give 100 out of 100 for review...", count: 10 },
-  //   { id: 3, img: Avatar2, name: "Loosy", msg: "Hello Mam, give 100 out of 100 for review...", count: 2 },
-  //   { id: 4, img: Img1, name: "Thuran", msg: "Hello Mam, give 100 out of 100 for review...", count: 14 },
-  //   { id: 5, img: Avatar2, name: "Aadhi", msg: "Hello Mam, give 100 out of 100 for review...", count: 13 },
-  //   { id: 6, img: Img1, name: "Kumaraguru", msg: "Hello Mam, give 100 out of 100 for review...", count: 10 },
-  //   { id: 7, img: Avatar2, name: "Barath", msg: "Hello Mam, give 100 out of 100 for review...", count: 3 },
-  // ];
-
 
   const handleProfileClick = (profile) => {
       setSelectedProfile(profile);
@@ -224,6 +214,7 @@ function ChatProfiles() {
           >
            {selectedProfile ? (
   <Box sx={{ ml: "50px", width: "100%", height: "100%", backgroundColor:"#F7F7F9",boxShadow: "1px 2px 6px 0px #0000001A",boxShadow: "0px 4px 4px 0px #00000040" }}>
+
     <ChatLayout person={selectedProfile} socket={socket} room={room} setSelectedProfile={setSelectedProfile} />
   </Box>
 ) : (

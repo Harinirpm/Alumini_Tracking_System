@@ -91,26 +91,7 @@ function SignUp({ openSignUp }) {
                   Together, we grow stronger — sign up and connect.
                 </p>
                 <form onSubmit={handleSubmit}>
-                  {/* <div className="input-container">
-                <div className="input-wrapper">
-                  <FaRegUser
-                    style={{
-                      fontSize: "16px",
-                      marginTop: "14px",
-                      fontWeight: 200,
-                    }}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    name="name"
-                    onChange={(e) =>
-                      setValues({ ...values, userName: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-              </div> */}
+                
                   <div className="input-container">
                     <div className="input-wrapper">
                       <MdOutlineMailOutline
@@ -132,65 +113,6 @@ function SignUp({ openSignUp }) {
                     </div>
                     {warning && <Typography sx={{ color: "red", fontSize: "18px", mt: 2 }}>{warning}</Typography>}
                   </div>
-                  {/* <div className="input-container">
-                <div className="input-wrapper">
-                  <CiLock style={{ fontSize: "20px", marginTop: "14px" }} />
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    onChange={(e) =>
-                      setValues({ ...values, password: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-              </div> */}
-                  {/* <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  backgroundColor: " #ffffff",
-                }}
-              >
-                <a
-                  href="#"
-                  style={{
-                    fontSize: "12px",
-                    color: "#050505",
-                    textDecoration: "none",
-                    backgroundColor: " #ffffff",
-                    marginRight: "40px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  Forgot password?
-                </a>
-              </div> */}
-                  {/* <div className="dropdown-container">
-               <div className="input-wrapper">
-                  <FaRegUser
-                    style={{
-                      fontSize: "15px",
-                      marginTop: "14px",
-                      fontWeight: 200,
-                    }}
-                  />
-            <select
-                id="role-dropdown"
-                className="dropdown-select"
-                placeholder="Role"
-                value={selectedRole}
-                onChange={handleRoleChange}
-            >
-                <option value="" disabled>Role</option>
-                <option value="student">Student</option>
-                <option value="faculty">Faculty</option>
-                <option value="alumni">Alumni</option>
-            </select>
-             {selectedRole && <p className="selected-role">You selected: {selectedRole}</p>}
-            </div>  
-        </div> */}
                   <button type="submit" className="login-button">
                     Submit
                   </button>
@@ -229,14 +151,13 @@ function SignUp({ openSignUp }) {
             <img
               src={RightContainer}
               alt="Right Container"
-
             />
           </div>
         </div>
       ) : <OtpPage email={values.email} alumini={true} /> :
         (
           <>
-            <SignUpNext />
+            {/* <SignUpNext /> */}
           </>
 
         )

@@ -44,21 +44,6 @@ const ChatLayout = ({ person, socket, room, setSelectedProfile }) => {
   const senderName = person.role === 'alumni' ? person.connected_details.name : capitalizeFirstLetter(person.connected_details.email);
   const profile_image = person.role === 'alumni' ? person.connected_details.profile_image_path : null;
 
-  // useEffect(() => {
-  //   const fetchChatHistory = async () => {
-  //       try {
-  //           const response = await axios(`/chat/history?sender=${user.id}&receiver=${person.id}`);
-  //           const data = response.data;
-  //           console.log(data)
-  //           setMessages(data); // Set the fetched messages
-  //       } catch (error) {
-  //           console.error("Error fetching chat history:", error);
-  //       }
-  //   };
-
-  //   fetchChatHistory();
-  // }, [user.id, person.id]);
-
   const handleSendClick = (e) => {
     const message = inputValue; // Get the message from the input field
     const sender = user.id; // Get the sender's ID
@@ -96,6 +81,7 @@ const ChatLayout = ({ person, socket, room, setSelectedProfile }) => {
       console.log(data.messages)
     });
 
+    //listening to message for the room
     socket.on("receive_message", (data) => {
       const { room, sender, message, createdAt } = data;
       const newMessage = {
@@ -168,30 +154,24 @@ const ChatLayout = ({ person, socket, room, setSelectedProfile }) => {
       <ChatInput
         sx={{
           "& input": {
-            color: "#000000", // Set text to black
-            fontWeight: "bold", // Make the text bolder
+            color: "#000000",
+            fontWeight: "bold", 
           },
           "& [contentEditable=true]": {
-            color: "#000000", // For contentEditable divs
-            fontWeight: "bold", // Bolder text
+            color: "#000000", 
+            fontWeight: "bold", 
           },
 
         }}
         icons={{
-          // bold: <FormatBoldIcon />,
-          // italic: <FormatItalicIcon />,
-          // underline: <FormatUnderlinedIcon />,
-          // remove: <RemoveSharpIcon style={{ transform: "rotate(90deg)" }} />,
-          // bulletList: <FormatListBulletedIcon />,
-          // numberList: <FormatListNumberedIcon />,
           attach: <AttachFileIcon />,
           emoji: <SentimentSatisfiedAltSharpIcon />,
           send: <SendSharpIcon />,
         }}
         placeholder="Type in your message..."
         onSendClick={handleSendClick}
-        onInputChange={handleInputChange} // Pass handleInputChange directly
-        inputValue={inputValue} // Ensure input value is passed
+        onInputChange={handleInputChange}
+        inputValue={inputValue} 
       />
     </Box>
   );
